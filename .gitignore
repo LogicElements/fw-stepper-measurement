@@ -1,0 +1,19 @@
+# Generic exclude
+~*
+.settings
+Debug
+__pycache__
+*.o
+*.su
+[Ll]og
+test-reports
+
+# Excel generated stuff exclude
+Documents/txts/*
+!Documents/txts/*_temp*
+
+# Pycharm project settings
+.idea
+
+# Virtual python
+venv/
