@@ -315,7 +315,7 @@
   },
   {
     "Type":"HOLD", 
-    "Name":"STPMEAS_MODE", 
+    "Name":"STPMEA_MODE", 
     "Id":83887440, 
     "Address":[100],
     "Format":"ENUM",
@@ -339,31 +339,9 @@
   },
   {
     "Type":"HOLD", 
-    "Name":"STPMEAS_TEMP_CALIB", 
-    "Id":83891536, 
+    "Name":"STPMEA_NTC_BETA", 
+    "Id":83886417, 
     "Address":[101],
-    "Format":"ENUM",
-    "Value":0,
-    "Access":"RW",
-    "Min":0,
-    "Max":1,
-    "Unit":"",
-    "Label":"Temperature calibration",
-    "EnumStr": [
-      "Calibration off",
-      "Calibration on"
-    ],
-    "EnumValue": [
-      0,
-      1
-    ],
-    "Description":"Temperature calibration mode - recalculates decade resistance values ​​based on current temperature\r\nAllowed values: \r\nValue 0 - Calibration off - Calculate switch positions of resistors decade without temperature correction.\r\nValue 1 - Calibration on - Calculate switch positions of resistors decade with temperature correction.\r\n"
-  },
-  {
-    "Type":"HOLD", 
-    "Name":"STPMEAS_NTC_BETA", 
-    "Id":83894609, 
-    "Address":[102],
     "Format":"INT",
     "Value":3977,
     "Access":"RW",
@@ -372,62 +350,6 @@
     "Unit":"",
     "Label":"NTC beta",
     "Description":"NTC beta coefficient for computation"
-  },
-  {
-    "Type":"HOLD", 
-    "Name":"STPMEAS_NTC_STOCK_RES", 
-    "Id":83902801, 
-    "Address":[103],
-    "Format":"INT",
-    "Value":10000,
-    "Access":"RW",
-    "Min":1000,
-    "Max":10000,
-    "Unit":"Ohm",
-    "Label":"NTC stock resistance",
-    "Description":"NTC stock resistance at 25 °C (10000 for common 10k NTC)"
-  },
-  {
-    "Type":"HOLD", 
-    "Name":"STPMEAS_PT_STOCK_RES", 
-    "Id":83910993, 
-    "Address":[104],
-    "Format":"INT",
-    "Value":1000,
-    "Access":"RW",
-    "Min":100,
-    "Max":1000,
-    "Unit":"Ohm",
-    "Label":"Platinum stock resistance",
-    "Description":"Platinum stock resistance at 0 °C\r\nValue 100 - PT100\r\nValue 500 - PT500\r\nValue 1000 - PT1000"
-  },
-  {
-    "Type":"HOLD", 
-    "Name":"STPMEAS_RESISTANCE", 
-    "Id":83919186, 
-    "Address":[105, 106],
-    "Format":"INT",
-    "Value":10000,
-    "Access":"RW",
-    "Min":10,
-    "Max":290000,
-    "Unit":"Ohm",
-    "Label":"Set resistance",
-    "Description":"Resistance that should be set at RTD port 1"
-  },
-  {
-    "Type":"HOLD", 
-    "Name":"STPMEAS_TEMPERATURE", 
-    "Id":83935826, 
-    "Address":[107, 108],
-    "Format":"FLOAT32",
-    "Value":25,
-    "Access":"RW",
-    "Min":-30,
-    "Max":200,
-    "Unit":"°C",
-    "Label":"Temperature",
-    "Description":"Set temperature for RTD port 1"
   },
   {
     "Type":"INPUT", 

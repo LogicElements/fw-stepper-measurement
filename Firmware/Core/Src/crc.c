@@ -24,7 +24,7 @@
 
 /* USER CODE END 0 */
 
-CRC_HandleTypeDef hcrc;
+extern CRC_HandleTypeDef hcrc;
 
 /* CRC init function */
 void MX_CRC_Init(void) {

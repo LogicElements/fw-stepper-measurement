@@ -170,32 +170,11 @@ Status_t MbRtu_ReadHoldingRegCallback(uint16_t address, uint16_t *value)
     case MB_HOLD_COM_MB_TIMEOUT:
       *value = conf.com.mb_timeout;
       break;
-    case MB_HOLD_RTD_MODE:
-      *value = conf.rtd.mode;
+    case MB_HOLD_STPMEA_MODE:
+      *value = conf.stpmeas.mode;
       break;
-    case MB_HOLD_RTD_TEMP_CALIB:
-      *value = conf.rtd.temp_calib;
-      break;
-    case MB_HOLD_RTD_NTC_BETA:
-      *value = conf.rtd.ntc_beta;
-      break;
-    case MB_HOLD_RTD_NTC_STOCK_RES:
-      *value = conf.rtd.ntc_stock_res;
-      break;
-    case MB_HOLD_RTD_PT_STOCK_RES:
-      *value = conf.rtd.pt_stock_res;
-      break;
-    case MB_HOLD_RTD_RESISTANCE_0:
-      *value = *((uint16_t *)CONF_PTR(CONF_RTD_RESISTANCE) + 0);
-      break;
-    case MB_HOLD_RTD_RESISTANCE_1:
-      *value = *((uint16_t *)CONF_PTR(CONF_RTD_RESISTANCE) + 1);
-      break;
-    case MB_HOLD_RTD_TEMPERATURE_0:
-      *value = *((uint16_t *)CONF_PTR(CONF_RTD_TEMPERATURE) + 0);
-      break;
-    case MB_HOLD_RTD_TEMPERATURE_1:
-      *value = *((uint16_t *)CONF_PTR(CONF_RTD_TEMPERATURE) + 1);
+    case MB_HOLD_STPMEA_NTC_BETA:
+      *value = conf.stpmeas.ntc_beta;
       break;
 
 
@@ -256,39 +235,13 @@ Status_t MbRtu_WriteHoldingRegCallback(uint16_t address, uint16_t value)
       conf.com.mb_timeout = value;
       id = CONF_COM_MB_TIMEOUT;
       break;
-    case MB_HOLD_RTD_MODE:
-      conf.rtd.mode = (rtd_mode_t)value;
-      id = CONF_RTD_MODE;
+    case MB_HOLD_STPMEA_MODE:
+      conf.stpmeas.mode = (stpmeas_mode_t)value;
+      //id = CONF_STPMEA_MODE;
       break;
-    case MB_HOLD_RTD_TEMP_CALIB:
-      conf.rtd.temp_calib = (rtd_temp_calib_t)value;
-      id = CONF_RTD_TEMP_CALIB;
-      break;
-    case MB_HOLD_RTD_NTC_BETA:
-      conf.rtd.ntc_beta = value;
-      id = CONF_RTD_NTC_BETA;
-      break;
-    case MB_HOLD_RTD_NTC_STOCK_RES:
-      conf.rtd.ntc_stock_res = value;
-      id = CONF_RTD_NTC_STOCK_RES;
-      break;
-    case MB_HOLD_RTD_PT_STOCK_RES:
-      conf.rtd.pt_stock_res = value;
-      id = CONF_RTD_PT_STOCK_RES;
-      break;
-    case MB_HOLD_RTD_RESISTANCE_0:
-      *((uint16_t *)CONF_PTR(CONF_RTD_RESISTANCE) + 0) = value;
-      break;
-    case MB_HOLD_RTD_RESISTANCE_1:
-      *((uint16_t *)CONF_PTR(CONF_RTD_RESISTANCE) + 1) = value;
-      id = CONF_RTD_RESISTANCE;
-      break;
-    case MB_HOLD_RTD_TEMPERATURE_0:
-      *((uint16_t *)CONF_PTR(CONF_RTD_TEMPERATURE) + 0) = value;
-      break;
-    case MB_HOLD_RTD_TEMPERATURE_1:
-      *((uint16_t *)CONF_PTR(CONF_RTD_TEMPERATURE) + 1) = value;
-      id = CONF_RTD_TEMPERATURE;
+    case MB_HOLD_STPMEA_NTC_BETA:
+      conf.stpmeas.ntc_beta = value;
+      //id = CONF_STPMEA_NTC_BETA;
       break;
 
 

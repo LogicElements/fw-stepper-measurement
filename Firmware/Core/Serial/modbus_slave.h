@@ -39,7 +39,7 @@
 #define MODBUS_UART_IRQ_NUMBER    USART2_IRQn
 #define MODBUS_UART_IRQ_HANDLER   USART2_IRQHandler
 // změna
-//#define MODBUS_UART_ALTERNATE     GPIO_AF1_USART2     ///< MODBUS UART  Alternate function
+#define MODBUS_UART_ALTERNATE     GPIO_AF1_USART2     ///< MODBUS UART  Alternate function
 
 #define MODBUS_UART_RX_PORT       GPIOA               ///< MODBUS UART Rx Pin
 #define MODBUS_UART_RX_PIN        GPIO_PIN_3         ///< MODBUS UART Rx Port

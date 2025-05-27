@@ -24,7 +24,7 @@
 
 /* USER CODE END 0 */
 
-IWDG_HandleTypeDef hiwdg;
+ extern IWDG_HandleTypeDef hiwdg;
 
 /* IWDG init function */
 void MX_IWDG_Init(void) {

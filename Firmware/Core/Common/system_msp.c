@@ -166,6 +166,7 @@ uint32_t GetSector(uint32_t Address) {
 		return FLASH_SECTOR_7;
 
 }
+
 Status_t System_FlashErase(uint32_t startAddress, uint32_t endAddress) {
 	Status_t ret = STATUS_OK;
 	FLASH_EraseInitTypeDef erase;
