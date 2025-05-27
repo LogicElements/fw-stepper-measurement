@@ -32,7 +32,7 @@
 conf_reg_t conf;
 
 
-uint8_t* const CONF_REG[CONF_REG_BLOCK_NUMBER] = {(uint8_t*)&conf.sys, (uint8_t*)&conf.fact, (uint8_t*)&conf.firm, (uint8_t*)&conf.com, NULL, (uint8_t*)&conf.stpmeas, (uint8_t*)&conf.dbg, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, };
+uint8_t* const CONF_REG[CONF_REG_BLOCK_NUMBER] = {(uint8_t*)&conf.sys, (uint8_t*)&conf.fact, (uint8_t*)&conf.firm, (uint8_t*)&conf.com, NULL, (uint8_t*)&conf.rtd, (uint8_t*)&conf.dbg, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, };
 
 const uint32_t CONF_REG_LIMIT[CONF_REG_BLOCK_NUMBER] = {
 22, 16, 16, 10, 0, 16, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
@@ -77,12 +77,12 @@ Status_t RegMap_RestoreFactoryValues(void)
   CONF_BYTE(CONF_COM_MB_STOP_BITS)       = 0;
   CONF_SHORT(CONF_COM_MB_ADDRESS)        = 32;
   CONF_SHORT(CONF_COM_MB_TIMEOUT)        = 10;
-  CONF_BYTE(CONF_STPMEAS_TEMP_CALIB)     = 0;
-  CONF_SHORT(CONF_STPMEAS_NTC_BETA)      = 3977;
-  CONF_SHORT(CONF_STPMEAS_NTC_STOCK_RES) = 10000;
-  CONF_SHORT(CONF_STPMEAS_PT_STOCK_RES)  = 1000;
-  CONF_INT(CONF_STPMEAS_RESISTANCE)      = 10000;
-  CONF_FLOAT(CONF_STPMEAS_TEMPERATURE)   = 25.0;
+  CONF_BYTE(CONF_RTD_TEMP_CALIB)         = 0;
+  CONF_SHORT(CONF_RTD_NTC_BETA)          = 3977;
+  CONF_SHORT(CONF_RTD_NTC_STOCK_RES)     = 10000;
+  CONF_SHORT(CONF_RTD_PT_STOCK_RES)      = 1000;
+  CONF_INT(CONF_RTD_RESISTANCE)          = 10000;
+  CONF_FLOAT(CONF_RTD_TEMPERATURE)       = 25.0;
 
 
   return ret;
