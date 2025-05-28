@@ -78,13 +78,8 @@
 #define CONF_COM_MB_ADDRESS        0x03004111u  ///< Modbus slave address
 #define CONF_COM_MB_APPLY          0x03006151u  ///< Apply modbus parameters
 #define CONF_COM_MB_TIMEOUT        0x03008171u  ///< Modbus timeout
-#define CONF_RTD_MODE              0x05000550u  ///< Emulation mode
-#define CONF_RTD_TEMP_CALIB        0x05001550u  ///< Temperature calibration
-#define CONF_RTD_NTC_BETA          0x05002151u  ///< NTC beta
-#define CONF_RTD_NTC_STOCK_RES     0x05004151u  ///< NTC stock resistance
-#define CONF_RTD_PT_STOCK_RES      0x05006151u  ///< Platinum stock resistance
-#define CONF_RTD_RESISTANCE        0x05008152u  ///< Set resistance
-#define CONF_RTD_TEMPERATURE       0x0500C252u  ///< Temperature
+#define CONF_STPMEA_MODE           0x05000550u  ///< Emulation mode
+#define CONF_STPMEA_NTC_BETA       0x05000151u  ///< NTC beta
 #define CONF_DBG_WRITES_CONF       0x06000112u  ///< Configuration writes
 
 
@@ -124,7 +119,7 @@
 #define CONF_REG_FLASH_LENGTH      (29)
 #define CONF_REG_LOCAL_LENGTH      (0)
 
-#define CONF_DIM_CONDITION ((sizeof(conf_reg_sys_t) != 24) || (sizeof(conf_reg_fact_t) != 16) || (sizeof(conf_reg_firm_t) != 16) || (sizeof(conf_reg_com_t) != 12) || (sizeof(conf_reg_rtd_t) != 16) || (sizeof(conf_reg_dbg_t) != 4) || 0)
+#define CONF_DIM_CONDITION ((sizeof(conf_reg_sys_t) != 24) || (sizeof(conf_reg_fact_t) != 16) || (sizeof(conf_reg_firm_t) != 16) || (sizeof(conf_reg_com_t) != 12) || (sizeof(conf_reg_stpmea_t) != 4) || (sizeof(conf_reg_dbg_t) != 4) || 0)
 
 
 /** @} */
@@ -169,13 +164,7 @@ typedef enum
   RTD_MD_RESISTANCE = 0,
   RTD_MD_NTC = 1,
   RTD_MD_PLATINUM = 2,
-}rtd_mode_t ;
-
-typedef enum
-{
-  RTD_CALIB_OFF = 0,
-  RTD_CALIB_ON = 1,
-}rtd_temp_calib_t ;
+}stpmea_mode_t ;
 
 typedef struct __packed __aligned(4)
 {
@@ -216,14 +205,9 @@ typedef struct __packed __aligned(4)
 
 typedef struct __packed __aligned(4)
 {
-  rtd_mode_t mode;
-  rtd_temp_calib_t temp_calib;
+  stpmea_mode_t mode;
   uint16_t ntc_beta;
-  uint16_t ntc_stock_res;
-  uint16_t pt_stock_res;
-  uint32_t resistance;
-  float temperature;
-}conf_reg_rtd_t;
+}conf_reg_stpmea_t;
 
 typedef struct __packed __aligned(4)
 {
@@ -238,7 +222,7 @@ typedef struct
   conf_reg_firm_t firm;
   conf_reg_com_t com;
   uint32_t res5;
-  conf_reg_rtd_t rtd;
+  conf_reg_stpmea_t stpmea;
   conf_reg_dbg_t dbg;
   uint32_t res8;
   uint32_t res9;
