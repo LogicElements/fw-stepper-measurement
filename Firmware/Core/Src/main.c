@@ -21,7 +21,13 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "common.h"
+#include "modbus_slave.h"
+#include "configuration.h"
+#include "mb_upgrade.h"
+#include "system_msp.h"
+#include "control.h"
+#include "flash_app.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
