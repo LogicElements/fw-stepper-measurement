@@ -315,7 +315,7 @@
   },
   {
     "Type":"HOLD", 
-    "Name":"STPMEA_MODE", 
+    "Name":"STPMEAS_MODE", 
     "Id":83887440, 
     "Address":[100],
     "Format":"ENUM",
@@ -339,8 +339,8 @@
   },
   {
     "Type":"HOLD", 
-    "Name":"STPMEA_NTC_BETA", 
-    "Id":83886417, 
+    "Name":"STPMEAS_NTC_BETA", 
+    "Id":83890513, 
     "Address":[101],
     "Format":"INT",
     "Value":3977,

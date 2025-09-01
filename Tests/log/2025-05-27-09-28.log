@@ -1,0 +1,3 @@
+2025-05-27 09:28:03,822 INFO     AppLogging:79 - Application started
+2025-05-27 09:28:37,927 INFO     AppLogging:79 - Application started
+2025-05-27 09:28:47,998 WARNING  MbClient:97 - Port COM6 is closed now.

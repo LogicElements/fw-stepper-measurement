@@ -1,0 +1,16 @@
+../Drivers/CMSIS/Include/core_cm4.h:1938:34:__NVIC_SystemReset	4	static,ignoring_inline_asm
+../Core/Common/system_msp.c:98:6:System_CrcInit	16	static
+../Core/Common/system_msp.c:110:6:System_CrcClear	4	static
+../Core/Common/system_msp.c:115:10:System_CrcAccumulate	16	static
+../Core/Common/system_msp.c:119:10:System_InitWdg	16	static
+../Core/Common/system_msp.c:136:10:System_ReloadWdg	16	static
+../Core/Common/system_msp.c:145:9:System_Delay	16	static
+../Core/Common/system_msp.c:150:6:System_Reset	8	static
+../Core/Common/system_msp.c:154:10:GetSector	16	static
+../Core/Common/system_msp.c:175:10:System_FlashErase	56	static
+../Core/Common/system_msp.c:208:10:System_FlashProgram	48	static
+../Core/Common/system_msp.c:239:10:System_VerifyImage	32	static
+../Core/Common/system_msp.c:271:10:System_IsFlashNotEmpty	24	static
+../Core/Common/system_msp.c:288:6:System_RemapApplicationVector	24	static
+../Core/Common/system_msp.c:321:6:System_UseFlashVector	16	static
+../Core/Common/system_msp.c:333:6:System_StartApplication	32	static,ignoring_inline_asm

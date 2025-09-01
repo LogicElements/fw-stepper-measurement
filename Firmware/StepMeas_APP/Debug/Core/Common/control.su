@@ -1,0 +1,2 @@
+../Core/Common/control.c:64:10:Control_Init	16	static
+../Core/Common/control.c:70:10:Control_Handle	16	static

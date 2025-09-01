@@ -387,7 +387,7 @@
     "ConfigUser": false 
   },
   {
-    "Category":"STPMEA", 
+    "Category":"STPMEAS", 
     "Name":"MODE", 
     "Label":"Emulation mode", 
     "Id":83887440, 
@@ -412,10 +412,10 @@
     "ConfigUser": true 
   },
   {
-    "Category":"STPMEA", 
+    "Category":"STPMEAS", 
     "Name":"NTC_BETA", 
     "Label":"NTC beta", 
-    "Id":83886417, 
+    "Id":83890513, 
     "VarType":"INT", 
     "Access":"RW", 
     "Description":"NTC beta coefficient for computation", 

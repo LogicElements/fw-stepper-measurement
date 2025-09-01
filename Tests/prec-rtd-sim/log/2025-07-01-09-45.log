@@ -1,0 +1,8 @@
+2025-07-01 09:45:11,939 INFO     AppLogging:79 - Application started
+2025-07-01 09:49:45,852 ERROR    sync:662 - could not open port 'COM8': FileNotFoundError(2, 'Systém nemùže nalézt uvedený soubor.', None, 2)
+2025-07-01 09:49:46,354 ERROR    sync:662 - could not open port 'COM8': FileNotFoundError(2, 'Systém nemùže nalézt uvedený soubor.', None, 2)
+2025-07-01 09:51:53,444 ERROR    sync:662 - could not open port 'COM8': FileNotFoundError(2, 'Systém nemùže nalézt uvedený soubor.', None, 2)
+2025-07-01 09:51:53,945 ERROR    sync:662 - could not open port 'COM8': FileNotFoundError(2, 'Systém nemùže nalézt uvedený soubor.', None, 2)
+2025-07-01 09:51:55,588 ERROR    sync:662 - could not open port 'COM8': FileNotFoundError(2, 'Systém nemùže nalézt uvedený soubor.', None, 2)
+2025-07-01 09:51:56,089 ERROR    sync:662 - could not open port 'COM8': FileNotFoundError(2, 'Systém nemùže nalézt uvedený soubor.', None, 2)
+2025-07-01 09:52:01,428 WARNING  MbClient:97 - Port COM8 is closed now.

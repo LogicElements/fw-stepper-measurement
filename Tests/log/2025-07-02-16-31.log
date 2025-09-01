@@ -1,0 +1,7 @@
+2025-07-02 16:31:20,072 INFO     AppLogging:79 - Application started
+2025-07-02 16:31:24,601 ERROR    sync:662 - Cannot configure port, something went wrong. Original message: PermissionError(13, 'Zaøízení pøipojené k systému nefunguje.', None, 31)
+2025-07-02 16:31:57,303 ERROR    sync:662 - Cannot configure port, something went wrong. Original message: PermissionError(13, 'Zaøízení pøipojené k systému nefunguje.', None, 31)
+2025-07-02 16:31:57,967 ERROR    sync:662 - Cannot configure port, something went wrong. Original message: PermissionError(13, 'Zaøízení pøipojené k systému nefunguje.', None, 31)
+2025-07-02 16:31:58,169 ERROR    sync:662 - Cannot configure port, something went wrong. Original message: PermissionError(13, 'Zaøízení pøipojené k systému nefunguje.', None, 31)
+2025-07-02 16:31:58,397 ERROR    sync:662 - Cannot configure port, something went wrong. Original message: PermissionError(13, 'Zaøízení pøipojené k systému nefunguje.', None, 31)
+2025-07-02 16:32:03,416 WARNING  MbClient:97 - Port COM6 is closed now.

@@ -1,0 +1,5 @@
+../Core/Common/flash_app.c:59:10:FlashApp_Init	16	static
+../Core/Common/flash_app.c:80:10:FlashApp_Handle	16	static
+../Core/Common/flash_app.c:121:10:FlashApp_StartupFactoryReset	16	static
+../Core/Common/flash_app.c:136:10:FlashApp_RequestConfStorage	16	static
+../Core/Common/flash_app.c:147:10:FlashApp_RequestFactorySettings	16	static

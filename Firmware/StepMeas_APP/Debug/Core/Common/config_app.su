@@ -1,0 +1,2 @@
+../Core/Common/config_app.c:33:10:Config_AppInit	16	static
+../Core/Common/config_app.c:43:10:Config_Callback	24	static

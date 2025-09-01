@@ -1,0 +1,15 @@
+../Core/Serial/modbus_slave.c:204:10:MbSlave_Init	1
+../Core/Serial/modbus_slave.c:242:10:MbSlave_SettingsChanged	2
+../Core/Serial/modbus_slave.c:312:10:MbSlave_Handle	8
+../Core/Serial/modbus_slave.c:365:6:MbSlave_RxCpltCallback	2
+../Core/Serial/modbus_slave.c:371:6:MbSlave_TxCpltCallback	2
+../Core/Serial/modbus_slave.c:377:6:MbSlave_ErrorCallback	2
+../Core/Serial/modbus_slave.c:383:10:MbSlave_UpdateSlaveAddress	2
+../Core/Serial/modbus_slave.c:393:10:MbSlave_BusReset	1
+../Core/Serial/modbus_slave.c:413:6:USART1_IRQHandler	3
+../Core/Serial/modbus_slave.c:426:6:TIM3_IRQHandler	4
+../Core/Serial/modbus_slave.c:444:17:MbSlave_CheckFrame	14
+../Core/Serial/modbus_slave.c:495:17:MbSlave_ProcessFrame	24
+../Core/Serial/modbus_slave.c:625:17:MbSlave_CRC16	2
+../Core/Serial/modbus_slave.c:648:13:MbSlave_Rs485DirTransmit	1
+../Core/Serial/modbus_slave.c:652:13:MbSlave_Rs485DirReceive	1
