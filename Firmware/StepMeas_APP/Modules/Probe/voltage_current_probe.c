@@ -116,10 +116,7 @@ Status_t Probe_Handle(void)
 
 /* Callback functions --------------------------------------------------------*/
 
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
 
-}
 
 /* Private functions ---------------------------------------------------------*/
 static Status_t Probe_InitHAL(void)

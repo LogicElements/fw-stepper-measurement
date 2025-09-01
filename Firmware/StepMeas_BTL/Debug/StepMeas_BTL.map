@@ -3733,8 +3733,8 @@ Name             Origin             Length             Attributes
 BOOTLOADER       0x08000000         0x00004000         xr
 CALIBRATION      0x08004000         0x00004000         xr
 CONFIGURATION    0x08008000         0x00004000         xr
-APPLICATION      0x0803c000         0x00034000         xr
-BUFFER_APP       0x0807c000         0x00040000         xr
+APPLICATION      0x0800c000         0x00034000         xr
+BUFFER_APP       0x08040000         0x00040000         xr
 RAM              0x200000c0         0x0001ff40         xrw
 *default*        0x00000000         0xffffffff
 
@@ -3803,9 +3803,9 @@ LOAD C:/ST/STM32CubeIDE_1.16.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
                 0x00040000                        _LD_SIZE_BUFFER_APP = 0x40000
                 0x08000000                        _LD_ADDRESS_BOOTLOADER = 0x8000000
                 0x08004000                        _LD_ADDRESS_CALIBRATION = (_LD_ADDRESS_BOOTLOADER + _LD_SIZE_BOOTLOADER)
-                0x08008000                        _LD_ADDRESS_CONFIGURATION = (_LD_ADDRESS_CALIBRATION + _LD_SIZE_CONFIGURATION)
-                0x0803c000                        _LD_ADDRESS_APPLICATION = (_LD_ADDRESS_CONFIGURATION + _LD_SIZE_APPLICATION)
-                0x0807c000                        _LD_ADDRESS_BUFFER_APP = (_LD_ADDRESS_APPLICATION + _LD_SIZE_BUFFER_APP)
+                0x08008000                        _LD_ADDRESS_CONFIGURATION = (_LD_ADDRESS_CALIBRATION + _LD_SIZE_CALIBRATION)
+                0x0800c000                        _LD_ADDRESS_APPLICATION = (_LD_ADDRESS_CONFIGURATION + _LD_SIZE_CONFIGURATION)
+                0x08040000                        _LD_ADDRESS_BUFFER_APP = (_LD_ADDRESS_APPLICATION + _LD_SIZE_APPLICATION)
                 0x00000200                        _LD_FW_INFO_OFFSET = 0x200
 
 .isr_vector     0x08000000      0x220

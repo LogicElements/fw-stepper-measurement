@@ -384,7 +384,7 @@ Status_t Btl_StartAppAnyway(void)
 }
  8000564:	2000      	movs	r0, #0
  8000566:	bd08      	pop	{r3, pc}
- 8000568:	0803c000 	.word	0x0803c000
+ 8000568:	0800c000 	.word	0x0800c000
 
 0800056c <Btl_VerifyImage>:
 
@@ -552,8 +552,8 @@ Status_t Btl_CopyImage(uint32_t *source, uint32_t *dest)
  8000674:	4802      	ldr	r0, [pc, #8]	@ (8000680 <Btl_Handle+0x6c>)
  8000676:	f000 f87b 	bl	8000770 <System_StartApplication>
  800067a:	e7d9      	b.n	8000630 <Btl_Handle+0x1c>
- 800067c:	0807c000 	.word	0x0807c000
- 8000680:	0803c000 	.word	0x0803c000
+ 800067c:	08040000 	.word	0x08040000
+ 8000680:	0800c000 	.word	0x0800c000
  8000684:	00000200 	.word	0x00000200
  8000688:	00040000 	.word	0x00040000
 

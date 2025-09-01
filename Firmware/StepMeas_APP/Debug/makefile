@@ -63,8 +63,8 @@ all: main-build
 main-build: stepperMeasurement.elf secondary-outputs
 
 # Tool invocations
-stepperMeasurement.elf stepperMeasurement.map: $(OBJS) $(USER_OBJS) C:\Users\rousa\Documents\jablotron\stepper_measurement\stepper_meas\Firmware\StepMeas_APP\STM32F446RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "stepperMeasurement.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\rousa\Documents\jablotron\stepper_measurement\stepper_meas\Firmware\StepMeas_APP\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stepperMeasurement.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+stepperMeasurement.elf stepperMeasurement.map: $(OBJS) $(USER_OBJS) C:\Users\rousa\Documents\jablotron\stepper_measurement\git\Firmware\StepMeas_APP\STM32F446RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "stepperMeasurement.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\rousa\Documents\jablotron\stepper_measurement\git\Firmware\StepMeas_APP\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stepperMeasurement.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
