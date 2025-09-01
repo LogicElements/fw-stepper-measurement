@@ -1,6 +1,6 @@
 Core/Serial/modbus_slave.o: ../Core/Serial/modbus_slave.c \
  ../Core/Serial/modbus_slave.h \
- C:/Users/rousa/Documents/jablotron/stepper_measurement/stepper_meas/Firmware/StepMeas_APP/Core/Common/common.h \
+ C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/common.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -37,12 +37,12 @@ Core/Serial/modbus_slave.o: ../Core/Serial/modbus_slave.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- C:/Users/rousa/Documents/jablotron/stepper_measurement/stepper_meas/Firmware/StepMeas_APP/Core/Common/configuration.h \
- C:/Users/rousa/Documents/jablotron/stepper_measurement/stepper_meas/Firmware/StepMeas_APP/Core/Common/common.h \
- C:/Users/rousa/Documents/jablotron/stepper_measurement/stepper_meas/Firmware/StepMeas_APP/Core/Common/reg_map.h \
+ C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/configuration.h \
+ C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/common.h \
+ C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/reg_map.h \
  ../Core/Serial/mb_rtu_app.h ../Core/Serial/mb_upgrade.h
 ../Core/Serial/modbus_slave.h:
-C:/Users/rousa/Documents/jablotron/stepper_measurement/stepper_meas/Firmware/StepMeas_APP/Core/Common/common.h:
+C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/common.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:
@@ -79,8 +79,8 @@ C:/Users/rousa/Documents/jablotron/stepper_measurement/stepper_meas/Firmware/Ste
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-C:/Users/rousa/Documents/jablotron/stepper_measurement/stepper_meas/Firmware/StepMeas_APP/Core/Common/configuration.h:
-C:/Users/rousa/Documents/jablotron/stepper_measurement/stepper_meas/Firmware/StepMeas_APP/Core/Common/common.h:
-C:/Users/rousa/Documents/jablotron/stepper_measurement/stepper_meas/Firmware/StepMeas_APP/Core/Common/reg_map.h:
+C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/configuration.h:
+C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/common.h:
+C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/reg_map.h:
 ../Core/Serial/mb_rtu_app.h:
 ../Core/Serial/mb_upgrade.h:

@@ -1,6 +1,10 @@
-../Modules/Probe/voltage_current_probe.c:105:10:Probe_Init	16	static
-../Modules/Probe/voltage_current_probe.c:112:10:Probe_Handle	4	static
-../Modules/Probe/voltage_current_probe.c:122:17:Probe_InitHAL	8	static
-../Modules/Probe/voltage_current_probe.c:149:6:StartAdcMeasurement	4	static
+../Modules/Probe/voltage_current_probe.c:103:6:Probe_Init	8	static
+../Modules/Probe/voltage_current_probe.c:110:6:Probe_Handle	4	static
+../Modules/Probe/voltage_current_probe.c:118:6:Probe_InitHAL	8	static
+../Modules/Probe/voltage_current_probe.c:127:20:filt50_reset	4	static
+../Modules/Probe/voltage_current_probe.c:132:24:filt50_step	16	static
+../Modules/Probe/voltage_current_probe.c:145:6:StartAdcMeasurement	8	static
+../Modules/Probe/voltage_current_probe.c:163:20:Capture_HandleSample	24	static
 ../Modules/Probe/voltage_current_probe.c:201:6:ProcessMotorSteps	32	static
 ../Modules/Probe/voltage_current_probe.c:213:6:ADC_Conversion	16	static
+../Modules/Probe/voltage_current_probe.c:224:6:HAL_ADC_ConvCpltCallback	16	static

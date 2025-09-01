@@ -72,11 +72,13 @@ class HexDataPlotter:
         format_frame.pack(fill=tk.X, pady=(0, 10))
         
         tk.Radiobutton(format_frame, text="Oddělené mezerami", variable=self.format_var, 
-                      value="space").pack(side=tk.LEFT)
+                      value="space", command=self.on_format_change).pack(side=tk.LEFT)
         tk.Radiobutton(format_frame, text="Oddělené čárkami", variable=self.format_var, 
-                      value="comma").pack(side=tk.LEFT)
+                      value="comma", command=self.on_format_change).pack(side=tk.LEFT)
         tk.Radiobutton(format_frame, text="Jeden HEX na řádek", variable=self.format_var, 
-                      value="line").pack(side=tk.LEFT)
+                      value="line", command=self.on_format_change).pack(side=tk.LEFT)
+        tk.Radiobutton(format_frame, text="16-bit + 2 fixní byty (00 08)", variable=self.format_var, 
+                      value="16bit_fixed", command=self.on_format_change).pack(side=tk.LEFT)
         
         # Data type options
         type_label = tk.Label(options_frame, text="Typ dat:")
@@ -86,25 +88,50 @@ class HexDataPlotter:
         type_frame = tk.Frame(options_frame)
         type_frame.pack(fill=tk.X, pady=(0, 10))
         
-        tk.Radiobutton(type_frame, text="Bez znaménka (0-255)", variable=self.data_type_var, 
+        tk.Radiobutton(type_frame, text="8-bit bez znaménka (0-255)", variable=self.data_type_var, 
                       value="unsigned", command=self.toggle_byte_order).pack(side=tk.LEFT)
-        tk.Radiobutton(type_frame, text="Se znaménkem (-128 až 127)", variable=self.data_type_var, 
+        tk.Radiobutton(type_frame, text="8-bit se znaménkem (-128 až 127)", variable=self.data_type_var, 
                       value="signed", command=self.toggle_byte_order).pack(side=tk.LEFT)
         tk.Radiobutton(type_frame, text="16-bit bez znaménka (0-65535)", variable=self.data_type_var, 
                       value="unsigned16", command=self.toggle_byte_order).pack(side=tk.LEFT)
         tk.Radiobutton(type_frame, text="16-bit se znaménkem (-32768 až 32767)", variable=self.data_type_var, 
                       value="signed16", command=self.toggle_byte_order).pack(side=tk.LEFT)
+        tk.Radiobutton(type_frame, text="32-bit bez znaménka (0-4294967295)", variable=self.data_type_var, 
+                      value="unsigned32", command=self.toggle_byte_order).pack(side=tk.LEFT)
+        tk.Radiobutton(type_frame, text="32-bit se znaménkem (-2147483648 až 2147483647)", variable=self.data_type_var, 
+                      value="signed32", command=self.toggle_byte_order).pack(side=tk.LEFT)
         
-        # Byte order option for 16-bit values
+        # Byte order options
         self.byte_order_var = tk.StringVar(value="little_endian")
         self.byte_order_frame = tk.Frame(options_frame)
         self.byte_order_frame.pack(fill=tk.X, pady=(0, 10))
         
-        tk.Label(self.byte_order_frame, text="Pořadí bytů (16-bit):").pack(side=tk.LEFT)
-        tk.Radiobutton(self.byte_order_frame, text="Little Endian (49 07 = 0x0749)", variable=self.byte_order_var, 
+        tk.Label(self.byte_order_frame, text="Pořadí bytů:").pack(anchor=tk.W)
+        
+        # 8-bit options
+        bit8_frame = tk.Frame(self.byte_order_frame)
+        bit8_frame.pack(fill=tk.X, pady=(0, 5))
+        tk.Label(bit8_frame, text="8-bit: ").pack(side=tk.LEFT)
+        tk.Radiobutton(bit8_frame, text="Standardní", variable=self.byte_order_var, 
+                      value="standard_8bit").pack(side=tk.LEFT)
+        
+        # 16-bit options
+        bit16_frame = tk.Frame(self.byte_order_frame)
+        bit16_frame.pack(fill=tk.X, pady=(0, 5))
+        tk.Label(bit16_frame, text="16-bit: ").pack(side=tk.LEFT)
+        tk.Radiobutton(bit16_frame, text="Little Endian (49 07 = 0x0749)", variable=self.byte_order_var, 
                       value="little_endian").pack(side=tk.LEFT)
-        tk.Radiobutton(self.byte_order_frame, text="Big Endian (49 07 = 0x4907)", variable=self.byte_order_var, 
+        tk.Radiobutton(bit16_frame, text="Big Endian (49 07 = 0x4907)", variable=self.byte_order_var, 
                       value="big_endian").pack(side=tk.LEFT)
+        
+        # 32-bit options
+        bit32_frame = tk.Frame(self.byte_order_frame)
+        bit32_frame.pack(fill=tk.X, pady=(0, 5))
+        tk.Label(bit32_frame, text="32-bit: ").pack(side=tk.LEFT)
+        tk.Radiobutton(bit32_frame, text="Little Endian (49 07 00 08 = 0x08000749)", variable=self.byte_order_var, 
+                      value="little_endian_32").pack(side=tk.LEFT)
+        tk.Radiobutton(bit32_frame, text="Big Endian (49 07 00 08 = 0x49070008)", variable=self.byte_order_var, 
+                      value="big_endian_32").pack(side=tk.LEFT)
         
         # Initially hide byte order frame
         self.byte_order_frame.pack_forget()
@@ -125,7 +152,7 @@ class HexDataPlotter:
         
     def toggle_byte_order(self):
         """Show/hide byte order options based on data type selection"""
-        if self.data_type_var.get() in ["unsigned16", "signed16"]:
+        if self.data_type_var.get() in ["unsigned16", "signed16", "unsigned32", "signed32"]:
             self.byte_order_frame.pack(fill=tk.X, pady=(0, 10))
         else:
             self.byte_order_frame.pack_forget()
@@ -150,17 +177,40 @@ class HexDataPlotter:
             
         try:
             with open(file_path, 'r', encoding='utf-8') as file:
-                content = file.read().strip()
+                lines = file.readlines()
                 
             # Parse HEX data based on format
+            hex_strings = []
             if self.format_var.get() == "space":
-                hex_strings = content.split()
+                # Split each line by spaces and flatten the result
+                for line in lines:
+                    line = line.strip()
+                    if line:  # Skip empty lines
+                        hex_strings.extend(line.split())
             elif self.format_var.get() == "comma":
-                hex_strings = [x.strip() for x in content.split(',')]
+                # Split each line by commas and flatten the result
+                for line in lines:
+                    line = line.strip()
+                    if line:  # Skip empty lines
+                        hex_strings.extend([x.strip() for x in line.split(',')])
+            elif self.format_var.get() == "16bit_fixed":
+                # Special format: each 16-bit value followed by 00 08
+                for line in lines:
+                    line = line.strip()
+                    if line:
+                        hex_parts = line.split()
+                        if len(hex_parts) >= 4:  # Should have 4 bytes: XX XX 00 08
+                            # Take first two bytes as the 16-bit value
+                            hex_strings.extend(hex_parts[:2])
+                        elif len(hex_parts) >= 2:  # At least 2 bytes
+                            hex_strings.extend(hex_parts[:2])
+                        else:
+                            hex_strings.extend(hex_parts)
             else:  # line
-                hex_strings = content.split('\n')
+                # Each line is one hex value
+                hex_strings = [line.strip() for line in lines if line.strip()]
                 
-            # Filter out empty strings
+            # Filter out empty strings and clean hex values
             hex_strings = [x.strip() for x in hex_strings if x.strip()]
             
             # Convert to decimal (for selected dataset)
@@ -171,33 +221,60 @@ class HexDataPlotter:
                 self.decimal_data2 = []
                 self.hex_data2 = []
             
-            # Check if we need to combine bytes (for 16-bit values)
-            combine_bytes = self.data_type_var.get() in ["unsigned16", "signed16"]
+            # Check if we need to combine bytes (for 16-bit or 32-bit values)
+            combine_bytes = self.data_type_var.get() in ["unsigned16", "signed16", "unsigned32", "signed32"]
             
             if combine_bytes and len(hex_strings) >= 2:
-                # Process as 16-bit values (combine pairs of bytes)
-                for i in range(0, len(hex_strings) - 1, 2):
+                # Determine how many bytes to combine
+                if self.data_type_var.get() in ["unsigned32", "signed32"]:
+                    bytes_to_combine = 4  # 32-bit values
+                    step_size = 4
+                else:
+                    bytes_to_combine = 2  # 16-bit values
+                    step_size = 2
+                
+                # Process as multi-byte values
+                for i in range(0, len(hex_strings) - bytes_to_combine + 1, step_size):
                     try:
-                        # Get first and second byte
-                        first_byte = hex_strings[i].replace('0x', '').replace('0X', '').replace('h', '').replace('H', '')
-                        second_byte = hex_strings[i + 1].replace('0x', '').replace('0X', '').replace('h', '').replace('H', '')
+                        # Get bytes for the value
+                        bytes_list = []
+                        for j in range(bytes_to_combine):
+                            if i + j < len(hex_strings):
+                                byte_str = hex_strings[i + j].replace('0x', '').replace('0X', '').replace('h', '').replace('H', '')
+                                if byte_str:
+                                    bytes_list.append(int(byte_str, 16))
+                                else:
+                                    bytes_list.append(0)
+                            else:
+                                bytes_list.append(0)
                         
-                        if not first_byte or not second_byte:
+                        if len(bytes_list) < bytes_to_combine:
                             continue
                             
                         # Combine bytes based on byte order
-                        if self.byte_order_var.get() == "little_endian":
-                            # Little Endian: first_byte is lower, second_byte is upper
-                            hex_value = (int(second_byte, 16) << 8) | int(first_byte, 16)
-                            hex_display = f"{second_byte}{first_byte}"
+                        hex_value = 0
+                        hex_display = ""
+                        
+                        if self.byte_order_var.get() in ["little_endian", "little_endian_32"]:
+                            # Little Endian: least significant byte first
+                            for j, byte in enumerate(bytes_list):
+                                hex_value |= (byte << (8 * j))
+                                hex_display = hex_display + f"{byte:02X}"
+                        elif self.byte_order_var.get() in ["big_endian", "big_endian_32"]:
+                            # Big Endian: most significant byte first
+                            for j, byte in enumerate(bytes_list):
+                                hex_value |= (byte << (8 * (bytes_to_combine - 1 - j)))
+                                hex_display = hex_display + f"{byte:02X}"
                         else:
-                            # Big Endian: first_byte is upper, second_byte is lower
-                            hex_value = (int(first_byte, 16) << 8) | int(second_byte, 16)
-                            hex_display = f"{first_byte}{second_byte}"
+                            # Standard 8-bit processing
+                            hex_value = bytes_list[0]
+                            hex_display = f"{bytes_list[0]:02X}"
                         
                         # Apply signed conversion if needed
                         if self.data_type_var.get() == "signed16" and hex_value > 32767:
                             hex_value = hex_value - 65536
+                        elif self.data_type_var.get() == "signed32" and hex_value > 2147483647:
+                            hex_value = hex_value - 4294967296
                             
                         if which == 1:
                             self.decimal_data1.append(hex_value)
@@ -209,20 +286,25 @@ class HexDataPlotter:
                     except ValueError:
                         continue
                         
-                # If odd number of values, add the last one as 8-bit
-                if len(hex_strings) % 2 == 1:
+                # Handle remaining bytes if any
+                remaining_start = (len(hex_strings) // step_size) * step_size
+                if remaining_start < len(hex_strings):
                     try:
-                        last_hex = hex_strings[-1].replace('0x', '').replace('0X', '').replace('h', '').replace('H', '')
-                        if last_hex:
-                            hex_value = int(last_hex, 16)
-                            if self.data_type_var.get() == "signed16" and hex_value > 127:
-                                hex_value = hex_value - 256
-                            if which == 1:
-                                self.decimal_data1.append(hex_value)
-                                self.hex_data1.append(last_hex)
-                            else:
-                                self.decimal_data2.append(hex_value)
-                                self.hex_data2.append(last_hex)
+                        # Process remaining bytes as individual 8-bit values
+                        for i in range(remaining_start, len(hex_strings)):
+                            hex_str = hex_strings[i].replace('0x', '').replace('0X', '').replace('h', '').replace('H', '')
+                            if hex_str:
+                                hex_value = int(hex_str, 16)
+                                if self.data_type_var.get() == "signed16" and hex_value > 127:
+                                    hex_value = hex_value - 256
+                                elif self.data_type_var.get() == "signed32" and hex_value > 127:
+                                    hex_value = hex_value - 256
+                                if which == 1:
+                                    self.decimal_data1.append(hex_value)
+                                    self.hex_data1.append(hex_str)
+                                else:
+                                    self.decimal_data2.append(hex_value)
+                                    self.hex_data2.append(hex_str)
                     except ValueError:
                         pass
             else:
@@ -246,6 +328,11 @@ class HexDataPlotter:
                         elif self.data_type_var.get() == "signed16":
                             if hex_value > 32767:
                                 hex_value = hex_value - 65536
+                        elif self.data_type_var.get() == "unsigned32":
+                            hex_value = hex_value & 0xFFFFFFFF
+                        elif self.data_type_var.get() == "signed32":
+                            if hex_value > 2147483647:
+                                hex_value = hex_value - 4294967296
                                 
                         if which == 1:
                             self.decimal_data1.append(hex_value)
@@ -451,7 +538,7 @@ class HexDataPlotter:
     def analyze_microsteps(self, ax, data, dataset_name, color):
         """Analyze data for microsteps using sliding window of 7 values (only first 1500 samples, excluding values outside 950-3150)"""
         window_size = 7
-        hysteresis_threshold = 40
+        hysteresis_threshold = 60
         
         # Limit analysis to first 1500 samples
         max_samples = min(1500, len(data))
@@ -464,14 +551,14 @@ class HexDataPlotter:
         
         for i in range(window_size - 1, max_samples):
             # Skip points with values outside range 950-3150
-            if data[i] < 950 or data[i] > 3150:
+            if data[i] < 550 or data[i] > 3450:
                 continue
                 
             # Get last 7 values
             window_data = data[i - window_size + 1:i + 1]
             
             # Check if any value in window is outside range 950-3150
-            if any(val < 950 or val > 3150 for val in window_data):
+            if any(val < 550 or val > 3450 for val in window_data):
                 continue
             
             # Calculate mean of the window
@@ -483,8 +570,8 @@ class HexDataPlotter:
             if all_within_threshold:
                 consecutive_count += 1
                 # Always plot green point for any microstep detection
-                ax.plot(i, data[i], 'o', color='green', markersize=4, 
-                       label=f'{dataset_name} Detekce' if i == window_size - 1 else "")
+                # ax.plot(i, data[i], 'o', color='green', markersize=4, 
+                #        label=f'{dataset_name} Detekce' if i == window_size - 1 else "")
                 
                 # Track the last green point in this cluster
                 last_green_in_cluster = (i, data[i])
@@ -506,7 +593,7 @@ class HexDataPlotter:
         
         # Add legend entries for both types of points
         if max_samples >= window_size:
-            ax.plot([], [], 'o', color='green', markersize=4, label=f'{dataset_name} Detekce (prvních 1500)')
+            # ax.plot([], [], 'o', color='green', markersize=4, label=f'{dataset_name} Detekce (prvních 1500)')
             ax.plot([], [], 'o', color=color, markersize=8, label=f'{dataset_name} Mikrokrok (prvních 1500)')
             ax.plot([], [], 's', color='magenta', markersize=6, label=f'{dataset_name} Konec shluku (prvních 1500)')
         
@@ -576,6 +663,15 @@ class HexDataPlotter:
         
         # Connect the mouse motion event
         ax.figure.canvas.mpl_connect('motion_notify_event', on_mouse_move)
+    
+    def on_format_change(self):
+        """Automatically select data type when 16bit_fixed format is chosen"""
+        if self.format_var.get() == "16bit_fixed":
+            self.data_type_var.set("unsigned16") # Default to unsigned 16-bit
+            self.toggle_byte_order() # Show byte order options
+        else:
+            self.data_type_var.set("unsigned") # Default to unsigned 8-bit
+            self.toggle_byte_order() # Hide byte order options
     
     def on_closing(self):
         """Handle proper application shutdown"""

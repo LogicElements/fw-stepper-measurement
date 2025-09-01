@@ -20,12 +20,6 @@ extern "C" {
 #define ADC_CHANNEL_COUNT   8
 
 /* Exported types ------------------------------------------------------------*/
-typedef enum
-{
-    STATUS_OK = 0x00U,
-    STATUS_ERROR = 0x01U
-} Status_t;
-
 /* Exported variables --------------------------------------------------------*/
 extern TIM_HandleTypeDef htim2;
 
@@ -48,13 +42,13 @@ extern uint16_t adc_value;
  * @brief Initialize probe module
  * @retval STATUS_OK or STATUS_ERROR
  */
-Status_t Probe_Init(void);
+void  Probe_Init(void);
 
 /**
  * @brief Main probe handler
  * @retval STATUS_OK or STATUS_ERROR
  */
-Status_t Probe_Handle(void);
+void  Probe_Handle(void);
 
 /**
  * @brief Start ADC measurement using DMA

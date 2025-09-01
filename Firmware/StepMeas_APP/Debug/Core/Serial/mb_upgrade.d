@@ -1,6 +1,6 @@
 Core/Serial/mb_upgrade.o: ../Core/Serial/mb_upgrade.c \
  ../Core/Serial/mb_upgrade.h \
- C:/Users/rousa/Documents/jablotron/stepper_measurement/stepper_meas/Firmware/StepMeas_APP/Core/Common/common.h \
+ C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/common.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -37,10 +37,10 @@ Core/Serial/mb_upgrade.o: ../Core/Serial/mb_upgrade.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- C:/Users/rousa/Documents/jablotron/stepper_measurement/stepper_meas/Firmware/StepMeas_APP/Core/Common/system_msp.h \
- C:/Users/rousa/Documents/jablotron/stepper_measurement/stepper_meas/Firmware/StepMeas_APP/Core/Common/common.h
+ C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/system_msp.h \
+ C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/common.h
 ../Core/Serial/mb_upgrade.h:
-C:/Users/rousa/Documents/jablotron/stepper_measurement/stepper_meas/Firmware/StepMeas_APP/Core/Common/common.h:
+C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/common.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:
@@ -77,5 +77,5 @@ C:/Users/rousa/Documents/jablotron/stepper_measurement/stepper_meas/Firmware/Ste
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-C:/Users/rousa/Documents/jablotron/stepper_measurement/stepper_meas/Firmware/StepMeas_APP/Core/Common/system_msp.h:
-C:/Users/rousa/Documents/jablotron/stepper_measurement/stepper_meas/Firmware/StepMeas_APP/Core/Common/common.h:
+C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/system_msp.h:
+C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/common.h:

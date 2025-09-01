@@ -32,7 +32,7 @@
 
 #define CAPTURE_SAMPLES      20000
 #define TRIGGER_THRESHOLD    2000
-#define MONITOR_CHANNEL      3
+#define MONITOR_CHANNEL      4
 
 /* Private typedefs ----------------------------------------------------------*/
 typedef enum
@@ -50,9 +50,6 @@ static volatile uint8_t capture_ready = 0;
 
 static uint32_t filt50_y = 0;
 static uint8_t filt50_init = 0;
-
-
-
 
 /* Structures ----------------------------------------------------------------*/
 typedef struct
@@ -79,6 +76,7 @@ typedef struct
 
 /* Module variables ----------------------------------------------------------*/
 static Probe_private_t probe;
+extern ADC_HandleTypeDef hadc1;
 
 uint16_t probe_it = 0;
 uint16_t TimeOK = 0;
@@ -96,36 +94,34 @@ volatile uint8_t adc_ready = 1;
 uint16_t adc_ready_counter = 0;
 
 /* Private prototypes --------------------------------------------------------*/
-static Status_t Probe_InitHAL(void);
+void Probe_InitHAL(void);
 static inline void Capture_HandleSample(uint16_t adc_sample[]);
 static inline uint16_t filt50_step(uint16_t x);
 static inline void filt50_reset(void);
 
 /* Public functions ----------------------------------------------------------*/
-Status_t Probe_Init(void)
+void Probe_Init(void)
 {
-    Status_t ret = STATUS_OK;
-    ret |= Probe_InitHAL();
-    return ret;
+
+    Probe_InitHAL();
+
 }
 
-Status_t Probe_Handle(void)
+void Probe_Handle(void)
 {
-    return STATUS_OK; // zatím prázdné
+
 }
 
 /* Callback functions --------------------------------------------------------*/
 
-
-
 /* Private functions ---------------------------------------------------------*/
-static Status_t Probe_InitHAL(void)
+void Probe_InitHAL(void)
 {
     if (HAL_TIM_Base_Start_IT(&htim2) != HAL_OK)
     {
-        return STATUS_ERROR;
+
     }
-    return STATUS_OK;
+
 }
 
 static inline void filt50_reset(void)
@@ -141,7 +137,7 @@ static inline uint16_t filt50_step(uint16_t x)
         filt50_init = 1;
         return (uint16_t) filt50_y;
     }
-    filt50_y = ((filt50_y * 3u) + ((uint32_t) x * 7u) + 5u) / 10u;
+    filt50_y = ((filt50_y * 5u) + ((uint32_t) x * 5u) + 5u) / 10u;
     return (uint16_t) filt50_y;
 }
 
@@ -150,8 +146,12 @@ void StartAdcMeasurement(void)
 {
     if (adc_ready)
     {
-        adc_ready = 0;
+      adc_ready = 0;
+        if (HAL_ADC_Start_DMA(&hadc1, (uint32_t*) adc_values, ADC_CHANNEL_COUNT) != HAL_OK)
+        {
+            // chyba při startu – můžeš zavolat Error_Handler nebo nastavit flag
 
+        }
 
     }
     else
@@ -220,6 +220,20 @@ void ADC_Conversion(uint16_t _adc_values[])
     probe.motor2.current._B = _adc_values[ADC_CHANNEL_IB2];
     probe.motor2.voltage._A = _adc_values[ADC_CHANNEL_VA2];
     probe.motor2.voltage._B = _adc_values[ADC_CHANNEL_VB2];
+}
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
+{
+    if (hadc->Instance == ADC1)
+    {
+
+        ADC_Conversion(adc_values);
+
+        // po každém měření pošli do capture state machine
+        Capture_HandleSample(adc_values);
+
+        // označ, že máme data připravena
+        adc_ready = 1;
+    }
 }
 
 /** @} */
