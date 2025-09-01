@@ -48,8 +48,13 @@ static volatile uint32_t capture_count = 0;
 static uint16_t capture_buffer[CAPTURE_SAMPLES];
 static volatile uint8_t capture_ready = 0;
 
-static uint32_t filt50_y = 0;
-static uint8_t filt50_init = 0;
+/* --- nový filtr --- */
+#define MOVAVG_LEN 3
+static float exp_avg = 0.0f;
+static float movavg_buf[MOVAVG_LEN];
+static uint8_t movavg_index = 0;
+static uint8_t movavg_count = 0;
+static uint8_t custom_filt_init = 0;
 
 /* Structures ----------------------------------------------------------------*/
 typedef struct
@@ -96,15 +101,13 @@ uint16_t adc_ready_counter = 0;
 /* Private prototypes --------------------------------------------------------*/
 void Probe_InitHAL(void);
 static inline void Capture_HandleSample(uint16_t adc_sample[]);
-static inline uint16_t filt50_step(uint16_t x);
-static inline void filt50_reset(void);
+static inline uint16_t custom_filter_step(uint16_t x);
+static inline void custom_filter_reset(void);
 
 /* Public functions ----------------------------------------------------------*/
 void Probe_Init(void)
 {
-
     Probe_InitHAL();
-
 }
 
 void Probe_Handle(void)
@@ -119,40 +122,73 @@ void Probe_InitHAL(void)
 {
     if (HAL_TIM_Base_Start_IT(&htim2) != HAL_OK)
     {
-
+        // error handler
     }
-
 }
 
-static inline void filt50_reset(void)
+static inline void custom_filter_reset(void)
 {
-    filt50_init = 0;
+    custom_filt_init = 0;
+    movavg_index = 0;
+    movavg_count = 0;
+    exp_avg = 0.0f;
 }
 
-static inline uint16_t filt50_step(uint16_t x)
+static inline uint16_t custom_filter_step(uint16_t x)
 {
-    if (!filt50_init)
+    static float last_value = 0.0f;  // pamatuje si poslední EMA/finální výstup
+
+    if (!custom_filt_init)
     {
-        filt50_y = x;
-        filt50_init = 1;
-        return (uint16_t) filt50_y;
+        exp_avg = (float)x;
+        last_value = exp_avg;
+        custom_filt_init = 1;
+        movavg_buf[0] = exp_avg;
+        movavg_index = 1;
+        movavg_count = 1;
+        return (uint16_t)exp_avg;
     }
-    filt50_y = ((filt50_y * 5u) + ((uint32_t) x * 5u) + 5u) / 10u;
-    return (uint16_t) filt50_y;
-}
+    else
+    {
+        // exponenciální vyhlazení (70 % stará, 30 % nová)
+        exp_avg = (0.7f * exp_avg) + (0.3f * (float)x);
+    }
 
+    // rozdíl mezi novou a předchozí hodnotou
+    float diff = fabsf(exp_avg - last_value);
+
+    if (diff <= 25.0f)
+    {
+        // update bufferu jen pokud změna není větší než 25
+        movavg_buf[movavg_index] = exp_avg;
+        movavg_index = (movavg_index + 1) % MOVAVG_LEN;
+        if (movavg_count < MOVAVG_LEN) movavg_count++;
+
+        // spočítat průměr
+        float sum = 0.0f;
+        for (uint8_t i = 0; i < movavg_count; i++)
+            sum += movavg_buf[i];
+
+        last_value = sum / movavg_count;
+    }
+    else
+    {
+        // pokud rozdíl > 25 → přeskočit průměr, použít přímo exp_avg
+        last_value = exp_avg;
+    }
+
+    return (uint16_t)last_value;
+}
 /* ADC measurement start -----------------------------------------------------*/
 void StartAdcMeasurement(void)
 {
     if (adc_ready)
     {
-      adc_ready = 0;
+        adc_ready = 0;
         if (HAL_ADC_Start_DMA(&hadc1, (uint32_t*) adc_values, ADC_CHANNEL_COUNT) != HAL_OK)
         {
             // chyba při startu – můžeš zavolat Error_Handler nebo nastavit flag
-
         }
-
     }
     else
     {
@@ -163,7 +199,7 @@ void StartAdcMeasurement(void)
 static inline void Capture_HandleSample(uint16_t adc_sample[])
 {
     uint16_t raw = adc_sample[MONITOR_CHANNEL];
-    uint16_t filt = filt50_step(raw);
+    uint16_t filt = custom_filter_step(raw);
 
     switch (capture_state)
     {
@@ -172,8 +208,8 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
             {
                 capture_state = CAPT_CAPTURING;
                 capture_count = 0;
-                filt50_reset();
-                filt = filt50_step(raw);
+                custom_filter_reset();
+                filt = custom_filter_step(raw);
                 capture_buffer[capture_count++] = filt;
             }
             break;
@@ -181,7 +217,7 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
         case CAPT_CAPTURING:
             if (capture_count < CAPTURE_SAMPLES)
             {
-                filt = filt50_step(raw);
+                filt = custom_filter_step(raw);
                 capture_buffer[capture_count++] = filt;
                 if (capture_count >= CAPTURE_SAMPLES)
                 {
@@ -221,11 +257,11 @@ void ADC_Conversion(uint16_t _adc_values[])
     probe.motor2.voltage._A = _adc_values[ADC_CHANNEL_VA2];
     probe.motor2.voltage._B = _adc_values[ADC_CHANNEL_VB2];
 }
+
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
 {
     if (hadc->Instance == ADC1)
     {
-
         ADC_Conversion(adc_values);
 
         // po každém měření pošli do capture state machine

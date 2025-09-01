@@ -379,22 +379,29 @@ class HexDataPlotter:
         # Main plot
         ax = plt.subplot(111)
         
-        # Plot dataset 1 if available (only first 1500 samples, all values shown)
+        # Plot dataset 1 if available (only first 10000 samples, all values shown)
         lines = []
         labels = []
         if self.decimal_data1:
-            # Limit to first 1500 samples, show all values
-            plot_data1 = self.decimal_data1[:1500]
+            # Limit to first 10000 samples, show all values
+            plot_data1 = self.decimal_data1[:10000]
             line1, = ax.plot(plot_data1, '-', color='tab:blue', linewidth=1, marker='o', markersize=3)
             lines.append(line1)
-            labels.append(f'Data 1 (prvních 1500 z {len(self.decimal_data1)})')
-        # Plot dataset 2 if available (only first 1500 samples, all values shown)
+            labels.append(f'Data 1 (prvních 10000 z {len(self.decimal_data1)})')
+            
+            # Zvýraznění bodů s hysterezí ≤ 40 pro dataset 1
+            self.highlight_low_hysteresis_points(ax, plot_data1, 'Data 1')
+            
+        # Plot dataset 2 if available (only first 10000 samples, all values shown)
         if self.decimal_data2:
-            # Limit to first 1500 samples, show all values
-            plot_data2 = self.decimal_data2[:1500]
+            # Limit to first 10000 samples, show all values
+            plot_data2 = self.decimal_data2[:10000]
             line2, = ax.plot(plot_data2, '-', color='tab:orange', linewidth=1, marker='s', markersize=3)
             lines.append(line2)
-            labels.append(f'Data 2 (prvních 1500 z {len(self.decimal_data2)})')
+            labels.append(f'Data 2 (prvních 10000 z {len(self.decimal_data2)})')
+            
+            # Zvýraznění bodů s hysterezí ≤ 40 pro dataset 2
+            self.highlight_low_hysteresis_points(ax, plot_data2, 'Data 2')
 
         title_counts = []
         if self.decimal_data1:
@@ -421,13 +428,25 @@ class HexDataPlotter:
         ax.text(0.02, 0.98, stats_text, transform=ax.transAxes, 
                 verticalalignment='top', bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.8))
         
-        # Enable zoom and pan - limit to first 1500 samples
-        max_len = min(1500, max(len(self.decimal_data1) if self.decimal_data1 else 0,
+        # Enable zoom and pan - limit to first 10000 samples
+        max_len = min(10000, max(len(self.decimal_data1) if self.decimal_data1 else 0,
                       len(self.decimal_data2) if self.decimal_data2 else 0))
         ax.set_xlim(0, max_len - 1)
         
         if lines:
-            ax.legend(lines, labels)
+            # Získáme všechny legendové položky
+            all_handles = lines.copy()
+            all_labels = labels.copy()
+            
+            # Přidáme legendu pro zelené body (pouze jednou)
+            if self.decimal_data1 or self.decimal_data2:
+                from matplotlib.lines import Line2D
+                all_handles.append(Line2D([], [], color='lime', marker='o', markersize=8, 
+                                        markeredgecolor='darkgreen', markeredgewidth=2, 
+                                        markerfacecolor='lime', linestyle=''))
+                all_labels.append('Hystereze ≤ 40 (7 bodů)')
+            
+            ax.legend(all_handles, all_labels)
         
         # Add zoom instructions
         ax.text(0.02, 0.02, 'Použijte myš pro zoom a pan', transform=ax.transAxes,
@@ -435,9 +454,6 @@ class HexDataPlotter:
         
         # Add click functionality to show point values
         self.setup_click_events(ax)
-        
-        # Detect and plot microsteps
-        self.plot_microsteps(ax)
         
         # Embed matplotlib plot in Tkinter window
         from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
@@ -453,6 +469,77 @@ class HexDataPlotter:
         self.create_data_text_widgets(plot_window)
         
         plt.tight_layout()
+        
+    def highlight_low_hysteresis_points(self, ax, data, dataset_name):
+        """Zvýrazní body, které jsou součástí 7-bodové skupiny s hysterezí ≤ 40"""
+        if len(data) < 7:
+            print(f"DEBUG: {dataset_name} - málo dat: {len(data)} < 7")
+            return
+            
+        print(f"DEBUG: {dataset_name} - zpracovávám {len(data)} bodů")
+        
+        # Počítáme kolik bodů jsme zvýraznili
+        highlighted_count = 0
+        
+        # Vypíšeme prvních 10 hodnot pro kontrolu
+        print(f"DEBUG: {dataset_name} - prvních 10 hodnot: {data[:10]}")
+            
+        # Procházíme data od 7. bodu (index 6)
+        for i in range(6, len(data)):
+            # Počítáme hysterezi (rozpětí) posledních 7 bodů
+            last_7_points = data[i-6:i+1]  # i-6 až i (včetně)
+            hysteresis = max(last_7_points) - min(last_7_points)
+            
+            # Debug výpis pro prvních několik iterací
+            if i < 10:
+                print(f"DEBUG: {dataset_name} - index {i}: body {last_7_points}, hystereze {hysteresis:.2f}")
+            
+            # Pokud je hystereze do 40, zvýrazníme 7. bod (aktuální bod) zeleně
+            if hysteresis <= 40:
+                print(f"DEBUG: {dataset_name} - NALEZEN! index {i}: hystereze {hysteresis:.2f} ≤ 40")
+                ax.plot(i, data[i], 'go', markersize=8, markeredgecolor='darkgreen', 
+                       markeredgewidth=2, markerfacecolor='lime')
+                highlighted_count += 1
+        
+        print(f"DEBUG: {dataset_name} - celkem zvýrazněno {highlighted_count} bodů")
+        
+        # Přidáme informaci o počtu zvýrazněných bodů do statistik
+        if highlighted_count > 0:
+            # Nastavíme pozici podle datasetu
+            y_pos = 0.90 if dataset_name == 'Data 1' else 0.86
+            ax.text(0.02, y_pos, f'Hystereze ≤ 40 {dataset_name}: {highlighted_count} bodů', 
+                   transform=ax.transAxes, verticalalignment='top', 
+                   bbox=dict(boxstyle='round', facecolor='lightgreen', alpha=0.8))
+        else:
+            print(f"DEBUG: {dataset_name} - žádné body s hysterezí ≤ 40 nenalezeny")
+        
+    def detect_micro_steps(self, ax, data, color, dataset_name):
+        """Detekuje mikro kroky - když průměr posledních 7 bodů je do 40, vykreslí červený bod"""
+        if len(data) < 7:
+            return
+            
+        # Počítáme kolik mikro kroků jsme našli
+        micro_steps_count = 0
+            
+        # Procházíme data od 7. bodu (index 6)
+        for i in range(6, len(data)):
+            # Počítáme průměr posledních 7 bodů
+            last_7_points = data[i-6:i+1]  # i-6 až i (včetně)
+            average = np.mean(last_7_points)
+            
+            # Pokud je průměr do 40, vykreslíme červený bod
+            if average <= 40:
+                ax.plot(i, data[i], 'ro', markersize=8, markeredgecolor='red', 
+                       markeredgewidth=2, markerfacecolor='red')
+                micro_steps_count += 1
+        
+        # Přidáme informaci o počtu nalezených mikro kroků do statistik
+        if micro_steps_count > 0:
+            # Nastavíme pozici podle datasetu
+            y_pos = 0.88 if dataset_name == 'Data 1' else 0.82
+            ax.text(0.02, y_pos, f'Mikro kroky {dataset_name}: {micro_steps_count}', 
+                   transform=ax.transAxes, verticalalignment='top', 
+                   bbox=dict(boxstyle='round', facecolor='lightcoral', alpha=0.8))
         
     def create_data_text_widgets(self, parent_window):
         """Create scrollable text widgets for displaying data values"""
@@ -472,7 +559,7 @@ class HexDataPlotter:
             left_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(0, 5))
             
             # Title
-            tk.Label(left_frame, text=f"Data 1 - Prvních 1500 hodnot", 
+            tk.Label(left_frame, text=f"Data 1 - Prvních 10000 hodnot", 
                     font=("Arial", 14, "bold")).pack(anchor=tk.W)
             
             # Text widget with scrollbar
@@ -486,8 +573,8 @@ class HexDataPlotter:
             text1.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
             scrollbar1.pack(side=tk.RIGHT, fill=tk.Y)
             
-            # Insert data values - up to 1500 values
-            max_rows = min(1500, len(self.decimal_data1))
+            # Insert data values - up to 10000 values
+            max_rows = min(10000, len(self.decimal_data1))
             for i in range(max_rows):
                 text1.insert(tk.END, f"{self.decimal_data1[i]}\n")
             
@@ -500,7 +587,7 @@ class HexDataPlotter:
             right_data_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=(5, 0))
             
             # Title
-            tk.Label(right_data_frame, text=f"Data 2 - Prvních 1500 hodnot", 
+            tk.Label(right_data_frame, text=f"Data 2 - Prvních 10000 hodnot", 
                     font=("Arial", 14, "bold")).pack(anchor=tk.W)
             
             # Text widget with scrollbar
@@ -514,88 +601,16 @@ class HexDataPlotter:
             text2.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
             scrollbar2.pack(side=tk.RIGHT, fill=tk.Y)
             
-            # Insert data values - up to 1500 values
-            max_rows = min(1500, len(self.decimal_data2))
+            # Insert data values - up to 10000 values
+            max_rows = min(10000, len(self.decimal_data2))
             for i in range(max_rows):
                 text2.insert(tk.END, f"{self.decimal_data2[i]}\n")
             
             text2.config(state=tk.DISABLED)  # Make read-only
         
         # Instructions
-        tk.Label(right_frame, text="Hodnoty lze kopírovat pomocí Ctrl+C (zobrazuje až 1500 hodnot)", 
+        tk.Label(right_frame, text="Hodnoty lze kopírovat pomocí Ctrl+C (zobrazuje až 10000 hodnot)", 
                 font=("Arial", 10), fg="blue").pack(anchor=tk.W, pady=(10, 0))
-        
-    def plot_microsteps(self, ax):
-        """Detect and plot microsteps based on hysteresis analysis"""
-        # Analyze dataset 1 for microsteps
-        if len(self.decimal_data1) >= 10:
-            self.analyze_microsteps(ax, self.decimal_data1, 'Data 1', 'red')
-        
-        # Analyze dataset 2 for microsteps
-        if len(self.decimal_data2) >= 10:
-            self.analyze_microsteps(ax, self.decimal_data2, 'Data 2', 'darkred')
-    
-    def analyze_microsteps(self, ax, data, dataset_name, color):
-        """Analyze data for microsteps using sliding window of 7 values (only first 1500 samples, excluding values outside 950-3150)"""
-        window_size = 7
-        hysteresis_threshold = 60
-        
-        # Limit analysis to first 1500 samples
-        max_samples = min(1500, len(data))
-        
-        # Counter for consecutive microstep detections
-        consecutive_count = 0
-        
-        # Track the last green point in each cluster
-        last_green_in_cluster = None
-        
-        for i in range(window_size - 1, max_samples):
-            # Skip points with values outside range 950-3150
-            if data[i] < 550 or data[i] > 3450:
-                continue
-                
-            # Get last 7 values
-            window_data = data[i - window_size + 1:i + 1]
-            
-            # Check if any value in window is outside range 950-3150
-            if any(val < 550 or val > 3450 for val in window_data):
-                continue
-            
-            # Calculate mean of the window
-            mean_val = np.mean(window_data)
-            
-            # Check if all values are within hysteresis threshold
-            all_within_threshold = all(abs(val - mean_val) <= hysteresis_threshold for val in window_data)
-            
-            if all_within_threshold:
-                consecutive_count += 1
-                # Always plot green point for any microstep detection
-                # ax.plot(i, data[i], 'o', color='green', markersize=4, 
-                #        label=f'{dataset_name} Detekce' if i == window_size - 1 else "")
-                
-                # Track the last green point in this cluster
-                last_green_in_cluster = (i, data[i])
-                
-                # Plot red point only once at the start of a stable region (after 4 consecutive detections)
-                if consecutive_count == 4:
-                    ax.plot(i, data[i], 'o', color=color, markersize=8, 
-                           label=f'{dataset_name} Mikrokrok' if i == window_size - 1 else "")
-            else:
-                # Plot pink square for the last green point in the cluster before resetting
-                if last_green_in_cluster and consecutive_count > 0:
-                    x_pos, y_pos = last_green_in_cluster
-                    ax.plot(x_pos, y_pos, 's', color='magenta', markersize=6, 
-                           label=f'{dataset_name} Konec shluku' if x_pos == window_size - 1 else "")
-                    last_green_in_cluster = None
-                
-                # Reset counter if no microstep detected
-                consecutive_count = 0
-        
-        # Add legend entries for both types of points
-        if max_samples >= window_size:
-            # ax.plot([], [], 'o', color='green', markersize=4, label=f'{dataset_name} Detekce (prvních 1500)')
-            ax.plot([], [], 'o', color=color, markersize=8, label=f'{dataset_name} Mikrokrok (prvních 1500)')
-            ax.plot([], [], 's', color='magenta', markersize=6, label=f'{dataset_name} Konec shluku (prvních 1500)')
         
     def setup_click_events(self, ax):
         """Setup hover events to show point values"""
