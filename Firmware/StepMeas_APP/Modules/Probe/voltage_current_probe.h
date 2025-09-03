@@ -17,7 +17,7 @@ extern "C" {
 #include "stm32f4xx_hal.h"   // HAL handlers
 
 /* Exported defines ----------------------------------------------------------*/
-#define ADC_CHANNEL_COUNT   8
+#define ADC_CHANNEL_COUNT   4
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/

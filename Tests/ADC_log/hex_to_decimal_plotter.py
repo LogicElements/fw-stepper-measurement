@@ -3,6 +3,7 @@ import numpy as np
 import tkinter as tk
 from tkinter import filedialog, messagebox
 import os
+import struct
 
 class HexDataPlotter:
     def __init__(self):
@@ -10,16 +11,21 @@ class HexDataPlotter:
         self.root.title("HEX to Decimal Plotter")
         self.root.geometry("800x600")
         
-        # Data storage for two datasets
+        # Data storage for three datasets
         self.hex_data1 = []
         self.decimal_data1 = []
         self.hex_data2 = []
         self.decimal_data2 = []
+        self.hex_data3 = []
+        self.decimal_data3 = []
         
         # Setup proper window closing protocol
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         
         self.setup_ui()
+        
+        # Automaticky předvyplníme názvy souborů
+        self.auto_fill_file_paths()
         
     def setup_ui(self):
         # Main frame
@@ -47,7 +53,7 @@ class HexDataPlotter:
 
         # File selection frame - Dataset 2
         file_frame2 = tk.Frame(main_frame)
-        file_frame2.pack(fill=tk.X, pady=(0, 20))
+        file_frame2.pack(fill=tk.X, pady=(0, 10))
         
         tk.Label(file_frame2, text="Soubor 2:").pack(side=tk.LEFT, padx=(0, 8))
         self.file_path_var2 = tk.StringVar()
@@ -58,6 +64,20 @@ class HexDataPlotter:
         browse_btn2.pack(side=tk.LEFT, padx=(0, 8))
         load_btn2 = tk.Button(file_frame2, text="Načíst 2", command=lambda: self.load_and_convert(2))
         load_btn2.pack(side=tk.LEFT)
+
+        # File selection frame - Dataset 3
+        file_frame3 = tk.Frame(main_frame)
+        file_frame3.pack(fill=tk.X, pady=(0, 20))
+        
+        tk.Label(file_frame3, text="Soubor 3:").pack(side=tk.LEFT, padx=(0, 8))
+        self.file_path_var3 = tk.StringVar()
+        file_entry3 = tk.Entry(file_frame3, textvariable=self.file_path_var3, width=45)
+        file_entry3.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(0, 8))
+        
+        browse_btn3 = tk.Button(file_frame3, text="Procházet", command=lambda: self.browse_file(3))
+        browse_btn3.pack(side=tk.LEFT, padx=(0, 8))
+        load_btn3 = tk.Button(file_frame3, text="Načíst 3", command=lambda: self.load_and_convert(3))
+        load_btn3.pack(side=tk.LEFT)
         
         # Options frame
         options_frame = tk.Frame(main_frame)
@@ -150,6 +170,21 @@ class HexDataPlotter:
         status_label = tk.Label(main_frame, textvariable=self.status_var, fg="blue")
         status_label.pack()
         
+    def auto_fill_file_paths(self):
+        """Automaticky předvyplní názvy souborů do načítacích kolonek"""
+        import os
+        
+        # Získáme aktuální adresář
+        current_dir = os.getcwd()
+        
+        # Předvyplníme názvy souborů
+        self.file_path_var1.set(os.path.join(current_dir, "sin_1.txt"))
+        self.file_path_var2.set(os.path.join(current_dir, "sin_2.txt"))
+        self.file_path_var3.set(os.path.join(current_dir, "deg.txt"))
+        
+        # Aktualizujeme status
+        self.status_var.set("Soubory předvyplněny: sin_1.txt, sin_2.txt, deg.txt")
+        
     def toggle_byte_order(self):
         """Show/hide byte order options based on data type selection"""
         if self.data_type_var.get() in ["unsigned16", "signed16", "unsigned32", "signed32"]:
@@ -165,12 +200,20 @@ class HexDataPlotter:
         if file_path:
             if which == 1:
                 self.file_path_var1.set(file_path)
-            else:
+            elif which == 2:
                 self.file_path_var2.set(file_path)
+            else:  # which == 3
+                self.file_path_var3.set(file_path)
             self.status_var.set(f"Vybraný soubor {which}: {os.path.basename(file_path)}")
             
     def load_and_convert(self, which: int):
-        file_path = self.file_path_var1.get() if which == 1 else self.file_path_var2.get()
+        if which == 1:
+            file_path = self.file_path_var1.get()
+        elif which == 2:
+            file_path = self.file_path_var2.get()
+        else:  # which == 3
+            file_path = self.file_path_var3.get()
+            
         if not file_path:
             messagebox.showerror("Chyba", f"Vyberte prosím soubor {which}")
             return
@@ -217,9 +260,17 @@ class HexDataPlotter:
             if which == 1:
                 self.decimal_data1 = []
                 self.hex_data1 = []
-            else:
+            elif which == 2:
                 self.decimal_data2 = []
                 self.hex_data2 = []
+            else:  # which == 3
+                self.decimal_data3 = []
+                self.hex_data3 = []
+            
+            # Speciální parsování pro třetí dataset (deg.txt) - IEEE-754 float
+            if which == 3:
+                self.parse_ieee754_float(hex_strings, which)
+                return
             
             # Check if we need to combine bytes (for 16-bit or 32-bit values)
             combine_bytes = self.data_type_var.get() in ["unsigned16", "signed16", "unsigned32", "signed32"]
@@ -279,9 +330,12 @@ class HexDataPlotter:
                         if which == 1:
                             self.decimal_data1.append(hex_value)
                             self.hex_data1.append(hex_display)
-                        else:
+                        elif which == 2:
                             self.decimal_data2.append(hex_value)
                             self.hex_data2.append(hex_display)
+                        else:  # which == 3
+                            self.decimal_data3.append(hex_value)
+                            self.hex_data3.append(hex_display)
                         
                     except ValueError:
                         continue
@@ -302,9 +356,12 @@ class HexDataPlotter:
                                 if which == 1:
                                     self.decimal_data1.append(hex_value)
                                     self.hex_data1.append(hex_str)
-                                else:
+                                elif which == 2:
                                     self.decimal_data2.append(hex_value)
                                     self.hex_data2.append(hex_str)
+                                else:  # which == 3
+                                    self.decimal_data3.append(hex_value)
+                                    self.hex_data3.append(hex_str)
                     except ValueError:
                         pass
             else:
@@ -337,22 +394,30 @@ class HexDataPlotter:
                         if which == 1:
                             self.decimal_data1.append(hex_value)
                             self.hex_data1.append(hex_str)
-                        else:
+                        elif which == 2:
                             self.decimal_data2.append(hex_value)
                             self.hex_data2.append(hex_str)
+                        else:  # which == 3
+                            self.decimal_data3.append(hex_value)
+                            self.hex_data3.append(hex_str)
                         
                     except ValueError:
                         continue
                     
-            loaded = len(self.decimal_data1) if which == 1 else len(self.decimal_data2)
+            if which == 1:
+                loaded = len(self.decimal_data1)
+                preview = ", ".join(self.hex_data1[:5]) + ("..." if len(self.hex_data1) > 5 else "")
+            elif which == 2:
+                loaded = len(self.decimal_data2)
+                preview = ", ".join(self.hex_data2[:5]) + ("..." if len(self.hex_data2) > 5 else "")
+            else:  # which == 3
+                loaded = len(self.decimal_data3)
+                preview = ", ".join(self.hex_data3[:5]) + ("..." if len(self.hex_data3) > 5 else "")
+                
             if loaded:
-                if which == 1:
-                    preview = ", ".join(self.hex_data1[:5]) + ("..." if len(self.hex_data1) > 5 else "")
-                else:
-                    preview = ", ".join(self.hex_data2[:5]) + ("..." if len(self.hex_data2) > 5 else "")
                 self.status_var.set(f"Soubor {which}: načteno {loaded} hodnot. HEX: {preview}")
                 # Enable plot if at least one dataset is loaded
-                if len(self.decimal_data1) or len(self.decimal_data2):
+                if len(self.decimal_data1) or len(self.decimal_data2) or len(self.decimal_data3):
                     self.plot_button.config(state=tk.NORMAL)
                 # Status message without popup window
             else:
@@ -362,9 +427,46 @@ class HexDataPlotter:
         except Exception as e:
             messagebox.showerror("Chyba", f"Chyba při načítání souboru: {str(e)}")
             self.status_var.set("Chyba při načítání souboru")
+    
+    def parse_ieee754_float(self, hex_strings, which):
+        """Parsuje hex stringy jako 32-bit IEEE-754 float v little-endian formátu"""
+        print(f"DEBUG: Parsování IEEE-754 float pro dataset {which}")
+        
+        # Procházíme hex stringy po 4 bytech (32-bit float)
+        for i in range(0, len(hex_strings) - 3, 4):
+            try:
+                # Získáme 4 byty pro 32-bit float
+                byte1 = int(hex_strings[i].replace('0x', '').replace('0X', '').replace('h', '').replace('H', ''), 16)
+                byte2 = int(hex_strings[i+1].replace('0x', '').replace('0X', '').replace('h', '').replace('H', ''), 16)
+                byte3 = int(hex_strings[i+2].replace('0x', '').replace('0X', '').replace('h', '').replace('H', ''), 16)
+                byte4 = int(hex_strings[i+3].replace('0x', '').replace('0X', '').replace('h', '').replace('H', ''), 16)
+                
+                # Vytvoříme bytes objekt pro little-endian
+                bytes_data = bytes([byte1, byte2, byte3, byte4])
+                
+                # Parsujeme jako IEEE-754 float (little-endian)
+                float_value = struct.unpack('<f', bytes_data)[0]
+                
+                # Vytvoříme hex display (little-endian pořadí)
+                hex_display = f"{byte1:02X}{byte2:02X}{byte3:02X}{byte4:02X}"
+                
+                # Uložíme do příslušného datasetu
+                if which == 3:
+                    self.decimal_data3.append(float_value)
+                    self.hex_data3.append(hex_display)
+                
+                # Debug výpis pro prvních několik hodnot
+                if len(self.decimal_data3) <= 5:
+                    print(f"DEBUG: IEEE-754 - byty: {byte1:02X} {byte2:02X} {byte3:02X} {byte4:02X} → float: {float_value}")
+                
+            except (ValueError, IndexError) as e:
+                print(f"DEBUG: Chyba při parsování IEEE-754 na pozici {i}: {e}")
+                continue
+        
+        print(f"DEBUG: IEEE-754 parsování dokončeno - načteno {len(self.decimal_data3)} hodnot")
             
     def plot_data(self):
-        if not (self.decimal_data1 or self.decimal_data2):
+        if not (self.decimal_data1 or self.decimal_data2 or self.decimal_data3):
             messagebox.showerror("Chyba", "Nejsou k dispozici žádná data pro zobrazení")
             return
             
@@ -389,9 +491,6 @@ class HexDataPlotter:
             lines.append(line1)
             labels.append(f'Data 1 (prvních 10000 z {len(self.decimal_data1)})')
             
-            # Zvýraznění bodů s hysterezí ≤ 40 pro dataset 1
-            self.highlight_low_hysteresis_points(ax, plot_data1, 'Data 1')
-            
         # Plot dataset 2 if available (only first 10000 samples, all values shown)
         if self.decimal_data2:
             # Limit to first 10000 samples, show all values
@@ -400,14 +499,23 @@ class HexDataPlotter:
             lines.append(line2)
             labels.append(f'Data 2 (prvních 10000 z {len(self.decimal_data2)})')
             
-            # Zvýraznění bodů s hysterezí ≤ 40 pro dataset 2
-            self.highlight_low_hysteresis_points(ax, plot_data2, 'Data 2')
+        # Plot dataset 3 if available (only first 10000 samples, all values shown)
+        if self.decimal_data3:
+            # Limit to first 10000 samples, show all values
+            plot_data3 = self.decimal_data3[:10000]
+            # Posuneme data o 2050 jednotek nahoru na ose Y
+            plot_data3_offset = [y + 2050 for y in plot_data3]
+            line3, = ax.plot(plot_data3_offset, '-', color='tab:green', linewidth=1, marker='^', markersize=3)
+            lines.append(line3)
+            labels.append(f'Data 3 (prvních 10000 z {len(self.decimal_data3)}) + 2050')
 
         title_counts = []
         if self.decimal_data1:
             title_counts.append(str(len(self.decimal_data1)))
         if self.decimal_data2:
             title_counts.append(str(len(self.decimal_data2)))
+        if self.decimal_data3:
+            title_counts.append(str(len(self.decimal_data3)))
         ax.set_title('HEX Data Converted to Decimal (' + ' + '.join(title_counts) + ' values)')
         ax.set_xlabel('Index')
         ax.set_ylabel('Decimal Value')
@@ -419,6 +527,8 @@ class HexDataPlotter:
             combined.extend(self.decimal_data1)
         if self.decimal_data2:
             combined.extend(self.decimal_data2)
+        if self.decimal_data3:
+            combined.extend(self.decimal_data3)
         mean_val = np.mean(combined)
         std_val = np.std(combined)
         min_val = np.min(combined)
@@ -430,23 +540,12 @@ class HexDataPlotter:
         
         # Enable zoom and pan - limit to first 10000 samples
         max_len = min(10000, max(len(self.decimal_data1) if self.decimal_data1 else 0,
-                      len(self.decimal_data2) if self.decimal_data2 else 0))
+                      len(self.decimal_data2) if self.decimal_data2 else 0,
+                      len(self.decimal_data3) if self.decimal_data3 else 0))
         ax.set_xlim(0, max_len - 1)
         
         if lines:
-            # Získáme všechny legendové položky
-            all_handles = lines.copy()
-            all_labels = labels.copy()
-            
-            # Přidáme legendu pro zelené body (pouze jednou)
-            if self.decimal_data1 or self.decimal_data2:
-                from matplotlib.lines import Line2D
-                all_handles.append(Line2D([], [], color='lime', marker='o', markersize=8, 
-                                        markeredgecolor='darkgreen', markeredgewidth=2, 
-                                        markerfacecolor='lime', linestyle=''))
-                all_labels.append('Hystereze ≤ 40 (7 bodů)')
-            
-            ax.legend(all_handles, all_labels)
+            ax.legend(lines, labels)
         
         # Add zoom instructions
         ax.text(0.02, 0.02, 'Použijte myš pro zoom a pan', transform=ax.transAxes,
@@ -494,11 +593,9 @@ class HexDataPlotter:
             if i < 10:
                 print(f"DEBUG: {dataset_name} - index {i}: body {last_7_points}, hystereze {hysteresis:.2f}")
             
-            # Pokud je hystereze do 40, zvýrazníme 7. bod (aktuální bod) zeleně
+            # Pokud je hystereze do 40, počítáme bod (ale nevykreslujeme)
             if hysteresis <= 40:
                 print(f"DEBUG: {dataset_name} - NALEZEN! index {i}: hystereze {hysteresis:.2f} ≤ 40")
-                ax.plot(i, data[i], 'go', markersize=8, markeredgecolor='darkgreen', 
-                       markeredgewidth=2, markerfacecolor='lime')
                 highlighted_count += 1
         
         print(f"DEBUG: {dataset_name} - celkem zvýrazněno {highlighted_count} bodů")
@@ -580,18 +677,18 @@ class HexDataPlotter:
             
             text1.config(state=tk.DISABLED)  # Make read-only
         
-        # Dataset 2 text widget - RIGHT SIDE
+        # Dataset 2 text widget - MIDDLE SIDE
         if self.decimal_data2:
-            # Right frame for Data 2
-            right_data_frame = tk.Frame(horizontal_frame)
-            right_data_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=(5, 0))
+            # Middle frame for Data 2
+            middle_data_frame = tk.Frame(horizontal_frame)
+            middle_data_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(5, 5))
             
             # Title
-            tk.Label(right_data_frame, text=f"Data 2 - Prvních 10000 hodnot", 
+            tk.Label(middle_data_frame, text=f"Data 2 - Prvních 10000 hodnot", 
                     font=("Arial", 14, "bold")).pack(anchor=tk.W)
             
             # Text widget with scrollbar
-            text_frame2 = tk.Frame(right_data_frame)
+            text_frame2 = tk.Frame(middle_data_frame)
             text_frame2.pack(fill=tk.BOTH, expand=True, pady=(5, 10))
             
             text2 = tk.Text(text_frame2, width=15, height=30, font=("Arial", 11))
@@ -607,6 +704,34 @@ class HexDataPlotter:
                 text2.insert(tk.END, f"{self.decimal_data2[i]}\n")
             
             text2.config(state=tk.DISABLED)  # Make read-only
+        
+        # Dataset 3 text widget - RIGHT SIDE
+        if self.decimal_data3:
+            # Right frame for Data 3
+            right_data_frame = tk.Frame(horizontal_frame)
+            right_data_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=(5, 0))
+            
+            # Title
+            tk.Label(right_data_frame, text=f"Data 3 - Prvních 10000 hodnot", 
+                    font=("Arial", 14, "bold")).pack(anchor=tk.W)
+            
+            # Text widget with scrollbar
+            text_frame3 = tk.Frame(right_data_frame)
+            text_frame3.pack(fill=tk.BOTH, expand=True, pady=(5, 10))
+            
+            text3 = tk.Text(text_frame3, width=15, height=30, font=("Arial", 11))
+            scrollbar3 = tk.Scrollbar(text_frame3, orient=tk.VERTICAL, command=text3.yview)
+            text3.configure(yscrollcommand=scrollbar3.set)
+            
+            text3.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+            scrollbar3.pack(side=tk.RIGHT, fill=tk.Y)
+            
+            # Insert data values - up to 10000 values
+            max_rows = min(10000, len(self.decimal_data3))
+            for i in range(max_rows):
+                text3.insert(tk.END, f"{self.decimal_data3[i]}\n")
+            
+            text3.config(state=tk.DISABLED)  # Make read-only
         
         # Instructions
         tk.Label(right_frame, text="Hodnoty lze kopírovat pomocí Ctrl+C (zobrazuje až 10000 hodnot)", 
@@ -653,6 +778,17 @@ class HexDataPlotter:
                         closest_distance = distance
                         closest_point = (i, y)
                         dataset_info = f"Data 2: Index {i}, HEX: {self.hex_data2[i] if i < len(self.hex_data2) else 'N/A'}, Decimal: {y}"
+            
+            # Check dataset 3
+            if self.decimal_data3:
+                for i, y in enumerate(self.decimal_data3):
+                    # Pro dataset 3 musíme zohlednit offset +2050
+                    y_offset = y + 2050
+                    distance = abs(i - x_mouse) + abs(y_offset - y_mouse) * 0.1  # Weight y-distance less
+                    if distance < closest_distance:
+                        closest_distance = distance
+                        closest_point = (i, y_offset)
+                        dataset_info = f"Data 3: Index {i}, HEX: {self.hex_data3[i] if i < len(self.hex_data3) else 'N/A'}, Decimal: {y} (zobrazeno: {y_offset})"
             
             # Show tooltip if we found a close point
             if closest_point and closest_distance < 1.5:  # Threshold for "close enough"
