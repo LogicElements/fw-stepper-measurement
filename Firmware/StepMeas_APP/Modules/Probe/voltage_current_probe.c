@@ -43,28 +43,29 @@ typedef enum
     CAPT_DONE
 } capture_state_t;
 
+/* --- obecná struktura filtru --- */
+#define MOVAVG_LEN 3
+typedef struct {
+    float exp_avg;
+    float movavg_buf[MOVAVG_LEN];
+    uint8_t movavg_index;
+    uint8_t movavg_count;
+    uint8_t initialized;
+    float last_value;
+} Filter_t;
+
 /* Private variables ---------------------------------------------------------*/
 static volatile capture_state_t capture_state = CAPT_WAIT_TRIGGER;
 static volatile uint32_t capture_count = 0;
 static uint16_t capture_buffer[CAPTURE_SAMPLES];         // hlavní kanál
 static uint16_t capture_buffer_ch2[CAPTURE_SAMPLES];     // extra kanál
-static float capture_buffer_angle[CAPTURE_SAMPLES]; // nový buffer pro úhel (deg)
+static float capture_buffer_angle[CAPTURE_SAMPLES];    // buffer pro úhel ve stupních
 static volatile uint8_t capture_ready = 0;
+int16_t angle_deg = 0;
 
-/* --- filtr pro hlavní kanál --- */
-#define MOVAVG_LEN 3
-static float exp_avg = 0.0f;
-static float movavg_buf[MOVAVG_LEN];
-static uint8_t movavg_index = 0;
-static uint8_t movavg_count = 0;
-static uint8_t custom_filt_init = 0;
-
-/* --- filtr pro extra kanál --- */
-static float exp_avg_ch2 = 0.0f;
-static float movavg_buf_ch2[MOVAVG_LEN];
-static uint8_t movavg_index_ch2 = 0;
-static uint8_t movavg_count_ch2 = 0;
-static uint8_t custom_filt_init_ch2 = 0;
+/* Dva filtry – hlavní a extra */
+static Filter_t filter_main;
+static Filter_t filter_extra;
 
 /* Structures ----------------------------------------------------------------*/
 typedef struct
@@ -111,15 +112,15 @@ uint16_t adc_ready_counter = 0;
 /* Private prototypes --------------------------------------------------------*/
 void Probe_InitHAL(void);
 static inline void Capture_HandleSample(uint16_t adc_sample[]);
-static inline uint16_t custom_filter_step(uint16_t x);
-static inline void custom_filter_reset(void);
-static inline uint16_t custom_filter_step_ch2(uint16_t x);
-static inline void custom_filter_reset_ch2(void);
+static inline void Filter_Reset(Filter_t *f);
+static inline uint16_t Filter_Step(Filter_t *f, uint16_t x);
 
 /* Public functions ----------------------------------------------------------*/
 void Probe_Init(void)
 {
     Probe_InitHAL();
+    Filter_Reset(&filter_main);
+    Filter_Reset(&filter_extra);
 }
 
 void Probe_Handle(void)
@@ -138,105 +139,53 @@ void Probe_InitHAL(void)
     }
 }
 
-static inline void custom_filter_reset(void)
+/* Obecné funkce pro filtr */
+static inline void Filter_Reset(Filter_t *f)
 {
-    custom_filt_init = 0;
-    movavg_index = 0;
-    movavg_count = 0;
-    exp_avg = 0.0f;
+    f->exp_avg = 0.0f;
+    f->movavg_index = 0;
+    f->movavg_count = 0;
+    f->initialized = 0;
+    f->last_value = 0.0f;
 }
 
-static inline uint16_t custom_filter_step(uint16_t x)
+static inline uint16_t Filter_Step(Filter_t *f, uint16_t x)
 {
-    static float last_value = 0.0f;
-
-    if (!custom_filt_init)
+    if (!f->initialized)
     {
-        exp_avg = (float) x;
-        last_value = exp_avg;
-        custom_filt_init = 1;
-        movavg_buf[0] = exp_avg;
-        movavg_index = 1;
-        movavg_count = 1;
-        return (uint16_t) exp_avg;
+        f->exp_avg = (float)x;
+        f->last_value = f->exp_avg;
+        f->initialized = 1;
+        f->movavg_buf[0] = f->exp_avg;
+        f->movavg_index = 1;
+        f->movavg_count = 1;
+        return (uint16_t)f->exp_avg;
     }
     else
     {
-        exp_avg = (0.7f * exp_avg) + (0.3f * (float) x);
+        f->exp_avg = (0.9f * f->exp_avg) + (0.1f * (float)x);
     }
 
-    float diff = fabsf(exp_avg - last_value);
+    float diff = fabsf(f->exp_avg - f->last_value);
 
     if (diff <= 25.0f)
     {
-        movavg_buf[movavg_index] = exp_avg;
-        movavg_index = (movavg_index + 1) % MOVAVG_LEN;
-        if (movavg_count < MOVAVG_LEN)
-            movavg_count++;
+        f->movavg_buf[f->movavg_index] = f->exp_avg;
+        f->movavg_index = (f->movavg_index + 1) % MOVAVG_LEN;
+        if (f->movavg_count < MOVAVG_LEN) f->movavg_count++;
 
         float sum = 0.0f;
-        for (uint8_t i = 0; i < movavg_count; i++)
-            sum += movavg_buf[i];
+        for (uint8_t i = 0; i < f->movavg_count; i++)
+            sum += f->movavg_buf[i];
 
-        last_value = sum / movavg_count;
+        f->last_value = sum / f->movavg_count;
     }
     else
     {
-        last_value = exp_avg;
+        f->last_value = f->exp_avg;
     }
 
-    return (uint16_t) last_value;
-}
-
-/* --- filtr pro extra kanál --- */
-static inline void custom_filter_reset_ch2(void)
-{
-    custom_filt_init_ch2 = 0;
-    movavg_index_ch2 = 0;
-    movavg_count_ch2 = 0;
-    exp_avg_ch2 = 0.0f;
-}
-
-static inline uint16_t custom_filter_step_ch2(uint16_t x)
-{
-    static float last_value_ch2 = 0.0f;
-
-    if (!custom_filt_init_ch2)
-    {
-        exp_avg_ch2 = (float) x;
-        last_value_ch2 = exp_avg_ch2;
-        custom_filt_init_ch2 = 1;
-        movavg_buf_ch2[0] = exp_avg_ch2;
-        movavg_index_ch2 = 1;
-        movavg_count_ch2 = 1;
-        return (uint16_t) exp_avg_ch2;
-    }
-    else
-    {
-        exp_avg_ch2 = (0.7f * exp_avg_ch2) + (0.3f * (float) x);
-    }
-
-    float diff = fabsf(exp_avg_ch2 - last_value_ch2);
-
-    if (diff <= 25.0f)
-    {
-        movavg_buf_ch2[movavg_index_ch2] = exp_avg_ch2;
-        movavg_index_ch2 = (movavg_index_ch2 + 1) % MOVAVG_LEN;
-        if (movavg_count_ch2 < MOVAVG_LEN)
-            movavg_count_ch2++;
-
-        float sum = 0.0f;
-        for (uint8_t i = 0; i < movavg_count_ch2; i++)
-            sum += movavg_buf_ch2[i];
-
-        last_value_ch2 = sum / movavg_count_ch2;
-    }
-    else
-    {
-        last_value_ch2 = exp_avg_ch2;
-    }
-
-    return (uint16_t) last_value_ch2;
+    return (uint16_t)f->last_value;
 }
 
 /* ADC measurement start -----------------------------------------------------*/
@@ -256,21 +205,18 @@ void StartAdcMeasurement(void)
     }
 }
 
-
-
+/* Capture handler -----------------------------------------------------------*/
 static inline void Capture_HandleSample(uint16_t adc_sample[])
 {
     uint16_t raw_main  = adc_sample[MONITOR_CHANNEL];
     uint16_t raw_extra = adc_sample[EXTRA_CHANNEL];
 
-    // filtrované hodnoty
-    uint16_t filt_main  = custom_filter_step(raw_main);
-    uint16_t filt_extra = custom_filter_step_ch2(raw_extra);
+    uint16_t filt_main  = Filter_Step(&filter_main, raw_main);
+    uint16_t filt_extra = Filter_Step(&filter_extra, raw_extra);
 
-    // úhel počítáme z RAW hodnot (odečtený střed), výstup ve STUPNÍCH
     float angle_rad = atan2f((float)raw_main - MIDDLE_VALUE,
                              (float)raw_extra - MIDDLE_VALUE);
-    int16_t angle_deg = (int16_t)(angle_rad * (180.0f / M_PI));
+    angle_deg= (int16_t)(angle_rad * (180.0f / M_PI));
 
     switch (capture_state)
     {
@@ -279,18 +225,18 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
             {
                 capture_state = CAPT_CAPTURING;
                 capture_count = 0;
-                custom_filter_reset();
-                custom_filter_reset_ch2();
+                Filter_Reset(&filter_main);
+                Filter_Reset(&filter_extra);
 
-                filt_main  = custom_filter_step(raw_main);
-                filt_extra = custom_filter_step_ch2(raw_extra);
+                filt_main  = Filter_Step(&filter_main, raw_main);
+                filt_extra = Filter_Step(&filter_extra, raw_extra);
                 angle_rad  = atan2f((float)raw_main - MIDDLE_VALUE,
                                     (float)raw_extra - MIDDLE_VALUE);
                 angle_deg  = (int16_t)(angle_rad * (180.0f / M_PI));
 
                 capture_buffer[capture_count]       = filt_main;
                 capture_buffer_ch2[capture_count]   = filt_extra;
-                capture_buffer_angle[capture_count] = angle_deg; // uložit °
+                capture_buffer_angle[capture_count] = angle_deg;
 
                 capture_count++;
             }
@@ -299,15 +245,15 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
         case CAPT_CAPTURING:
             if (capture_count < CAPTURE_SAMPLES)
             {
-                filt_main  = custom_filter_step(raw_main);
-                filt_extra = custom_filter_step_ch2(raw_extra);
-                angle_rad  = atan2f((float)raw_main - MIDDLE_VALUE,
-                                    (float)raw_extra - MIDDLE_VALUE);
+                filt_main  = Filter_Step(&filter_main, raw_main);
+                filt_extra = Filter_Step(&filter_extra, raw_extra);
+                angle_rad  = atan2f((float)filt_main - MIDDLE_VALUE,
+                                    (float)filt_extra - MIDDLE_VALUE);
                 angle_deg  = (int16_t)(angle_rad * (180.0f / M_PI));
 
                 capture_buffer[capture_count]       = filt_main;
                 capture_buffer_ch2[capture_count]   = filt_extra;
-                capture_buffer_angle[capture_count] = angle_deg; // uložit °
+                capture_buffer_angle[capture_count] = angle_deg;
 
                 capture_count++;
 
@@ -328,36 +274,17 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
 /* Conversion and processing -------------------------------------------------*/
 void ProcessMotorSteps(uint16_t adc_sample[])
 {
-    int16_t I1 = probe.motor2.current._A - MIDDLE_VALUE;
-    int16_t I2 = probe.motor2.current._B - MIDDLE_VALUE;
 
-    float angle_rad = atan2f((float) I1, (float) I2);
-    float angle_deg = angle_rad * (180.0f / M_PI);
-    (void) angle_deg; // pokud nepoužíváš, aby nezůstal warning
-
-    adc_ready = 1;
 }
 
-void ADC_Conversion(uint16_t _adc_values[])
-{
-    probe.motor1.current._A = _adc_values[ADC_CHANNEL_IA1];
-    probe.motor1.current._B = _adc_values[ADC_CHANNEL_IB1];
-    probe.motor1.voltage._A = _adc_values[ADC_CHANNEL_VA1];
-    probe.motor1.voltage._B = _adc_values[ADC_CHANNEL_VB1];
-    probe.motor2.current._A = _adc_values[ADC_CHANNEL_IA2];
-    probe.motor2.current._B = _adc_values[ADC_CHANNEL_IB2];
-    probe.motor2.voltage._A = _adc_values[ADC_CHANNEL_VA2];
-    probe.motor2.voltage._B = _adc_values[ADC_CHANNEL_VB2];
-}
+
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
 {
     if (hadc->Instance == ADC1)
     {
-        ADC_Conversion(adc_values);
 
         Capture_HandleSample(adc_values);
-
         adc_ready = 1;
     }
 }

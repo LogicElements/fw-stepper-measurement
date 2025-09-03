@@ -156,6 +156,24 @@ class HexDataPlotter:
         # Initially hide byte order frame
         self.byte_order_frame.pack_forget()
         
+        # Dataset visibility controls
+        visibility_frame = tk.Frame(main_frame)
+        visibility_frame.pack(fill=tk.X, pady=(0, 10))
+        
+        tk.Label(visibility_frame, text="Zobrazení datasetů:", font=("Arial", 12, "bold")).pack(anchor=tk.W)
+        
+        checkbox_frame = tk.Frame(visibility_frame)
+        checkbox_frame.pack(fill=tk.X, pady=(5, 0))
+        
+        # Checkboxy pro zobrazení datasetů
+        self.show_data1_var = tk.BooleanVar(value=True)
+        self.show_data2_var = tk.BooleanVar(value=True)
+        self.show_data3_var = tk.BooleanVar(value=True)
+        
+        tk.Checkbutton(checkbox_frame, text="Data 1 (modrá)", variable=self.show_data1_var).pack(side=tk.LEFT, padx=(0, 20))
+        tk.Checkbutton(checkbox_frame, text="Data 2 (oranžová)", variable=self.show_data2_var).pack(side=tk.LEFT, padx=(0, 20))
+        tk.Checkbutton(checkbox_frame, text="Data 3 (zelená + 2050)", variable=self.show_data3_var).pack(side=tk.LEFT)
+
         # Buttons frame
         button_frame = tk.Frame(main_frame)
         button_frame.pack(fill=tk.X, pady=(0, 20))
@@ -481,26 +499,26 @@ class HexDataPlotter:
         # Main plot
         ax = plt.subplot(111)
         
-        # Plot dataset 1 if available (only first 10000 samples, all values shown)
+        # Plot dataset 1 if available and enabled (only first 10000 samples, all values shown)
         lines = []
         labels = []
-        if self.decimal_data1:
+        if self.decimal_data1 and self.show_data1_var.get():
             # Limit to first 10000 samples, show all values
             plot_data1 = self.decimal_data1[:10000]
             line1, = ax.plot(plot_data1, '-', color='tab:blue', linewidth=1, marker='o', markersize=3)
             lines.append(line1)
             labels.append(f'Data 1 (prvních 10000 z {len(self.decimal_data1)})')
             
-        # Plot dataset 2 if available (only first 10000 samples, all values shown)
-        if self.decimal_data2:
+        # Plot dataset 2 if available and enabled (only first 10000 samples, all values shown)
+        if self.decimal_data2 and self.show_data2_var.get():
             # Limit to first 10000 samples, show all values
             plot_data2 = self.decimal_data2[:10000]
             line2, = ax.plot(plot_data2, '-', color='tab:orange', linewidth=1, marker='s', markersize=3)
             lines.append(line2)
             labels.append(f'Data 2 (prvních 10000 z {len(self.decimal_data2)})')
             
-        # Plot dataset 3 if available (only first 10000 samples, all values shown)
-        if self.decimal_data3:
+        # Plot dataset 3 if available and enabled (only first 10000 samples, all values shown)
+        if self.decimal_data3 and self.show_data3_var.get():
             # Limit to first 10000 samples, show all values
             plot_data3 = self.decimal_data3[:10000]
             # Posuneme data o 2050 jednotek nahoru na ose Y
@@ -510,24 +528,29 @@ class HexDataPlotter:
             labels.append(f'Data 3 (prvních 10000 z {len(self.decimal_data3)}) + 2050')
 
         title_counts = []
-        if self.decimal_data1:
+        if self.decimal_data1 and self.show_data1_var.get():
             title_counts.append(str(len(self.decimal_data1)))
-        if self.decimal_data2:
+        if self.decimal_data2 and self.show_data2_var.get():
             title_counts.append(str(len(self.decimal_data2)))
-        if self.decimal_data3:
+        if self.decimal_data3 and self.show_data3_var.get():
             title_counts.append(str(len(self.decimal_data3)))
-        ax.set_title('HEX Data Converted to Decimal (' + ' + '.join(title_counts) + ' values)')
+        
+        if title_counts:
+            ax.set_title('HEX Data Converted to Decimal (' + ' + '.join(title_counts) + ' values)')
+        else:
+            ax.set_title('HEX Data Converted to Decimal (žádná data zobrazena)')
+            
         ax.set_xlabel('Index')
         ax.set_ylabel('Decimal Value')
         ax.grid(True, alpha=0.3)
         
-        # Add some statistics
+        # Add some statistics (pouze pro zobrazené datasety)
         combined = []
-        if self.decimal_data1:
+        if self.decimal_data1 and self.show_data1_var.get():
             combined.extend(self.decimal_data1)
-        if self.decimal_data2:
+        if self.decimal_data2 and self.show_data2_var.get():
             combined.extend(self.decimal_data2)
-        if self.decimal_data3:
+        if self.decimal_data3 and self.show_data3_var.get():
             combined.extend(self.decimal_data3)
         mean_val = np.mean(combined)
         std_val = np.std(combined)
@@ -538,11 +561,18 @@ class HexDataPlotter:
         ax.text(0.02, 0.98, stats_text, transform=ax.transAxes, 
                 verticalalignment='top', bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.8))
         
-        # Enable zoom and pan - limit to first 10000 samples
-        max_len = min(10000, max(len(self.decimal_data1) if self.decimal_data1 else 0,
-                      len(self.decimal_data2) if self.decimal_data2 else 0,
-                      len(self.decimal_data3) if self.decimal_data3 else 0))
-        ax.set_xlim(0, max_len - 1)
+        # Enable zoom and pan - limit to first 10000 samples (pouze zobrazené datasety)
+        max_len = 0
+        if self.decimal_data1 and self.show_data1_var.get():
+            max_len = max(max_len, len(self.decimal_data1))
+        if self.decimal_data2 and self.show_data2_var.get():
+            max_len = max(max_len, len(self.decimal_data2))
+        if self.decimal_data3 and self.show_data3_var.get():
+            max_len = max(max_len, len(self.decimal_data3))
+        
+        max_len = min(10000, max_len)
+        if max_len > 0:
+            ax.set_xlim(0, max_len - 1)
         
         if lines:
             ax.legend(lines, labels)
@@ -761,8 +791,8 @@ class HexDataPlotter:
             closest_distance = float('inf')
             dataset_info = ""
             
-            # Check dataset 1
-            if self.decimal_data1:
+            # Check dataset 1 (pouze pokud je zobrazen)
+            if self.decimal_data1 and self.show_data1_var.get():
                 for i, y in enumerate(self.decimal_data1):
                     distance = abs(i - x_mouse) + abs(y - y_mouse) * 0.1  # Weight y-distance less
                     if distance < closest_distance:
@@ -770,8 +800,8 @@ class HexDataPlotter:
                         closest_point = (i, y)
                         dataset_info = f"Data 1: Index {i}, HEX: {self.hex_data1[i] if i < len(self.hex_data1) else 'N/A'}, Decimal: {y}"
             
-            # Check dataset 2
-            if self.decimal_data2:
+            # Check dataset 2 (pouze pokud je zobrazen)
+            if self.decimal_data2 and self.show_data2_var.get():
                 for i, y in enumerate(self.decimal_data2):
                     distance = abs(i - x_mouse) + abs(y - y_mouse) * 0.1  # Weight y-distance less
                     if distance < closest_distance:
@@ -779,8 +809,8 @@ class HexDataPlotter:
                         closest_point = (i, y)
                         dataset_info = f"Data 2: Index {i}, HEX: {self.hex_data2[i] if i < len(self.hex_data2) else 'N/A'}, Decimal: {y}"
             
-            # Check dataset 3
-            if self.decimal_data3:
+            # Check dataset 3 (pouze pokud je zobrazen)
+            if self.decimal_data3 and self.show_data3_var.get():
                 for i, y in enumerate(self.decimal_data3):
                     # Pro dataset 3 musíme zohlednit offset +2050
                     y_offset = y + 2050
