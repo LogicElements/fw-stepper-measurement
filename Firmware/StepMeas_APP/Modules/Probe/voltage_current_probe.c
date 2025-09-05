@@ -33,7 +33,10 @@
 #define CAPTURE_SAMPLES     10000
 #define TRIGGER_THRESHOLD    2050
 #define MONITOR_CHANNEL      1       // hlavní monitorovaný kanál
-#define EXTRA_CHANNEL        0       // druhý kanál, který také ukládáme
+#define EXTRA_CHANNEL        0
+#define ANGLE_BUFFER_LEN    20
+#define STEP_TOLERANCE 5
+#define STEP_ANGLES_COUNT (sizeof(step_angles)/sizeof(step_angles[0]))
 
 /* Private typedefs ----------------------------------------------------------*/
 typedef enum
@@ -45,7 +48,8 @@ typedef enum
 
 /* --- obecná struktura filtru --- */
 #define MOVAVG_LEN 3
-typedef struct {
+typedef struct
+{
     float exp_avg;
     float movavg_buf[MOVAVG_LEN];
     uint8_t movavg_index;
@@ -59,7 +63,8 @@ static volatile capture_state_t capture_state = CAPT_WAIT_TRIGGER;
 static volatile uint32_t capture_count = 0;
 static uint16_t capture_buffer[CAPTURE_SAMPLES];         // hlavní kanál
 static uint16_t capture_buffer_ch2[CAPTURE_SAMPLES];     // extra kanál
-static float capture_buffer_angle[CAPTURE_SAMPLES];    // buffer pro úhel ve stupních
+static float capture_buffer_angle[CAPTURE_SAMPLES];
+static int32_t capture_buffer_steps[CAPTURE_SAMPLES];// buffer pro úhel ve stupních
 static volatile uint8_t capture_ready = 0;
 int16_t angle_deg = 0;
 
@@ -90,6 +95,28 @@ typedef struct
     int16_t value;
 } Probe_private_t;
 
+typedef enum
+{
+    STEP_IDLE = 0,
+    STEP_ACTIVE
+} step_state_t;
+
+typedef enum
+{
+    DIR_NONE = 0,
+    DIR_CW,     // Clockwise
+    DIR_CCW     // Counter-clockwise
+} rotation_dir_t;
+
+typedef struct
+{
+    int16_t buf[ANGLE_BUFFER_LEN];
+    uint8_t count;
+}AngleBufferFIFO_t;
+
+static AngleBufferFIFO_t angle_buffer;
+
+static step_state_t step_state = STEP_IDLE;
 /* Module variables ----------------------------------------------------------*/
 static Probe_private_t probe;
 extern ADC_HandleTypeDef hadc1;
@@ -108,6 +135,15 @@ uint16_t adc_value = 0;
 uint16_t adc_values[ADC_CHANNEL_COUNT];
 volatile uint8_t adc_ready = 1;
 uint16_t adc_ready_counter = 0;
+
+static int32_t step_count = 0;          // celkový počet kroků
+static int16_t last_step_angle = 9999;  // poslední úhel, který způsobil krok
+
+/* Kontrolní úhly */
+static const int16_t step_angles[] =
+{ 170, 90, 0, -90, -175 };
+
+rotation_dir_t dir = DIR_NONE;
 
 /* Private prototypes --------------------------------------------------------*/
 void Probe_InitHAL(void);
@@ -139,6 +175,54 @@ void Probe_InitHAL(void)
     }
 }
 
+static inline void AngleBufferFIFO_Reset(AngleBufferFIFO_t *ab)
+{
+    ab->count = 0;
+}
+
+/* Přidání nové hodnoty */
+static inline void AngleBufferFIFO_Add(AngleBufferFIFO_t *ab, int16_t angle)
+{
+    // pokud se úhel dostane na hranici, resetujeme
+    if (angle > 175 || angle < -175)
+    {
+        AngleBufferFIFO_Reset(ab);
+        ab->buf[0] = angle;
+        ab->count = 1;
+        return;
+    }
+
+    if (ab->count < ANGLE_BUFFER_LEN)
+    {
+        ab->buf[ab->count++] = angle;
+    }
+    else
+    {
+        for (uint8_t i = 0; i < ANGLE_BUFFER_LEN -1; i++)
+            ab->buf[i] = ab->buf[i + 1];
+
+        ab->buf[ANGLE_BUFFER_LEN -1] = angle;
+    }
+}
+
+/* Detekce směru – porovnání první a poslední hodnoty */
+static rotation_dir_t Detect_RotationDirection(AngleBufferFIFO_t *ab)
+{
+    if (ab->count < ANGLE_BUFFER_LEN)
+        return DIR_NONE;
+
+    int16_t first = ab->buf[0];
+    int16_t last = ab->buf[ab->count - 1];
+
+    int16_t diff = last - first;
+
+    if (diff > 0)
+        return DIR_CW;   // rostoucí
+    if (diff < 0)
+        return DIR_CCW;  // klesající
+    return DIR_NONE;
+}
+
 /* Obecné funkce pro filtr */
 static inline void Filter_Reset(Filter_t *f)
 {
@@ -153,17 +237,17 @@ static inline uint16_t Filter_Step(Filter_t *f, uint16_t x)
 {
     if (!f->initialized)
     {
-        f->exp_avg = (float)x;
+        f->exp_avg = (float) x;
         f->last_value = f->exp_avg;
         f->initialized = 1;
         f->movavg_buf[0] = f->exp_avg;
         f->movavg_index = 1;
         f->movavg_count = 1;
-        return (uint16_t)f->exp_avg;
+        return (uint16_t) f->exp_avg;
     }
     else
     {
-        f->exp_avg = (0.9f * f->exp_avg) + (0.1f * (float)x);
+        f->exp_avg = (0.9f * f->exp_avg) + (0.1f * (float) x);
     }
 
     float diff = fabsf(f->exp_avg - f->last_value);
@@ -172,7 +256,8 @@ static inline uint16_t Filter_Step(Filter_t *f, uint16_t x)
     {
         f->movavg_buf[f->movavg_index] = f->exp_avg;
         f->movavg_index = (f->movavg_index + 1) % MOVAVG_LEN;
-        if (f->movavg_count < MOVAVG_LEN) f->movavg_count++;
+        if (f->movavg_count < MOVAVG_LEN)
+            f->movavg_count++;
 
         float sum = 0.0f;
         for (uint8_t i = 0; i < f->movavg_count; i++)
@@ -185,7 +270,7 @@ static inline uint16_t Filter_Step(Filter_t *f, uint16_t x)
         f->last_value = f->exp_avg;
     }
 
-    return (uint16_t)f->last_value;
+    return (uint16_t) f->last_value;
 }
 
 /* ADC measurement start -----------------------------------------------------*/
@@ -205,18 +290,64 @@ void StartAdcMeasurement(void)
     }
 }
 
+static inline uint8_t Detect_Step(uint16_t main_val, uint16_t extra_val,
+                                  int16_t angle)
+{
+    const int16_t hysteresis = 30;
+
+    /* podmínka: oba kanály kolem středu */
+    if (abs((int16_t) main_val - MIDDLE_VALUE) > hysteresis && abs(
+            (int16_t) extra_val - MIDDLE_VALUE)
+                                                               > hysteresis)
+    {
+
+        step_state = STEP_ACTIVE;
+        return 1;
+
+    }
+    else
+    {
+
+        step_state = STEP_IDLE;
+    }
+
+    return 0;
+}
+static void StepCounter_Update(rotation_dir_t dir, int16_t angle)
+{
+    for (uint8_t i = 0; i < STEP_ANGLES_COUNT; i++)
+    {
+        if (abs(angle - step_angles[i]) <= STEP_TOLERANCE)
+        {
+            // už jsme krok na tomhle úhlu počítali → přeskoč
+            if (last_step_angle == step_angles[i])
+                return;
+
+            // nový krok → přičti/odečti
+            if (dir == DIR_CW)
+                step_count++;
+            else if (dir == DIR_CCW)
+                step_count--;
+
+            last_step_angle = step_angles[i];  // zapamatuj si úhel
+            return;
+        }
+    }
+
+}
+
 /* Capture handler -----------------------------------------------------------*/
 static inline void Capture_HandleSample(uint16_t adc_sample[])
 {
-    uint16_t raw_main  = adc_sample[MONITOR_CHANNEL];
+    uint16_t raw_main = adc_sample[MONITOR_CHANNEL];
     uint16_t raw_extra = adc_sample[EXTRA_CHANNEL];
 
-    uint16_t filt_main  = Filter_Step(&filter_main, raw_main);
+    uint16_t filt_main = Filter_Step(&filter_main, raw_main);
     uint16_t filt_extra = Filter_Step(&filter_extra, raw_extra);
 
-    float angle_rad = atan2f((float)raw_main - MIDDLE_VALUE,
-                             (float)raw_extra - MIDDLE_VALUE);
-    angle_deg= (int16_t)(angle_rad * (180.0f / M_PI));
+    float angle_rad = atan2f((float) raw_main - MIDDLE_VALUE,
+                             (float) raw_extra - MIDDLE_VALUE);
+    angle_deg = (int16_t) (angle_rad * (180.0f / M_PI));
 
     switch (capture_state)
     {
@@ -228,14 +359,14 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
                 Filter_Reset(&filter_main);
                 Filter_Reset(&filter_extra);
 
-                filt_main  = Filter_Step(&filter_main, raw_main);
+                filt_main = Filter_Step(&filter_main, raw_main);
                 filt_extra = Filter_Step(&filter_extra, raw_extra);
-                angle_rad  = atan2f((float)raw_main - MIDDLE_VALUE,
-                                    (float)raw_extra - MIDDLE_VALUE);
-                angle_deg  = (int16_t)(angle_rad * (180.0f / M_PI));
+                angle_rad = atan2f((float) raw_main - MIDDLE_VALUE,
+                                   (float) raw_extra - MIDDLE_VALUE);
+                angle_deg = (int16_t) (angle_rad * (180.0f / M_PI));
 
-                capture_buffer[capture_count]       = filt_main;
-                capture_buffer_ch2[capture_count]   = filt_extra;
+                capture_buffer[capture_count] = filt_main;
+                capture_buffer_ch2[capture_count] = filt_extra;
                 capture_buffer_angle[capture_count] = angle_deg;
 
                 capture_count++;
@@ -245,15 +376,16 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
         case CAPT_CAPTURING:
             if (capture_count < CAPTURE_SAMPLES)
             {
-                filt_main  = Filter_Step(&filter_main, raw_main);
+                filt_main = Filter_Step(&filter_main, raw_main);
                 filt_extra = Filter_Step(&filter_extra, raw_extra);
-                angle_rad  = atan2f((float)filt_main - MIDDLE_VALUE,
-                                    (float)filt_extra - MIDDLE_VALUE);
-                angle_deg  = (int16_t)(angle_rad * (180.0f / M_PI));
+                angle_rad = atan2f((float) filt_main - MIDDLE_VALUE,
+                                   (float) filt_extra - MIDDLE_VALUE);
+                angle_deg = (int16_t) (angle_rad * (180.0f / M_PI));
 
-                capture_buffer[capture_count]       = filt_main;
-                capture_buffer_ch2[capture_count]   = filt_extra;
+                capture_buffer[capture_count] = filt_main;
+                capture_buffer_ch2[capture_count] = filt_extra;
                 capture_buffer_angle[capture_count] = angle_deg;
+                capture_buffer_steps[capture_count] = step_count;
 
                 capture_count++;
 
@@ -269,6 +401,17 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
         default:
             break;
     }
+    if (Detect_Step(filt_main, filt_extra, angle_deg))
+    {
+        AngleBufferFIFO_Add(&angle_buffer, angle_deg);
+
+        dir = Detect_RotationDirection(&angle_buffer);
+
+        if (dir == DIR_CW || dir == DIR_CCW)
+        {
+            StepCounter_Update(dir, angle_deg);
+        }
+    }
 }
 
 /* Conversion and processing -------------------------------------------------*/
@@ -276,8 +419,6 @@ void ProcessMotorSteps(uint16_t adc_sample[])
 {
 
 }
-
-
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
 {

@@ -11,13 +11,15 @@ class HexDataPlotter:
         self.root.title("HEX to Decimal Plotter")
         self.root.geometry("800x600")
         
-        # Data storage for three datasets
+        # Data storage for four datasets
         self.hex_data1 = []
         self.decimal_data1 = []
         self.hex_data2 = []
         self.decimal_data2 = []
         self.hex_data3 = []
         self.decimal_data3 = []
+        self.hex_data4 = []
+        self.decimal_data4 = []
         
         # Setup proper window closing protocol
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
@@ -67,7 +69,7 @@ class HexDataPlotter:
 
         # File selection frame - Dataset 3
         file_frame3 = tk.Frame(main_frame)
-        file_frame3.pack(fill=tk.X, pady=(0, 20))
+        file_frame3.pack(fill=tk.X, pady=(0, 10))
         
         tk.Label(file_frame3, text="Soubor 3:").pack(side=tk.LEFT, padx=(0, 8))
         self.file_path_var3 = tk.StringVar()
@@ -78,6 +80,20 @@ class HexDataPlotter:
         browse_btn3.pack(side=tk.LEFT, padx=(0, 8))
         load_btn3 = tk.Button(file_frame3, text="Načíst 3", command=lambda: self.load_and_convert(3))
         load_btn3.pack(side=tk.LEFT)
+
+        # File selection frame - Dataset 4 (Počítání kroků)
+        file_frame4 = tk.Frame(main_frame)
+        file_frame4.pack(fill=tk.X, pady=(0, 20))
+        
+        tk.Label(file_frame4, text="Soubor 4 (Kroky):").pack(side=tk.LEFT, padx=(0, 8))
+        self.file_path_var4 = tk.StringVar()
+        file_entry4 = tk.Entry(file_frame4, textvariable=self.file_path_var4, width=45)
+        file_entry4.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(0, 8))
+        
+        browse_btn4 = tk.Button(file_frame4, text="Procházet", command=lambda: self.browse_file(4))
+        browse_btn4.pack(side=tk.LEFT, padx=(0, 8))
+        load_btn4 = tk.Button(file_frame4, text="Načíst 4", command=lambda: self.load_and_convert(4))
+        load_btn4.pack(side=tk.LEFT)
         
         # Options frame
         options_frame = tk.Frame(main_frame)
@@ -169,10 +185,12 @@ class HexDataPlotter:
         self.show_data1_var = tk.BooleanVar(value=True)
         self.show_data2_var = tk.BooleanVar(value=True)
         self.show_data3_var = tk.BooleanVar(value=True)
+        self.show_data4_var = tk.BooleanVar(value=True)
         
-        tk.Checkbutton(checkbox_frame, text="Data 1 (modrá)", variable=self.show_data1_var).pack(side=tk.LEFT, padx=(0, 20))
-        tk.Checkbutton(checkbox_frame, text="Data 2 (oranžová)", variable=self.show_data2_var).pack(side=tk.LEFT, padx=(0, 20))
-        tk.Checkbutton(checkbox_frame, text="Data 3 (zelená + 2050)", variable=self.show_data3_var).pack(side=tk.LEFT)
+        tk.Checkbutton(checkbox_frame, text="Data 1 (modrá)", variable=self.show_data1_var).pack(side=tk.LEFT, padx=(0, 15))
+        tk.Checkbutton(checkbox_frame, text="Data 2 (oranžová)", variable=self.show_data2_var).pack(side=tk.LEFT, padx=(0, 15))
+        tk.Checkbutton(checkbox_frame, text="Data 3 (zelená + 2050)", variable=self.show_data3_var).pack(side=tk.LEFT, padx=(0, 15))
+        tk.Checkbutton(checkbox_frame, text="Data 4 (červená - Kroky)", variable=self.show_data4_var).pack(side=tk.LEFT)
 
         # Buttons frame
         button_frame = tk.Frame(main_frame)
@@ -199,9 +217,10 @@ class HexDataPlotter:
         self.file_path_var1.set(os.path.join(current_dir, "sin_1.txt"))
         self.file_path_var2.set(os.path.join(current_dir, "sin_2.txt"))
         self.file_path_var3.set(os.path.join(current_dir, "deg.txt"))
+        self.file_path_var4.set(os.path.join(current_dir, "steps.txt"))
         
         # Aktualizujeme status
-        self.status_var.set("Soubory předvyplněny: sin_1.txt, sin_2.txt, deg.txt")
+        self.status_var.set("Soubory předvyplněny: sin_1.txt, sin_2.txt, deg.txt, steps.txt")
         
     def toggle_byte_order(self):
         """Show/hide byte order options based on data type selection"""
@@ -220,8 +239,10 @@ class HexDataPlotter:
                 self.file_path_var1.set(file_path)
             elif which == 2:
                 self.file_path_var2.set(file_path)
-            else:  # which == 3
+            elif which == 3:
                 self.file_path_var3.set(file_path)
+            else:  # which == 4
+                self.file_path_var4.set(file_path)
             self.status_var.set(f"Vybraný soubor {which}: {os.path.basename(file_path)}")
             
     def load_and_convert(self, which: int):
@@ -229,8 +250,10 @@ class HexDataPlotter:
             file_path = self.file_path_var1.get()
         elif which == 2:
             file_path = self.file_path_var2.get()
-        else:  # which == 3
+        elif which == 3:
             file_path = self.file_path_var3.get()
+        else:  # which == 4
+            file_path = self.file_path_var4.get()
             
         if not file_path:
             messagebox.showerror("Chyba", f"Vyberte prosím soubor {which}")
@@ -281,13 +304,21 @@ class HexDataPlotter:
             elif which == 2:
                 self.decimal_data2 = []
                 self.hex_data2 = []
-            else:  # which == 3
+            elif which == 3:
                 self.decimal_data3 = []
                 self.hex_data3 = []
+            else:  # which == 4
+                self.decimal_data4 = []
+                self.hex_data4 = []
             
             # Speciální parsování pro třetí dataset (deg.txt) - IEEE-754 float
             if which == 3:
                 self.parse_ieee754_float(hex_strings, which)
+                return
+            
+            # Speciální parsování pro čtvrtý dataset (steps.txt) - počítání kroků
+            if which == 4:
+                self.parse_steps_data(hex_strings, which)
                 return
             
             # Check if we need to combine bytes (for 16-bit or 32-bit values)
@@ -351,9 +382,12 @@ class HexDataPlotter:
                         elif which == 2:
                             self.decimal_data2.append(hex_value)
                             self.hex_data2.append(hex_display)
-                        else:  # which == 3
+                        elif which == 3:
                             self.decimal_data3.append(hex_value)
                             self.hex_data3.append(hex_display)
+                        else:  # which == 4
+                            self.decimal_data4.append(hex_value)
+                            self.hex_data4.append(hex_display)
                         
                     except ValueError:
                         continue
@@ -377,9 +411,12 @@ class HexDataPlotter:
                                 elif which == 2:
                                     self.decimal_data2.append(hex_value)
                                     self.hex_data2.append(hex_str)
-                                else:  # which == 3
+                                elif which == 3:
                                     self.decimal_data3.append(hex_value)
                                     self.hex_data3.append(hex_str)
+                                else:  # which == 4
+                                    self.decimal_data4.append(hex_value)
+                                    self.hex_data4.append(hex_str)
                     except ValueError:
                         pass
             else:
@@ -415,9 +452,12 @@ class HexDataPlotter:
                         elif which == 2:
                             self.decimal_data2.append(hex_value)
                             self.hex_data2.append(hex_str)
-                        else:  # which == 3
+                        elif which == 3:
                             self.decimal_data3.append(hex_value)
                             self.hex_data3.append(hex_str)
+                        else:  # which == 4
+                            self.decimal_data4.append(hex_value)
+                            self.hex_data4.append(hex_str)
                         
                     except ValueError:
                         continue
@@ -428,14 +468,17 @@ class HexDataPlotter:
             elif which == 2:
                 loaded = len(self.decimal_data2)
                 preview = ", ".join(self.hex_data2[:5]) + ("..." if len(self.hex_data2) > 5 else "")
-            else:  # which == 3
+            elif which == 3:
                 loaded = len(self.decimal_data3)
                 preview = ", ".join(self.hex_data3[:5]) + ("..." if len(self.hex_data3) > 5 else "")
+            else:  # which == 4
+                loaded = len(self.decimal_data4)
+                preview = ", ".join(self.hex_data4[:5]) + ("..." if len(self.hex_data4) > 5 else "")
                 
             if loaded:
                 self.status_var.set(f"Soubor {which}: načteno {loaded} hodnot. HEX: {preview}")
                 # Enable plot if at least one dataset is loaded
-                if len(self.decimal_data1) or len(self.decimal_data2) or len(self.decimal_data3):
+                if len(self.decimal_data1) or len(self.decimal_data2) or len(self.decimal_data3) or len(self.decimal_data4):
                     self.plot_button.config(state=tk.NORMAL)
                 # Status message without popup window
             else:
@@ -482,9 +525,50 @@ class HexDataPlotter:
                 continue
         
         print(f"DEBUG: IEEE-754 parsování dokončeno - načteno {len(self.decimal_data3)} hodnot")
+    
+    def parse_steps_data(self, hex_strings, which):
+        """Parsuje hex stringy pro počítání kroků - převádí HEX na int32"""
+        print(f"DEBUG: Parsování HEX na int32 kroků pro dataset {which}")
+        
+        # Procházíme hex stringy po 4 bytech (jeden int32 = 4 byty)
+        steps_count = 0
+        
+        for i in range(0, len(hex_strings), 4):  # Po 4 bytech
+            try:
+                # Zkontrolujeme, že máme dostatek bytů
+                if i + 3 >= len(hex_strings):
+                    break
+                
+                # Vezmeme 4 byty a zkombinujeme je
+                byte1 = int(hex_strings[i].replace('0x', '').replace('0X', '').replace('h', '').replace('H', ''), 16)
+                byte2 = int(hex_strings[i+1].replace('0x', '').replace('0X', '').replace('h', '').replace('H', ''), 16)
+                byte3 = int(hex_strings[i+2].replace('0x', '').replace('0X', '').replace('h', '').replace('H', ''), 16)
+                byte4 = int(hex_strings[i+3].replace('0x', '').replace('0X', '').replace('h', '').replace('H', ''), 16)
+                
+                # Zkombinujeme do 32-bit hodnoty (little-endian)
+                # byte1 je nejnižší byte, byte4 je nejvyšší byte
+                combined_hex = f"{byte1:02x}{byte2:02x}{byte3:02x}{byte4:02x}"
+                bytes_data = bytes.fromhex(combined_hex)
+                current_value = struct.unpack('<i', bytes_data)[0]  # little-endian signed int32
+                
+                # Uložíme hodnotu jako krok
+                self.decimal_data4.append(current_value)
+                self.hex_data4.append(f"{byte1:02x} {byte2:02x} {byte3:02x} {byte4:02x}")
+                
+                # Debug výpis pro prvních několik hodnot
+                if len(self.decimal_data4) <= 10:
+                    print(f"DEBUG: HEX krok {i//4}: {byte1} {byte2} {byte3} {byte4} → {current_value}")
+                
+                steps_count += 1
+                
+            except (ValueError, IndexError) as e:
+                print(f"DEBUG: Chyba při parsování HEX kroku na pozici {i}: {e}")
+                continue
+        
+        print(f"DEBUG: Parsování HEX kroků dokončeno - načteno {len(self.decimal_data4)} hodnot")
             
     def plot_data(self):
-        if not (self.decimal_data1 or self.decimal_data2 or self.decimal_data3):
+        if not (self.decimal_data1 or self.decimal_data2 or self.decimal_data3 or self.decimal_data4):
             messagebox.showerror("Chyba", "Nejsou k dispozici žádná data pro zobrazení")
             return
             
@@ -526,6 +610,16 @@ class HexDataPlotter:
             line3, = ax.plot(plot_data3_offset, '-', color='tab:green', linewidth=1, marker='^', markersize=3)
             lines.append(line3)
             labels.append(f'Data 3 (prvních 10000 z {len(self.decimal_data3)}) + 2050')
+            
+        # Plot dataset 4 if available and enabled (only first 10000 samples, all values shown)
+        if self.decimal_data4 and self.show_data4_var.get():
+            # Limit to first 10000 samples, show all values
+            plot_data4 = self.decimal_data4[:10000]
+            # Posuneme data o 2050 jednotek nahoru na ose Y a vynásobíme *30
+            plot_data4_offset = [y * 30 + 2050 for y in plot_data4]
+            line4, = ax.plot(plot_data4_offset, '-', color='tab:red', linewidth=1, marker='D', markersize=3)
+            lines.append(line4)
+            labels.append(f'Data 4 - Kroky (prvních 10000 z {len(self.decimal_data4)}) * 30 + 2050')
 
         title_counts = []
         if self.decimal_data1 and self.show_data1_var.get():
@@ -534,6 +628,8 @@ class HexDataPlotter:
             title_counts.append(str(len(self.decimal_data2)))
         if self.decimal_data3 and self.show_data3_var.get():
             title_counts.append(str(len(self.decimal_data3)))
+        if self.decimal_data4 and self.show_data4_var.get():
+            title_counts.append(str(len(self.decimal_data4)))
         
         if title_counts:
             ax.set_title('HEX Data Converted to Decimal (' + ' + '.join(title_counts) + ' values)')
@@ -552,6 +648,8 @@ class HexDataPlotter:
             combined.extend(self.decimal_data2)
         if self.decimal_data3 and self.show_data3_var.get():
             combined.extend(self.decimal_data3)
+        if self.decimal_data4 and self.show_data4_var.get():
+            combined.extend(self.decimal_data4)
         mean_val = np.mean(combined)
         std_val = np.std(combined)
         min_val = np.min(combined)
@@ -569,6 +667,8 @@ class HexDataPlotter:
             max_len = max(max_len, len(self.decimal_data2))
         if self.decimal_data3 and self.show_data3_var.get():
             max_len = max(max_len, len(self.decimal_data3))
+        if self.decimal_data4 and self.show_data4_var.get():
+            max_len = max(max_len, len(self.decimal_data4))
         
         max_len = min(10000, max_len)
         if max_len > 0:
@@ -735,18 +835,18 @@ class HexDataPlotter:
             
             text2.config(state=tk.DISABLED)  # Make read-only
         
-        # Dataset 3 text widget - RIGHT SIDE
+        # Dataset 3 text widget - THIRD SIDE
         if self.decimal_data3:
-            # Right frame for Data 3
-            right_data_frame = tk.Frame(horizontal_frame)
-            right_data_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=(5, 0))
+            # Third frame for Data 3
+            third_data_frame = tk.Frame(horizontal_frame)
+            third_data_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(5, 5))
             
             # Title
-            tk.Label(right_data_frame, text=f"Data 3 - Prvních 10000 hodnot", 
+            tk.Label(third_data_frame, text=f"Data 3 - Prvních 10000 hodnot", 
                     font=("Arial", 14, "bold")).pack(anchor=tk.W)
             
             # Text widget with scrollbar
-            text_frame3 = tk.Frame(right_data_frame)
+            text_frame3 = tk.Frame(third_data_frame)
             text_frame3.pack(fill=tk.BOTH, expand=True, pady=(5, 10))
             
             text3 = tk.Text(text_frame3, width=15, height=30, font=("Arial", 11))
@@ -762,6 +862,34 @@ class HexDataPlotter:
                 text3.insert(tk.END, f"{self.decimal_data3[i]}\n")
             
             text3.config(state=tk.DISABLED)  # Make read-only
+        
+        # Dataset 4 text widget - RIGHT SIDE
+        if self.decimal_data4:
+            # Right frame for Data 4
+            right_data_frame = tk.Frame(horizontal_frame)
+            right_data_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=(5, 0))
+            
+            # Title
+            tk.Label(right_data_frame, text=f"Data 4 - Kroky (prvních 10000)", 
+                    font=("Arial", 14, "bold")).pack(anchor=tk.W)
+            
+            # Text widget with scrollbar
+            text_frame4 = tk.Frame(right_data_frame)
+            text_frame4.pack(fill=tk.BOTH, expand=True, pady=(5, 10))
+            
+            text4 = tk.Text(text_frame4, width=15, height=30, font=("Arial", 11))
+            scrollbar4 = tk.Scrollbar(text_frame4, orient=tk.VERTICAL, command=text4.yview)
+            text4.configure(yscrollcommand=scrollbar4.set)
+            
+            text4.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+            scrollbar4.pack(side=tk.RIGHT, fill=tk.Y)
+            
+            # Insert data values - up to 10000 values
+            max_rows = min(10000, len(self.decimal_data4))
+            for i in range(max_rows):
+                text4.insert(tk.END, f"{self.decimal_data4[i]}\n")
+            
+            text4.config(state=tk.DISABLED)  # Make read-only
         
         # Instructions
         tk.Label(right_frame, text="Hodnoty lze kopírovat pomocí Ctrl+C (zobrazuje až 10000 hodnot)", 
@@ -819,6 +947,17 @@ class HexDataPlotter:
                         closest_distance = distance
                         closest_point = (i, y_offset)
                         dataset_info = f"Data 3: Index {i}, HEX: {self.hex_data3[i] if i < len(self.hex_data3) else 'N/A'}, Decimal: {y} (zobrazeno: {y_offset})"
+            
+            # Check dataset 4 (pouze pokud je zobrazen)
+            if self.decimal_data4 and self.show_data4_var.get():
+                for i, y in enumerate(self.decimal_data4):
+                    # Pro dataset 4 musíme zohlednit offset +2050 a násobení *30
+                    y_offset = y * 30 + 2050
+                    distance = abs(i - x_mouse) + abs(y_offset - y_mouse) * 0.1  # Weight y-distance less
+                    if distance < closest_distance:
+                        closest_distance = distance
+                        closest_point = (i, y_offset)
+                        dataset_info = f"Data 4 - Kroky: Index {i}, HEX: {self.hex_data4[i] if i < len(self.hex_data4) else 'N/A'}, Krok: {y} (zobrazeno: {y_offset})"
             
             # Show tooltip if we found a close point
             if closest_point and closest_distance < 1.5:  # Threshold for "close enough"

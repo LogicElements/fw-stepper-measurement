@@ -13,7 +13,8 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include <stdint.h>          // uint8_t, uint16_t, uint32_t
+#include <stdint.h>
+#include <stdlib.h>// uint8_t, uint16_t, uint32_t
 #include "stm32f4xx_hal.h"   // HAL handlers
 
 /* Exported defines ----------------------------------------------------------*/
