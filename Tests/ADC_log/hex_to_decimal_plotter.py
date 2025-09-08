@@ -620,6 +620,24 @@ class HexDataPlotter:
             line4, = ax.plot(plot_data4_offset, '-', color='tab:red', linewidth=1, marker='D', markersize=3)
             lines.append(line4)
             labels.append(f'Data 4 - Kroky (prvních 10000 z {len(self.decimal_data4)}) * 30 + 2050')
+            
+            # Najdeme body kde se hodnota změní a zobrazíme je jako velké růžové body na středu sinusovky
+            change_points_x = []
+            change_points_y = []
+            
+            for i in range(1, min(len(self.decimal_data4), 10000)):
+                if self.decimal_data4[i] != self.decimal_data4[i-1]:
+                    change_points_x.append(i)
+                    change_points_y.append(2050)  # Střed sinusovky - konstantní hodnota 2050
+            
+            # Zobrazíme velké růžové body na místech změn
+            if change_points_x:
+                ax.scatter(change_points_x, change_points_y, color='magenta', s=50, alpha=0.8, zorder=5)
+                # Přidáme do legendy
+                from matplotlib.lines import Line2D
+                legend_line = Line2D([0], [0], marker='o', color='magenta', linestyle='None', markersize=8)
+                lines.append(legend_line)
+                labels.append(f'Data 4 - Změny kroků ({len(change_points_x)} změn)')
 
         title_counts = []
         if self.decimal_data1 and self.show_data1_var.get():

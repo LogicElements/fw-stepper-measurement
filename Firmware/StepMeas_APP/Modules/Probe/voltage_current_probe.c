@@ -35,7 +35,7 @@
 #define MONITOR_CHANNEL      1       // hlavní monitorovaný kanál
 #define EXTRA_CHANNEL        0
 #define ANGLE_BUFFER_LEN    20
-#define STEP_TOLERANCE 5
+#define STEP_TOLERANCE 4
 #define STEP_ANGLES_COUNT (sizeof(step_angles)/sizeof(step_angles[0]))
 
 /* Private typedefs ----------------------------------------------------------*/
@@ -64,7 +64,7 @@ static volatile uint32_t capture_count = 0;
 static uint16_t capture_buffer[CAPTURE_SAMPLES];         // hlavní kanál
 static uint16_t capture_buffer_ch2[CAPTURE_SAMPLES];     // extra kanál
 static float capture_buffer_angle[CAPTURE_SAMPLES];
-static int32_t capture_buffer_steps[CAPTURE_SAMPLES];// buffer pro úhel ve stupních
+static int32_t capture_buffer_steps[CAPTURE_SAMPLES]; // buffer pro úhel ve stupních
 static volatile uint8_t capture_ready = 0;
 int16_t angle_deg = 0;
 
@@ -112,7 +112,7 @@ typedef struct
 {
     int16_t buf[ANGLE_BUFFER_LEN];
     uint8_t count;
-}AngleBufferFIFO_t;
+} AngleBufferFIFO_t;
 
 static AngleBufferFIFO_t angle_buffer;
 
@@ -131,6 +131,7 @@ uint32_t IA = 0;
 uint16_t IB = 0;
 uint16_t currentStatus = 1;
 uint16_t adc_value = 0;
+static uint8_t sample_divider = 0;
 
 uint16_t adc_values[ADC_CHANNEL_COUNT];
 volatile uint8_t adc_ready = 1;
@@ -141,7 +142,7 @@ static int16_t last_step_angle = 9999;  // poslední úhel, který způsobil kro
 
 /* Kontrolní úhly */
 static const int16_t step_angles[] =
-{ 170, 90, 0, -90, -175 };
+{ 178, 90, 0, -90, -178 };
 
 rotation_dir_t dir = DIR_NONE;
 
@@ -184,7 +185,7 @@ static inline void AngleBufferFIFO_Reset(AngleBufferFIFO_t *ab)
 static inline void AngleBufferFIFO_Add(AngleBufferFIFO_t *ab, int16_t angle)
 {
     // pokud se úhel dostane na hranici, resetujeme
-    if (angle > 175 || angle < -175)
+    if (angle > 178 || angle < -178)
     {
         AngleBufferFIFO_Reset(ab);
         ab->buf[0] = angle;
@@ -198,10 +199,10 @@ static inline void AngleBufferFIFO_Add(AngleBufferFIFO_t *ab, int16_t angle)
     }
     else
     {
-        for (uint8_t i = 0; i < ANGLE_BUFFER_LEN -1; i++)
+        for (uint8_t i = 0; i < ANGLE_BUFFER_LEN - 1; i++)
             ab->buf[i] = ab->buf[i + 1];
 
-        ab->buf[ANGLE_BUFFER_LEN -1] = angle;
+        ab->buf[ANGLE_BUFFER_LEN - 1] = angle;
     }
 }
 
@@ -320,7 +321,7 @@ static void StepCounter_Update(rotation_dir_t dir, int16_t angle)
         if (abs(angle - step_angles[i]) <= STEP_TOLERANCE)
         {
             // už jsme krok na tomhle úhlu počítali → přeskoč
-            if (last_step_angle == step_angles[i])
+            if (abs(last_step_angle) == abs(step_angles[i]))
                 return;
 
             // nový krok → přičti/odečti
@@ -368,7 +369,7 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
                 capture_buffer[capture_count] = filt_main;
                 capture_buffer_ch2[capture_count] = filt_extra;
                 capture_buffer_angle[capture_count] = angle_deg;
-
+                capture_buffer_steps[capture_count] = step_count;
                 capture_count++;
             }
             break;
@@ -382,17 +383,23 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
                                    (float) filt_extra - MIDDLE_VALUE);
                 angle_deg = (int16_t) (angle_rad * (180.0f / M_PI));
 
-                capture_buffer[capture_count] = filt_main;
-                capture_buffer_ch2[capture_count] = filt_extra;
-                capture_buffer_angle[capture_count] = angle_deg;
-                capture_buffer_steps[capture_count] = step_count;
-
-                capture_count++;
-
-                if (capture_count >= CAPTURE_SAMPLES)
+                sample_divider++;
+                if (sample_divider >= 15)
                 {
-                    capture_state = CAPT_DONE;
-                    capture_ready = 1;
+                    sample_divider = 0;
+
+                    capture_buffer[capture_count] = filt_main;
+                    capture_buffer_ch2[capture_count] = filt_extra;
+                    capture_buffer_angle[capture_count] = angle_deg;
+                    capture_buffer_steps[capture_count] = step_count;
+
+                    capture_count++;
+
+                    if (capture_count >= CAPTURE_SAMPLES)
+                    {
+                        capture_state = CAPT_DONE;
+                        capture_ready = 1;
+                    }
                 }
             }
             break;
@@ -427,6 +434,14 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
 
         Capture_HandleSample(adc_values);
         adc_ready = 1;
+    }
+}
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+    if (GPIO_Pin == button_Pin)   // kontrola, jestli to bylo opravdu od tlačítka
+    {
+        capture_state = CAPT_WAIT_TRIGGER;
+
     }
 }
 
