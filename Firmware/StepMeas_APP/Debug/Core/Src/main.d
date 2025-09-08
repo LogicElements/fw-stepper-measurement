@@ -44,7 +44,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/system_msp.h \
  C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/control.h \
  C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/flash_app.h \
- C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Modules/Probe/voltage_current_probe.h
+ C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Modules/Probe/voltage_current_probe.h \
+ C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Modules/Switch/switch.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -92,3 +93,4 @@ C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP
 C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/control.h:
 C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/flash_app.h:
 C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Modules/Probe/voltage_current_probe.h:
+C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Modules/Switch/switch.h:

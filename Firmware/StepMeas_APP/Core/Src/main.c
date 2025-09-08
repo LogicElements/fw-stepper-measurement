@@ -29,7 +29,7 @@
 #include "control.h"
 #include "flash_app.h"
 #include "voltage_current_probe.h"
-//#include "switch.h"
+#include "switch.h"
 
 /* USER CODE END Includes */
 
@@ -164,13 +164,13 @@ int main(void)
     /* Reload watchdog and check for errors in the initialization process */
     ret |= System_ReloadWdg();
 
-    //Switch_Init();
+    Switch_Init();
 
     // CHECK_ERROR(ret, ERROR_CODE_init);
     tick_med = HAL_GetTick();
     tick_slow = HAL_GetTick();
 
-    // HAL_ADC_Start_DMA(&hadc1, &adc_valuess, 1);
+
     /* Initialize Modbus upgrade module */
   /* USER CODE END 2 */
 
@@ -222,7 +222,7 @@ int main(void)
             /* Watchdog reload */
             ret |= System_ReloadWdg();
             HAL_GPIO_TogglePin(led_GPIO_Port, led_Pin);
-            //conf.sys.io_input = Switch_GetAll();
+            conf.sys.io_input = Switch_GetAll();
             MbSlave_UpdateSlaveAddress();
 
         }

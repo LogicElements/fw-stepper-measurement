@@ -99,6 +99,7 @@
 								<listOptionValue builtIn="false" value="&quot;C:\Users\rousa\Documents\jablotron\stepper_measurement\git\Firmware\StepMeas_APP\Modules\Probe&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;C:\Users\rousa\Documents\jablotron\stepper_measurement\git\Firmware\StepMeas_APP\Core\Common&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;C:\Users\rousa\Documents\jablotron\stepper_measurement\git\Firmware\StepMeas_APP\Core\Serial&quot;"/>
+								<listOptionValue builtIn="false" value="&quot;C:\Users\rousa\Documents\jablotron\stepper_measurement\git\Firmware\StepMeas_APP\Modules\Switch&quot;"/>
 							</option>
 							<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.1659815536" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c"/>
 						</tool>
