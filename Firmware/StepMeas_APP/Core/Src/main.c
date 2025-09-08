@@ -144,7 +144,7 @@ int main(void)
   MX_IWDG_Init();
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
-
+    //Switch_Init();
     /* Initialize system modules */
     ret |= System_InitWdg();
     ret |= System_ReloadWdg();
@@ -164,12 +164,9 @@ int main(void)
     /* Reload watchdog and check for errors in the initialization process */
     ret |= System_ReloadWdg();
 
-    Switch_Init();
-
     // CHECK_ERROR(ret, ERROR_CODE_init);
     tick_med = HAL_GetTick();
     tick_slow = HAL_GetTick();
-
 
     /* Initialize Modbus upgrade module */
   /* USER CODE END 2 */
@@ -198,10 +195,6 @@ int main(void)
         /* Low priority - slow handles */
         if (TICK_EXPIRED(tick_slow))
         {
-//            if (HAL_ADC_Start_DMA(&hadc1, (uint32_t*) &adc_valuess, 1) != HAL_OK)
-//            {
-//                Error_Handler();
-//            }
 
             tick_slow = HAL_GetTick() + PERIOD_HANDLE_LOW_PRIO;
             start = HAL_GetTick();
@@ -222,7 +215,7 @@ int main(void)
             /* Watchdog reload */
             ret |= System_ReloadWdg();
             HAL_GPIO_TogglePin(led_GPIO_Port, led_Pin);
-            conf.sys.io_input = Switch_GetAll();
+           // conf.sys.io_input = Switch_GetAll();
             MbSlave_UpdateSlaveAddress();
 
         }
@@ -517,7 +510,7 @@ static void MX_TIM2_Init(void)
   htim2.Instance = TIM2;
   htim2.Init.Prescaler = 45-1;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 45-1;
+  htim2.Init.Period = 50-1;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
@@ -670,22 +663,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(button_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PB15 */
-  GPIO_InitStruct.Pin = GPIO_PIN_15;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : PC6 PC7 PC8 PC9 */
-  GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
   /*Configure GPIO pin : PA12 */
   GPIO_InitStruct.Pin = GPIO_PIN_12;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
@@ -710,7 +691,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
     }
 }
-
 
 /* USER CODE END 4 */
 

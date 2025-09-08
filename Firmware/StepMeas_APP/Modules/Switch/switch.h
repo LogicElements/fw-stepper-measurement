@@ -1,25 +1,25 @@
 /**
-  * @file       switch.h
-  * @version    $(APP_VERSION)
-  * @date       $(RELEASE_DATE)
-  * @brief      DIP switch driver
-  * @author     radek.salom
-  *
-  * @copyright  Logic Elements Copyright
-  *
-  * @defgroup grSwitch
-  * @{
-  * @brief Driver to handle DIP switches
-  *
-  * This module contains
-  *
-  * @par Main features:
-  *
-  * @par Example
-  * @code
-  *
-  * @endcode
-  */
+ * @file       switch.h
+ * @version    $(APP_VERSION)
+ * @date       $(RELEASE_DATE)
+ * @brief      DIP switch driver
+ * @author     radek.salom
+ *
+ * @copyright  Logic Elements Copyright
+ *
+ * @defgroup grSwitch
+ * @{
+ * @brief Driver to handle DIP switches
+ *
+ * This module contains
+ *
+ * @par Main features:
+ *
+ * @par Example
+ * @code
+ *
+ * @endcode
+ */
 #ifndef SWITCH_H_
 #define SWITCH_H_
 
@@ -27,10 +27,9 @@
 
 #include "common.h"
 
-
 /* Definitions----------------------------------------------------------------*/
 
-#define SWITCH_NUMBER           10          ///< Number of supported DIP switches
+#define SWITCH_NUMBER           5       ///< Number of supported DIP switches
 
 #define SWITCH_1_PORT     GPIOC
 #define SWITCH_1_PIN      GPIO_PIN_9
@@ -46,22 +45,6 @@
 
 #define SWITCH_5_PORT     GPIOB
 #define SWITCH_5_PIN      GPIO_PIN_15
-
-#define SWITCH_6_PORT     GPIOB
-#define SWITCH_6_PIN      GPIO_PIN_12
-
-#define SWITCH_7_PORT     GPIOB
-#define SWITCH_7_PIN      GPIO_PIN_13
-
-#define SWITCH_8_PORT     GPIOB
-#define SWITCH_8_PIN      GPIO_PIN_14
-
-#define SWITCH_9_PORT     GPIOB
-#define SWITCH_9_PIN      GPIO_PIN_15
-
-#define SWITCH_10_PORT    GPIOA
-#define SWITCH_10_PIN     GPIO_PIN_15
-
 
 /* Typedefs-------------------------------------------------------------------*/
 

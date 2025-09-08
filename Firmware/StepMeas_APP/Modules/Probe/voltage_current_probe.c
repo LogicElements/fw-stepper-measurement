@@ -61,12 +61,12 @@ typedef struct
 /* Private variables ---------------------------------------------------------*/
 static volatile capture_state_t capture_state = CAPT_WAIT_TRIGGER;
 static volatile uint32_t capture_count = 0;
-static uint16_t capture_buffer[CAPTURE_SAMPLES];         // hlavní kanál
-static uint16_t capture_buffer_ch2[CAPTURE_SAMPLES];     // extra kanál
-static float capture_buffer_angle[CAPTURE_SAMPLES];
-static int32_t capture_buffer_steps[CAPTURE_SAMPLES]; // buffer pro úhel ve stupních
+static volatile uint16_t capture_buffer[CAPTURE_SAMPLES];        // hlavní kanál
+static volatile uint16_t capture_buffer_ch2[CAPTURE_SAMPLES];     // extra kanál
+static float volatile capture_buffer_angle[CAPTURE_SAMPLES];
+//static volatile int32_t capture_buffer_steps[CAPTURE_SAMPLES]; // buffer pro úhel ve stupních
 static volatile uint8_t capture_ready = 0;
-int16_t angle_deg = 0;
+volatile int16_t angle_deg = 0;
 
 /* Dva filtry – hlavní a extra */
 static Filter_t filter_main;
@@ -118,7 +118,7 @@ static AngleBufferFIFO_t angle_buffer;
 
 static step_state_t step_state = STEP_IDLE;
 /* Module variables ----------------------------------------------------------*/
-static Probe_private_t probe;
+//static Probe_private_t probe;
 extern ADC_HandleTypeDef hadc1;
 
 uint16_t probe_it = 0;
@@ -137,14 +137,14 @@ uint16_t adc_values[ADC_CHANNEL_COUNT];
 volatile uint8_t adc_ready = 1;
 uint16_t adc_ready_counter = 0;
 
-static int32_t step_count = 0;          // celkový počet kroků
-static int16_t last_step_angle = 9999;  // poslední úhel, který způsobil krok
+static int16_t step_count = 0;          // celkový počet kroků
+static volatile int16_t last_step_angle = 9999; // poslední úhel, který způsobil krok
 
 /* Kontrolní úhly */
 static const int16_t step_angles[] =
 { 178, 90, 0, -90, -178 };
 
-rotation_dir_t dir = DIR_NONE;
+volatile rotation_dir_t dir = DIR_NONE;
 
 /* Private prototypes --------------------------------------------------------*/
 void Probe_InitHAL(void);
@@ -360,16 +360,10 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
                 Filter_Reset(&filter_main);
                 Filter_Reset(&filter_extra);
 
-                filt_main = Filter_Step(&filter_main, raw_main);
-                filt_extra = Filter_Step(&filter_extra, raw_extra);
-                angle_rad = atan2f((float) raw_main - MIDDLE_VALUE,
-                                   (float) raw_extra - MIDDLE_VALUE);
-                angle_deg = (int16_t) (angle_rad * (180.0f / M_PI));
-
                 capture_buffer[capture_count] = filt_main;
                 capture_buffer_ch2[capture_count] = filt_extra;
                 capture_buffer_angle[capture_count] = angle_deg;
-                capture_buffer_steps[capture_count] = step_count;
+                //capture_buffer_steps[capture_count] = step_count;
                 capture_count++;
             }
             break;
@@ -377,11 +371,6 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
         case CAPT_CAPTURING:
             if (capture_count < CAPTURE_SAMPLES)
             {
-                filt_main = Filter_Step(&filter_main, raw_main);
-                filt_extra = Filter_Step(&filter_extra, raw_extra);
-                angle_rad = atan2f((float) filt_main - MIDDLE_VALUE,
-                                   (float) filt_extra - MIDDLE_VALUE);
-                angle_deg = (int16_t) (angle_rad * (180.0f / M_PI));
 
                 sample_divider++;
                 if (sample_divider >= 15)
@@ -391,7 +380,7 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
                     capture_buffer[capture_count] = filt_main;
                     capture_buffer_ch2[capture_count] = filt_extra;
                     capture_buffer_angle[capture_count] = angle_deg;
-                    capture_buffer_steps[capture_count] = step_count;
+                    // capture_buffer_steps[capture_count] = step_count;
 
                     capture_count++;
 
@@ -438,7 +427,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
 }
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-    if (GPIO_Pin == button_Pin)   // kontrola, jestli to bylo opravdu od tlačítka
+    if (GPIO_Pin == button_Pin)  // kontrola, jestli to bylo opravdu od tlačítka
     {
         capture_state = CAPT_WAIT_TRIGGER;
 

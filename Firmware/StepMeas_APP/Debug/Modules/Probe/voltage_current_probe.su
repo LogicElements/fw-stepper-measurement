@@ -10,6 +10,6 @@
 ../Modules/Probe/voltage_current_probe.c:294:23:Detect_Step	24	static
 ../Modules/Probe/voltage_current_probe.c:317:13:StepCounter_Update	24	static
 ../Modules/Probe/voltage_current_probe.c:341:20:Capture_HandleSample	32	static
-../Modules/Probe/voltage_current_probe.c:425:6:ProcessMotorSteps	16	static
-../Modules/Probe/voltage_current_probe.c:430:6:HAL_ADC_ConvCpltCallback	16	static
-../Modules/Probe/voltage_current_probe.c:439:6:HAL_GPIO_EXTI_Callback	16	static
+../Modules/Probe/voltage_current_probe.c:414:6:ProcessMotorSteps	16	static
+../Modules/Probe/voltage_current_probe.c:419:6:HAL_ADC_ConvCpltCallback	16	static
+../Modules/Probe/voltage_current_probe.c:428:6:HAL_GPIO_EXTI_Callback	16	static

@@ -37,8 +37,8 @@ static Switch_Private_t sw;
  */
 static GPIO_TypeDef* Switch_Port[SWITCH_NUMBER] =
 {
-    SWITCH_1_PORT, SWITCH_2_PORT, SWITCH_3_PORT, SWITCH_4_PORT, SWITCH_5_PORT,
-    SWITCH_6_PORT, SWITCH_7_PORT, SWITCH_8_PORT, SWITCH_9_PORT, SWITCH_10_PORT
+    SWITCH_1_PORT, SWITCH_2_PORT, SWITCH_3_PORT, SWITCH_4_PORT, SWITCH_5_PORT
+
 };
 
 /**
@@ -46,8 +46,7 @@ static GPIO_TypeDef* Switch_Port[SWITCH_NUMBER] =
  */
 static const uint16_t Switch_Pin[SWITCH_NUMBER] =
 {
-    SWITCH_1_PIN, SWITCH_2_PIN, SWITCH_3_PIN, SWITCH_4_PIN, SWITCH_5_PIN,
-    SWITCH_6_PIN, SWITCH_7_PIN, SWITCH_8_PIN, SWITCH_9_PIN, SWITCH_10_PIN
+    SWITCH_1_PIN, SWITCH_2_PIN, SWITCH_3_PIN, SWITCH_4_PIN, SWITCH_5_PIN
 };
 
 
@@ -65,8 +64,8 @@ void Switch_Init(void)
   {
     GPIO_InitStruct.Pin = Switch_Pin[i];
     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-    GPIO_InitStruct.Pull = GPIO_PULLUP;
-    HAL_GPIO_Init(Switch_Port[i], &GPIO_InitStruct);
+    GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+    //HAL_GPIO_Init(Switch_Port[i], &GPIO_InitStruct);
   }
 
   return;
