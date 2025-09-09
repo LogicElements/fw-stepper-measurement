@@ -1,9 +1,9 @@
 ../Core/Serial/mb_upgrade.c:46:10:MbUpgr_Init	1
-../Core/Serial/mb_upgrade.c:58:10:MbUpgr_Handle	8
-../Core/Serial/mb_upgrade.c:115:10:MbUpgr_WriteRegisters	3
-../Core/Serial/mb_upgrade.c:137:10:MbUpgr_ReadRegisters	2
+../Core/Serial/mb_upgrade.c:115:10:MbUpgr_WriteRegisters	4
+../Core/Serial/mb_upgrade.c:137:10:MbUpgr_ReadRegisters	3
 ../Core/Serial/mb_upgrade.c:152:10:MbUpgr_GetType	1
 ../Core/Serial/mb_upgrade.c:157:10:MbUpgr_GetMode	1
-../Core/Serial/mb_upgrade.c:164:17:MbUpgr_HeaderClb	3
+../Core/Serial/mb_upgrade.c:164:17:MbUpgr_HeaderClb	1
 ../Core/Serial/mb_upgrade.c:184:17:MbUpgr_WritePageClb	1
 ../Core/Serial/mb_upgrade.c:193:17:MbUpgr_WriteDoneClb	1
+../Core/Serial/mb_upgrade.c:58:10:MbUpgr_Handle	6

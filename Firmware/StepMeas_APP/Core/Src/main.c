@@ -144,7 +144,7 @@ int main(void)
   MX_IWDG_Init();
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
-    //Switch_Init();
+    Switch_Init();
     /* Initialize system modules */
     ret |= System_InitWdg();
     ret |= System_ReloadWdg();
@@ -177,7 +177,6 @@ int main(void)
     {
         /* High priority - real-time handles */
         MbSlave_Handle();
-        Probe_Handle();
 
         /* Medium priority - fast handles */
         if (TICK_EXPIRED(tick_med))
@@ -215,7 +214,7 @@ int main(void)
             /* Watchdog reload */
             ret |= System_ReloadWdg();
             HAL_GPIO_TogglePin(led_GPIO_Port, led_Pin);
-           // conf.sys.io_input = Switch_GetAll();
+            conf.sys.io_input = Switch_GetAll();
             MbSlave_UpdateSlaveAddress();
 
         }
@@ -510,7 +509,7 @@ static void MX_TIM2_Init(void)
   htim2.Instance = TIM2;
   htim2.Init.Prescaler = 45-1;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 50-1;
+  htim2.Init.Period = 55-1;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)

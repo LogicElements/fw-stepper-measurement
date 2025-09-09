@@ -1,3 +1,3 @@
-../Core/Serial/mb_rtu_app.c:40:10:MbRtu_ReadInputRegCallback	32	static,ignoring_inline_asm
-../Core/Serial/mb_rtu_app.c:139:10:MbRtu_ReadHoldingRegCallback	32	static,ignoring_inline_asm
-../Core/Serial/mb_rtu_app.c:196:10:MbRtu_WriteHoldingRegCallback	24	static
+../Core/Serial/mb_rtu_app.c:40:10:MbRtu_ReadInputRegCallback	0	static,ignoring_inline_asm
+../Core/Serial/mb_rtu_app.c:139:10:MbRtu_ReadHoldingRegCallback	0	static,ignoring_inline_asm
+../Core/Serial/mb_rtu_app.c:196:10:MbRtu_WriteHoldingRegCallback	8	static
