@@ -1,0 +1,16 @@
+Added Component: Designator=IC1(SOIC127P600X170-9N)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/MP9486AGN-Z/Monolithic+Power+Systems+Inc./view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Monolithic Power"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "MP9486AGN-Z"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SOIC-8 Monolithic Power"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/MP9486AGN-Z/Monolithic+Power+Systems+Inc./view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetC9_1 Pin=IC1-1
+Added Pin To Net: NetName=8-95V Pin=IC1-3
+Added Pin To Net: NetName=NetC8_2 Pin=IC1-4
+Added Pin To Net: NetName=NetC8_1 Pin=IC1-5
+Added Pin To Net: NetName=NetIC1_6 Pin=IC1-6
+Added Pin To Net: NetName=NetIC1_6 Pin=IC1-7
+Added Pin To Net: NetName=VSS Pin=IC1-8
+Added Pin To Net: NetName=VSS Pin=IC1-9
+Added Member To Class: ClassName=DCDC_5V0 Member=Component IC1 MP9486AGN-Z

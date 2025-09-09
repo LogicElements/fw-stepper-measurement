@@ -1,0 +1,12 @@
+Added Component: Designator=U2(SOT230P700X180-3N)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "MaxLinear, Inc."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "SPX1117M3-L-3-3/TR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SOT-223 Exar"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/SPX1117M3-L-3-3/TR/MaxLinear%2C%20Inc./view-part/376705/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=VSS Pin=U2-1
+Added Pin To Net: NetName=VDD Pin=U2-2
+Added Pin To Net: NetName=+5 Pin=U2-3
+Added Member To Class: ClassName=Designator Member=Component U2 SPX1117M3-L-3-3/TR

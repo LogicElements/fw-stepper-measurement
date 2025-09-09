@@ -1,0 +1,16 @@
+Removed Pin From Net: NetName=NetJ2_31 Pin=J6-1
+Removed Pin From Net: NetName=NetJ2_29 Pin=J6-2
+Removed Pin From Net: NetName=NetJ2_27 Pin=J6-3
+Removed Pin From Net: NetName=NetJ2_25 Pin=J6-4
+Removed Pin From Net: NetName=NetJ2_23 Pin=J6-5
+Removed Pin From Net: NetName=NetJ2_21 Pin=J6-6
+Removed Pin From Net: NetName=NetJ2_19 Pin=J6-7
+Removed Pin From Net: NetName=NetJ2_17 Pin=J6-8
+Added Pin To Net: NetName=NetJ2_17 Pin=J6-1
+Added Pin To Net: NetName=NetJ2_19 Pin=J6-2
+Added Pin To Net: NetName=NetJ2_21 Pin=J6-3
+Added Pin To Net: NetName=NetJ2_23 Pin=J6-4
+Added Pin To Net: NetName=NetJ2_25 Pin=J6-5
+Added Pin To Net: NetName=NetJ2_27 Pin=J6-6
+Added Pin To Net: NetName=NetJ2_29 Pin=J6-7
+Added Pin To Net: NetName=NetJ2_31 Pin=J6-8

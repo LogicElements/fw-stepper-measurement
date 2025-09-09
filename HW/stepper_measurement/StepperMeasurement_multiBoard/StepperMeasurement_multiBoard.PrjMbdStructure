@@ -1,0 +1,4 @@
+Record=DiagramHierarchy|SourceDocument=StepperMeasurement_multiBoard.MbsDoc|Kind=Multi-board Schematic Module|Designator=Board1|Source=..\stepper_measurement_mainBoard\stepper_measurement.PrjPcb
+Record=SubProject|SourceDocument=StepperMeasurement_multiBoard.MbsDoc|ProjectPath=..\stepper_measurement_mainBoard\stepper_measurement.PrjPcb
+Record=DiagramHierarchy|SourceDocument=StepperMeasurement_multiBoard.MbsDoc|Kind=Multi-board Schematic Module|Designator=Board2|Source=..\stepper_measuremnt_senzor\stepper_measurement_senzor.PrjPcb
+Record=SubProject|SourceDocument=StepperMeasurement_multiBoard.MbsDoc|ProjectPath=..\stepper_measuremnt_senzor\stepper_measurement_senzor.PrjPcb

@@ -1,0 +1,23 @@
+Removed Pin From Net: NetName=NetD2_2 Pin=J1-1
+Removed Pin From Net: NetName=NetD1_2 Pin=J1-2
+Removed Pin From Net: NetName=VSS Pin=J1-3
+Removed Member From Class: ClassName=main Member=J1
+Removed Member From Class: ClassName=main Member=J4
+Removed Member From Class: ClassName=main Member=J6
+Removed Member From Class: ClassName=main Member=J7
+Removed Member From Class: ClassName=main Member=J8
+Added Component: Designator=J?(PHOENIX_1725669)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/1725669/Phoenix+Contact/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Phoenix Contact"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "1725669"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/1725669/Phoenix+Contact/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=VDD Pin=J5-1
+Added Pin To Net: NetName=+5 Pin=J5-3
+Added Pin To Net: NetName=8-95V Pin=J5-5
+Added Pin To Net: NetName=VSS Pin=J5-30
+Added Pin To Net: NetName=NetD2_2 Pin=J?-1
+Added Pin To Net: NetName=NetD1_2 Pin=J?-2
+Added Pin To Net: NetName=VSS Pin=J?-3
+Added Member To Class: ClassName=main Member=Component J? 1725669

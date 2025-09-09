@@ -1,0 +1,76 @@
+Added Component: Designator=C1(SMD_CAPACITOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1010141074,1012080068,1012245578"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1012245584"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0.1uF"; VariantName = "[No Variations]"
+Added Component: Designator=C2(SMD_CAPACITOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1010141074,1012080068,1012245578"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1012245584"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "2.2uF"; VariantName = "[No Variations]"
+Added Component: Designator=C7(SMD_CAPACITOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1010141074,1012080068,1012245578"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1012245584"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "100nF"; VariantName = "[No Variations]"
+Added Component: Designator=C8(SMD_CAPACITOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1010141074,1012080068,1012245578"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1012245584"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10uF"; VariantName = "[No Variations]"
+Added Component: Designator=C9(SMD_CAPACITOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1010141074,1012080068,1012245578"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1012245584"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10uF"; VariantName = "[No Variations]"
+Added Component: Designator=C10(SMD_CAPACITOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1010141074,1012080068,1012245578"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1012245584"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10uF"; VariantName = "[No Variations]"
+Added Component: Designator=IC1(SOT95P280X145-6N)
+Add component (AddParameter): Name = "Arrow Part Number"; Value = "LMR50410Y3FQDBVRQ1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Arrow Price/Stock"; Value = "https://www.arrow.com/en/products/lmr50410y3fqdbvrq1/texas-instruments?region=europe"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://www.ti.com/lit/ds/symlink/lmr50410-q1.pdf?ts=1611309677669"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "1.45mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Texas Instruments"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "LMR50410Y3FQDBVRQ1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = "595-R50410Y3FQDBVRQ1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/Texas-Instruments/LMR50410Y3FQDBVRQ1?qs=81r%252BiQLm7BTaIXwCgdOuiA%3D%3D"; VariantName = "[No Variations]"
+Added Component: Designator=L(IND_MSS6132-153MLC)
+Add component (AddParameter): Name = "Digi-Key_Part_Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Coilcraft"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "MSS6132-153MLC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/MSS6132-153MLC/Coilcraft/view-part/596192/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=R1(SMD_RESISTOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "88.7K"; VariantName = "[No Variations]"
+Added Component: Designator=R2(SMD_RESISTOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "22.1K"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=VCC Pin=C2-1
+Added Pin To Net: NetName=GND Pin=C2-2
+Added Pin To Net: NetName=VCC Pin=C7-1
+Added Pin To Net: NetName=GND Pin=C7-2
+Added Pin To Net: NetName=+5 Pin=C8-1
+Added Pin To Net: NetName=GND Pin=C8-2
+Added Pin To Net: NetName=+5 Pin=C9-1
+Added Pin To Net: NetName=GND Pin=C9-2
+Added Pin To Net: NetName=+5 Pin=C10-1
+Added Pin To Net: NetName=GND Pin=C10-2
+Added Pin To Net: NetName=GND Pin=IC1-2
+Added Pin To Net: NetName=VCC Pin=IC1-4
+Added Pin To Net: NetName=VCC Pin=IC1-5
+Added Pin To Net: NetName=+5 Pin=L-2
+Added Pin To Net: NetName=+5 Pin=R1-2
+Added Pin To Net: NetName=GND Pin=R2-1
+Added Pin To Net: NetName=NetC1_1 Pin=C1-1
+Added Pin To Net: NetName=NetC1_1 Pin=IC1-6
+Added Pin To Net: NetName=NetC1_1 Pin=L-1
+Added Net: Name=NetC1_1
+Added Pin To Net: NetName=NetC1_2 Pin=C1-2
+Added Pin To Net: NetName=NetC1_2 Pin=IC1-1
+Added Net: Name=NetC1_2
+Added Pin To Net: NetName=NetIC1_3 Pin=IC1-3
+Added Pin To Net: NetName=NetIC1_3 Pin=R1-1
+Added Pin To Net: NetName=NetIC1_3 Pin=R2-2
+Added Net: Name=NetIC1_3
+Added Class: Name=DCDC_5V0

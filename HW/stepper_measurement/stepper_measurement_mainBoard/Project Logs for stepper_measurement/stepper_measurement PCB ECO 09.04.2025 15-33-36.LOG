@@ -1,0 +1,16 @@
+Removed Pin From Net: NetName=VDD Pin=J2-38
+Added Component: Designator=R10(SMD_RESISTOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10K"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=VSS Pin=R10-1
+Change Net Name : Old Net Name=NSRT New Net Name=NRST
+Change Net Name : Old Net Name=VCC-RS New Net Name=3V3-RS
+Change Net Name : Old Net Name=VDD New Net Name=3V3
+Change Net Name : Old Net Name=VSS New Net Name=GND
+Added Pin To Net: NetName=NetIC2_94 Pin=IC2-94
+Added Pin To Net: NetName=NetIC2_94 Pin=R10-2
+Added Net: Name=NetIC2_94
+Added Pin To Net: NetName=VCC Pin=J2-38
+Added Net: Name=VCC
+Added Member To Class: ClassName=STM32 Member=Component R10 10K

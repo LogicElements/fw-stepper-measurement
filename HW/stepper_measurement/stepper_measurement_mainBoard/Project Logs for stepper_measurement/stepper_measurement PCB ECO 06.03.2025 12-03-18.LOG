@@ -1,0 +1,103 @@
+Removed Member From Class: ClassName=STM32 Member=J?
+Change Component Designator: OldDesignator=U? NewDesignator=U1
+Add Component: Footprint Not Found CAPC0603(1608)100_L
+Add Component: Footprint Not Found CAPC1005X56X25LL10T15
+Add Component: Footprint Not Found CAPC0402(1005)60_L
+Add Component: Footprint Not Found CAPC0805(2012)145_L
+Add Component: Footprint Not Found CAPC0402(1005)60_L
+Add Component: Footprint Not Found CAPC0603(1608)100_L
+Add Component: Footprint Not Found CAPC0603(1608)100_L
+Add Component: Footprint Not Found CAPC0603(1608)100_L
+Add Component: Footprint Not Found CAPC1608X94X35NL15T15
+Add Component: Footprint Not Found CAPC1005X56X25LL10T15
+Add Component: Footprint Not Found CAPC1005X56X25LL10T15
+Add Component: Footprint Not Found CAPC1608X94X35NL15T15
+Add Component: Footprint Not Found sm_dio_SMA
+Add Component: Footprint Not Found sm_dio_SMA
+Add Component: Footprint Not Found SOIC-8-150_REF
+Add Component: Footprint Not Found SM_TI-SOT23-6-DBV
+Add Component: Footprint Not Found sm_emi_0805
+Add Component: Footprint Not Found sm_emi_0805
+Add Component: Footprint Not Found sm_emi_0805
+Add Component: Footprint Not Found SM_IND_MSS6132
+Add Component: Footprint Not Found RESC0402(1005)_L
+Add Component: Footprint Not Found RESC0402(1005)_L
+Add Component: Footprint Not Found RESC0402(1005)_L
+Add Component: Footprint Not Found RESC1005X40X25ML05T05
+Add Component: Footprint Not Found RESC1005X40X25ML05T05
+Add Component: Footprint Not Found SOT-23-TT3_N
+Add Pin To Net: Unknown Pin: Pin C1-1
+Add Pin To Net: Unknown Pin: Pin C1-2
+Add Pin To Net: Unknown Pin: Pin C2-1
+Add Pin To Net: Unknown Pin: Pin C2-2
+Add Pin To Net: Unknown Pin: Pin C4-1
+Add Pin To Net: Unknown Pin: Pin C4-2
+Add Pin To Net: Unknown Pin: Pin C5-1
+Add Pin To Net: Unknown Pin: Pin C5-2
+Add Pin To Net: Unknown Pin: Pin C6-1
+Add Pin To Net: Unknown Pin: Pin C6-2
+Add Pin To Net: Unknown Pin: Pin C7-1
+Add Pin To Net: Unknown Pin: Pin C7-2
+Add Pin To Net: Unknown Pin: Pin C8-1
+Add Pin To Net: Unknown Pin: Pin C8-2
+Add Pin To Net: Unknown Pin: Pin C9-1
+Add Pin To Net: Unknown Pin: Pin C9-2
+Add Pin To Net: Unknown Pin: Pin C10-1
+Add Pin To Net: Unknown Pin: Pin C10-2
+Add Pin To Net: Unknown Pin: Pin C11-1
+Add Pin To Net: Unknown Pin: Pin C11-2
+Add Pin To Net: Unknown Pin: Pin C12-1
+Add Pin To Net: Unknown Pin: Pin C12-2
+Add Pin To Net: Unknown Pin: Pin D1-2
+Add Pin To Net: Unknown Pin: Pin D2-1
+Add Pin To Net: Unknown Pin: Pin IC1-5
+Add Pin To Net: Unknown Pin: Pin IC1-6
+Add Pin To Net: Unknown Pin: Pin IC1-7
+Add Pin To Net: Unknown Pin: Pin IC1-8
+Add Pin To Net: Unknown Pin: Pin IC2-2
+Add Pin To Net: Unknown Pin: Pin IC2-4
+Add Pin To Net: Unknown Pin: Pin IC2-5
+Add Pin To Net: Unknown Pin: Pin L3-1
+Add Pin To Net: Unknown Pin: Pin L3-2
+Add Pin To Net: Unknown Pin: Pin L4-2
+Add Pin To Net: Unknown Pin: Pin R1-2
+Add Pin To Net: Unknown Pin: Pin R2-1
+Add Pin To Net: Unknown Pin: Pin R3-1
+Add Pin To Net: Unknown Pin: Pin R4-1
+Add Pin To Net: Unknown Pin: Pin R5-2
+Add Pin To Net: Unknown Pin: Pin U2-1
+Add Pin To Net: Unknown Pin: Pin U2-2
+Add Pin To Net: Unknown Pin: Pin U2-3
+Added Net: Name=NetC3_1
+Added Net: Name=NetC3_2
+Added Net: Name=NetD1_1
+Added Net: Name=NetD2_2
+Added Net: Name=NetIC1_1
+Added Net: Name=NetIC1_2
+Added Net: Name=NetIC1_3
+Added Net: Name=NetIC1_4
+Added Net: Name=NetIC2_3
+Added Net: Name=NetL1_1
+Added Net: Name=NetL2_1
+Added Class: Name=LDO_3V3
+Add Class Member: Failed to add class member : Component C1 Capacitor 10µF +/-20% 10V 0603
+Add Class Member: Failed to add class member : Component C2 Capacitor 0.1 uF +/- 5% 16 V 0402
+Add Class Member: Failed to add class member : Component C3 Capacitor 100nF +/-20% 50V 0402
+Add Class Member: Failed to add class member : Component C4 Capacitor 10µF +/-20% 50V 0805
+Add Class Member: Failed to add class member : Component C5 Capacitor 100nF +/-20% 50V 0402
+Add Class Member: Failed to add class member : Component C6 Capacitor 10µF +/-20% 10V 0603
+Add Class Member: Failed to add class member : Component C7 Capacitor 10µF +/-20% 10V 0603
+Add Class Member: Failed to add class member : Component C8 Capacitor 10µF +/-20% 10V 0603
+Add Class Member: Failed to add class member : Component D1 SMAJ13CA
+Add Class Member: Failed to add class member : Component D2 SMAJ13CA
+Add Class Member: Failed to add class member : Component IC1 SN65HVD72
+Add Class Member: Failed to add class member : Component IC2 LMR50410YQDBVRQ1
+Add Class Member: Failed to add class member : Component L1 FBMJ2125HM330-T
+Add Class Member: Failed to add class member : Component L2 FBMJ2125HM330-T
+Add Class Member: Failed to add class member : Component L3 FBMJ2125HM330-T
+Add Class Member: Failed to add class member : Component L4 4u7H
+Add Class Member: Failed to add class member : Component R1 10KR2F
+Add Class Member: Failed to add class member : Component R2 22R2J
+Add Class Member: Failed to add class member : Component R3 22R2J
+Add Class Member: Failed to add class member : Component R4 Resistor 0402 100 mW
+Add Class Member: Failed to add class member : Component R5 Resistor 0402 100 mW

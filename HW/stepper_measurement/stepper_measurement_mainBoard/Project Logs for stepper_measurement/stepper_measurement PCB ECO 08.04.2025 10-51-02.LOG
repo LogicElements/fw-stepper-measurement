@@ -1,0 +1,24 @@
+Change Component Footprint: Designator=C29 Old Footprint=SMD_CAPACITOR_0805 New Footprint=CAP_C5750X7S2A226M280KB
+Change Component Footprint: Designator=C13 Old Footprint=SMD_CAPACITOR_0805 New Footprint=CAPC3225X280N
+Change Component Footprint: Designator=C14 Old Footprint=SMD_CAPACITOR_0805 New Footprint=CAPC3225X280N
+Change component parameters: Designator = "C13" ("C13"); Footprint = "SMD_CAPACITOR_0805"; UniqueID = "\WFLSSHLH\KRBPYBSL" ("\WFLSSHLH\KRBPYBSL")
+Change component parameters (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/HMJ325KC7475KMHPE/Taiyo+Yuden/view-part/?ref=eda"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "MF"; Value = "Taiyo Yuden"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "MP"; Value = "HMJ325KC7475KMHPE"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Package"; Value = "3225 Taiyo Yuden"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/HMJ325KC7475KMHPE/Taiyo+Yuden/view-part/?ref=snap"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Change component parameters: Designator = "C14" ("C14"); Footprint = "SMD_CAPACITOR_0805"; UniqueID = "\WFLSSHLH\RSWUKDGO" ("\WFLSSHLH\RSWUKDGO")
+Change component parameters (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/HMJ325KC7475KMHPE/Taiyo+Yuden/view-part/?ref=eda"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "MF"; Value = "Taiyo Yuden"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "MP"; Value = "HMJ325KC7475KMHPE"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Package"; Value = "3225 Taiyo Yuden"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/HMJ325KC7475KMHPE/Taiyo+Yuden/view-part/?ref=snap"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Change component parameters: Designator = "C29" ("C29"); Footprint = "SMD_CAPACITOR_0805"; UniqueID = "\WFLSSHLH\GMMGKNNY\ENLYWJIJ" ("\WFLSSHLH\GMMGKNNY\ENLYWJIJ")
+Change component parameters (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "MF"; Value = "{'manufacturer': u'TDK'}"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "MP"; Value = "C5750X7S2A226M280KB"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"

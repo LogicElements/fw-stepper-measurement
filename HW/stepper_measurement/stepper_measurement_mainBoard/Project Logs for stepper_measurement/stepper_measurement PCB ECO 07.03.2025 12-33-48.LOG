@@ -1,0 +1,65 @@
+Add Component: Footprint Not Found DIOM4325X250N
+Add Component: Footprint Not Found DIOM4325X250N
+Add Component: Footprint Not Found BEADC2012X105N
+Add Component: Footprint Not Found BEADC2012X105N
+Add Component: Footprint Not Found BEADC2012X105N
+Add Component: Footprint Not Found BEADC2012X105N
+Add Component: Footprint Not Found SOIC127P600X170-9N
+Add Component: Footprint Not Found 691216510003S
+Add Component: Footprint Not Found 691216510002S
+Add Component: Footprint Not Found QFP50P1600X1600X160-100N
+Add Component: Footprint Not Found SOIC127P599X175-8N
+Add Pin To Net: Unknown Pin: Pin D1-1
+Add Pin To Net: Unknown Pin: Pin D1-2
+Add Pin To Net: Unknown Pin: Pin D2-1
+Add Pin To Net: Unknown Pin: Pin D2-2
+Add Pin To Net: Unknown Pin: Pin FB1-1
+Add Pin To Net: Unknown Pin: Pin FB1-2
+Add Pin To Net: Unknown Pin: Pin FB2-1
+Add Pin To Net: Unknown Pin: Pin FB2-2
+Add Pin To Net: Unknown Pin: Pin FB3-1
+Add Pin To Net: Unknown Pin: Pin FB3-2
+Add Pin To Net: Unknown Pin: Pin FB4-1
+Add Pin To Net: Unknown Pin: Pin FB4-2
+Add Pin To Net: Unknown Pin: Pin IC1-1
+Add Pin To Net: Unknown Pin: Pin IC1-3
+Add Pin To Net: Unknown Pin: Pin IC1-4
+Add Pin To Net: Unknown Pin: Pin IC1-5
+Add Pin To Net: Unknown Pin: Pin IC1-6
+Add Pin To Net: Unknown Pin: Pin IC1-7
+Add Pin To Net: Unknown Pin: Pin IC1-8
+Add Pin To Net: Unknown Pin: Pin IC1-9
+Add Pin To Net: Unknown Pin: Pin J1-1
+Add Pin To Net: Unknown Pin: Pin J1-2
+Add Pin To Net: Unknown Pin: Pin J1-3
+Add Pin To Net: Unknown Pin: Pin J2-1
+Add Pin To Net: Unknown Pin: Pin J2-2
+Add Pin To Net: Unknown Pin: Pin U1-6
+Add Pin To Net: Unknown Pin: Pin U1-10
+Add Pin To Net: Unknown Pin: Pin U1-11
+Add Pin To Net: Unknown Pin: Pin U1-19
+Add Pin To Net: Unknown Pin: Pin U1-20
+Add Pin To Net: Unknown Pin: Pin U1-21
+Add Pin To Net: Unknown Pin: Pin U1-22
+Add Pin To Net: Unknown Pin: Pin U1-27
+Add Pin To Net: Unknown Pin: Pin U1-28
+Add Pin To Net: Unknown Pin: Pin U1-49
+Add Pin To Net: Unknown Pin: Pin U1-50
+Add Pin To Net: Unknown Pin: Pin U1-73
+Add Pin To Net: Unknown Pin: Pin U1-74
+Add Pin To Net: Unknown Pin: Pin U1-75
+Add Pin To Net: Unknown Pin: Pin U1-99
+Add Pin To Net: Unknown Pin: Pin U1-100
+Add Pin To Net: Unknown Pin: Pin U3-2
+Add Pin To Net: Unknown Pin: Pin U3-7
+Add Class Member: Failed to add class member : Component D1 SMAJ13CA
+Add Class Member: Failed to add class member : Component D2 SMAJ13CA
+Add Class Member: Failed to add class member : Component FB1 FBMJ2125HM330-T
+Add Class Member: Failed to add class member : Component FB2 FBMJ2125HM330-T
+Add Class Member: Failed to add class member : Component FB3 FBMJ2125HM330-T
+Add Class Member: Failed to add class member : Component FB4 FBMJ2125HM330-T
+Add Class Member: Failed to add class member : Component IC1 MP9486AGN-Z
+Add Class Member: Failed to add class member : Component J1 691216510003S
+Add Class Member: Failed to add class member : Component J2 691216510002S
+Add Class Member: Failed to add class member : Component U1 STM32F429VIT6
+Add Class Member: Failed to add class member : Component U3 SN65HVD72D

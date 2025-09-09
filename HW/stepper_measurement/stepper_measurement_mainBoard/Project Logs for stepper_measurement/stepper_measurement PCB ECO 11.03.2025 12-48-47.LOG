@@ -1,0 +1,131 @@
+Added Component: Designator=C30(SMD_CAPACITOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1010141074,1012080068,1012245578"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1012245584"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "100nF"; VariantName = "[No Variations]"
+Added Component: Designator=C31(SMD_CAPACITOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1010141074,1012080068,1012245578"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1012245584"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "100nF"; VariantName = "[No Variations]"
+Added Component: Designator=J4(CUI_TB003-500-P02BE)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'CUI'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "TB003-500-P02BE"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J5(HARWIN_M50-3901542)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'Harwin Inc.'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3901542"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J6(CUI_TB003-500-P02BE)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'CUI'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "TB003-500-P02BE"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J7(CUI_TB003-500-P02BE)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'CUI'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "TB003-500-P02BE"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J8(CUI_TB003-500-P02BE)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "{'manufacturer': u'CUI'}"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "TB003-500-P02BE"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=LED1(SMD_LED_0805)
+Add component (AddParameter): Name = "3MM"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000006139&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1010173716,1012220634"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "5MM"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000006139&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1010195550,1012220634"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000006139&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1010144644,1010253269"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000006139&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1010144644,1010305184"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SUPER_BRIGHT"; Value = "http://cz.farnell.com/kingbright/ka-3535sylz4s/led-hb-yellow-525mw-12lm/dp/2373359+"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "Blue"; VariantName = "[No Variations]"
+Added Component: Designator=LED2(SMD_LED_0805)
+Add component (AddParameter): Name = "3MM"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000006139&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1010173716,1012220634"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "5MM"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000006139&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1010195550,1012220634"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000006139&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1010144644,1010253269"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000006139&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1010144644,1010305184"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SUPER_BRIGHT"; Value = "http://cz.farnell.com/kingbright/ka-3535sylz4s/led-hb-yellow-525mw-12lm/dp/2373359+"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "Red"; VariantName = "[No Variations]"
+Added Component: Designator=R6(SMD_RESISTOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10K"; VariantName = "[No Variations]"
+Added Component: Designator=R7(SMD_RESISTOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10K"; VariantName = "[No Variations]"
+Added Component: Designator=R8(SMD_RESISTOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "1K"; VariantName = "[No Variations]"
+Added Component: Designator=R9(SMD_RESISTOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "1K"; VariantName = "[No Variations]"
+Added Component: Designator=S1(SW_PTS636_SM43J_SMTR_LFS)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "PTS636_SM43J_SMTR_LFS"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=S2(SW_PTS636_SM43J_SMTR_LFS)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "PTS636_SM43J_SMTR_LFS"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=VSS Pin=C30-1
+Added Pin To Net: NetName=VSS Pin=C31-1
+Added Pin To Net: NetName=NSRT Pin=C31-2
+Added Pin To Net: NetName=VCAP Pin=IC2-73
+Added Pin To Net: NetName=SWCLK Pin=IC2-76
+Added Pin To Net: NetName=VDD Pin=IC2-100
+Added Pin To Net: NetName=VSS Pin=LED1-2
+Added Pin To Net: NetName=VSS Pin=LED2-2
+Added Pin To Net: NetName=VDD Pin=R6-2
+Added Pin To Net: NetName=NSRT Pin=R7-1
+Added Pin To Net: NetName=VDD Pin=R7-2
+Added Pin To Net: NetName=VDD Pin=R9-1
+Added Pin To Net: NetName=VSS Pin=S1-2
+Added Pin To Net: NetName=NSRT Pin=S2-1
+Added Pin To Net: NetName=VSS Pin=S2-2
+Added Pin To Net: NetName=BTN Pin=C30-2
+Added Pin To Net: NetName=BTN Pin=IC2-91
+Added Pin To Net: NetName=BTN Pin=R6-1
+Added Pin To Net: NetName=BTN Pin=S1-1
+Added Net: Name=BTN
+Added Pin To Net: NetName=LED Pin=IC2-36
+Added Pin To Net: NetName=LED Pin=R8-1
+Added Net: Name=LED
+Added Pin To Net: NetName=NetLED1_1 Pin=LED1-1
+Added Pin To Net: NetName=NetLED1_1 Pin=R8-2
+Added Net: Name=NetLED1_1
+Added Pin To Net: NetName=NetLED2_1 Pin=LED2-1
+Added Pin To Net: NetName=NetLED2_1 Pin=R9-2
+Added Net: Name=NetLED2_1
+Added Member To Class: ClassName=STM32 Member=Component C30 100nF
+Added Member To Class: ClassName=STM32 Member=Component C31 100nF
+Added Member To Class: ClassName=main Member=Component J4 TB003-500-P02BE
+Added Member To Class: ClassName=main Member=Component J5 M50-3901542
+Added Member To Class: ClassName=main Member=Component J6 TB003-500-P02BE
+Added Member To Class: ClassName=main Member=Component J7 TB003-500-P02BE
+Added Member To Class: ClassName=main Member=Component J8 TB003-500-P02BE
+Added Member To Class: ClassName=STM32 Member=Component LED1 Blue
+Added Member To Class: ClassName=Designator Member=Component LED2 Red
+Added Member To Class: ClassName=STM32 Member=Component R6 10K
+Added Member To Class: ClassName=STM32 Member=Component R7 10K
+Added Member To Class: ClassName=STM32 Member=Component R8 1K
+Added Member To Class: ClassName=Designator Member=Component R9 1K
+Added Member To Class: ClassName=STM32 Member=Component S1 PTS636_SM43J_SMTR_LFS
+Added Member To Class: ClassName=STM32 Member=Component S2 PTS636_SM43J_SMTR_LFS

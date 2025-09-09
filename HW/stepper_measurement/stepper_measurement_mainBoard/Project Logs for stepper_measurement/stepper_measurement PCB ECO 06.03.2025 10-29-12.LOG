@@ -1,0 +1,52 @@
+Add Component: Footprint Not Found CAPC0402(1005)60_L
+Add Component: Footprint Not Found CAPC0805(2012)145_L
+Add Component: Footprint Not Found CAPC0603(1608)100_L
+Add Component: Footprint Not Found CAPC1005X56X25LL10T15
+Add Component: Footprint Not Found CAPC0603(1608)100_L
+Add Component: Footprint Not Found CAPC0603(1608)100_L
+Add Component: Footprint Not Found CAPC0603(1608)100_L
+Add Component: Footprint Not Found CAPC0402(1005)60_L
+Add Component: Footprint Not Found sm_dio_SMA
+Add Component: Footprint Not Found sm_dio_SMA
+Add Component: Footprint Not Found SOIC-8-150_REF
+Add Component: Footprint Not Found SM_TI-SOT23-6-DBV
+Add Component: Footprint Not Found sm_emi_0805
+Add Component: Footprint Not Found sm_emi_0805
+Add Component: Footprint Not Found SM_IND_MSS6132
+Add Component: Footprint Not Found sm_emi_0805
+Add Component: Footprint Not Found RESC0402(1005)_L
+Add Component: Footprint Not Found RESC0402(1005)_L
+Add Component: Footprint Not Found RESC0402(1005)_L
+Add Component: Footprint Not Found RESC1005X40X25ML05T05
+Add Component: Footprint Not Found RESC1005X40X25ML05T05
+Added Component: Designator=U?(QFP50P1600X1600X160-100N)
+Add component (AddParameter): Name = "Availability"; Value = "In Stock"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/STM32F429VIT6/STMicroelectronics/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "STMicroelectronics"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "STM32F429VIT6"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "LQFP-100 STMicroelectronics"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Purchase-URL"; Value = "https://pricing.snapeda.com/search/part/STM32F429VIT6/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/STM32F429VIT6/STMicroelectronics/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Net: Name=3V3-RS
+Added Net: Name=3V3
+Added Net: Name=5V0
+Added Net: Name=8-28V0
+Added Net: Name=GND
+Added Net: Name=NetC?_1
+Added Net: Name=NetC?_2
+Added Net: Name=NetD?_1
+Added Net: Name=NetD?_2
+Added Net: Name=NetIC?_1
+Added Net: Name=NetIC?_2
+Added Net: Name=NetIC?_3
+Add Net: Net with name "NetIC?_3" already exists
+Added Net: Name=NetIC?_4
+Added Net: Name=NetL?_1
+Add Net: Net with name "NetL?_1" already exists
+Added Net: Name=RS485_N
+Added Net: Name=RS485_P
+Added Class: Name=DCDC_5V0
+Added Class: Name=RS484
+Added Class: Name=STM32

@@ -1,0 +1,10 @@
+Added Component: Designator=Y1(MURATA_XRCGB26M000F1S1BR0_0)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/XRCGB26M000F1S1BR0/Murata/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Murata Electronics"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "XRCGB26M000F1S1BR0"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD-4 Murata Electronics"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/XRCGB26M000F1S1BR0/Murata/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=OSC_IN Pin=Y1-1
+Added Pin To Net: NetName=OSC_OUT Pin=Y1-3
+Added Member To Class: ClassName=STM32 Member=Component Y1 MURATA_XRCGB26M000F1S1BR0

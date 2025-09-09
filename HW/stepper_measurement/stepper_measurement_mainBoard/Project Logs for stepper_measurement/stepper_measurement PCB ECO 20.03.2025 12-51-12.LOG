@@ -1,0 +1,20 @@
+Change Component Comment : Designator=C32 Old Comment=6pF New Comment=1pF
+Change Component Comment : Designator=C33 Old Comment=6pF New Comment=1pF
+Change component parameters: Designator = "C32" ("C32"); Footprint = "SMD_CAPACITOR_0805"; UniqueID = "\QKOJGZPB\JOOHXSIV" ("\QKOJGZPB\JOOHXSIV")
+Change component parameters (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1010141074,1012080068,1012245578"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1012245584"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "1pF"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C33" ("C33"); Footprint = "SMD_CAPACITOR_0805"; UniqueID = "\QKOJGZPB\IEPZSAPP" ("\QKOJGZPB\IEPZSAPP")
+Change component parameters (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1010141074,1012080068,1012245578"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1012245584"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "1pF"; VariantName = "[No Variations]"
+Added Component: Designator=Y1(OSC_XRCGB26M000F3N00R0)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/XRCGB26M000F3N00R0/Murata/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Murata"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "XRCGB26M000F3N00R0"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "SMD-4 Murata"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/XRCGB26M000F3N00R0/Murata/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=OSC_IN Pin=Y1-1
+Added Pin To Net: NetName=OSC_OUT Pin=Y1-3
+Added Member To Class: ClassName=STM32 Member=Component Y1 XRCGB26M000F3N00R0

@@ -1,0 +1,2 @@
+mainBoard 49x86mm
+Senzor 48*48mm

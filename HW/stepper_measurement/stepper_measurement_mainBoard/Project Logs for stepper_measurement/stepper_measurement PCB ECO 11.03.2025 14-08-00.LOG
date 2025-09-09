@@ -1,0 +1,20 @@
+Added Pin To Net: NetName=Stepper2_B_OUT2 Pin=J5-25
+Added Pin To Net: NetName=Stepper2_B_OUT1 Pin=J5-27
+Added Pin To Net: NetName=NetIC2_23 Pin=IC2-23
+Added Pin To Net: NetName=NetIC2_23 Pin=J5-7
+Added Net: Name=NetIC2_23
+Added Pin To Net: NetName=NetIC2_24 Pin=IC2-24
+Added Pin To Net: NetName=NetIC2_24 Pin=J5-9
+Added Net: Name=NetIC2_24
+Added Pin To Net: NetName=NetIC2_25 Pin=IC2-25
+Added Pin To Net: NetName=NetIC2_25 Pin=J5-11
+Added Net: Name=NetIC2_25
+Added Pin To Net: NetName=NetIC2_26 Pin=IC2-26
+Added Pin To Net: NetName=NetIC2_26 Pin=J5-13
+Added Net: Name=NetIC2_26
+Added Pin To Net: NetName=NetIC2_29 Pin=IC2-29
+Added Pin To Net: NetName=NetIC2_29 Pin=J5-15
+Added Net: Name=NetIC2_29
+Added Pin To Net: NetName=NetIC2_30 Pin=IC2-30
+Added Pin To Net: NetName=NetIC2_30 Pin=J5-17
+Added Net: Name=NetIC2_30

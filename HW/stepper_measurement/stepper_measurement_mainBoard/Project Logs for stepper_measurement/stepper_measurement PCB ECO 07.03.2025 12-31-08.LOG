@@ -1,0 +1,75 @@
+Change Footprint: Footprint Not Found SOIC127P600X170-9N
+Added Component: Designator=C11(SMD_CAPACITOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1010141074,1012080068,1012245578"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1012245584"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10uF"; VariantName = "[No Variations]"
+Added Component: Designator=C12(SMD_CAPACITOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1010141074,1012080068,1012245578"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005423&sort=P_PRICE&pageSize=100&beginIndex=1&showResults=true&sf=502,707&pf=1012245584"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "100nF"; VariantName = "[No Variations]"
+Add Component: Footprint Not Found DIOM4325X250N
+Add Component: Footprint Not Found DIOM4325X250N
+Add Component: Footprint Not Found BEADC2012X105N
+Add Component: Footprint Not Found BEADC2012X105N
+Add Component: Footprint Not Found BEADC2012X105N
+Add Component: Footprint Not Found BEADC2012X105N
+Add Component: Footprint Not Found 691216510003S
+Add Component: Footprint Not Found 691216510002S
+Added Component: Designator=R3(SMD_RESISTOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10K"; VariantName = "[No Variations]"
+Added Component: Designator=R4(SMD_RESISTOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=R5(SMD_RESISTOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Add Component: Footprint Not Found SOIC127P599X175-8N
+Added Pin To Net: NetName=GND Pin=C11-1
+Added Pin To Net: NetName=VCC-RS Pin=C11-2
+Added Pin To Net: NetName=GND Pin=C12-1
+Added Pin To Net: NetName=VCC-RS Pin=C12-2
+Add Pin To Net: Unknown Pin: Pin D1-1
+Add Pin To Net: Unknown Pin: Pin D1-2
+Add Pin To Net: Unknown Pin: Pin D2-1
+Add Pin To Net: Unknown Pin: Pin D2-2
+Add Pin To Net: Unknown Pin: Pin FB1-1
+Add Pin To Net: Unknown Pin: Pin FB1-2
+Add Pin To Net: Unknown Pin: Pin FB2-1
+Add Pin To Net: Unknown Pin: Pin FB2-2
+Add Pin To Net: Unknown Pin: Pin FB3-1
+Add Pin To Net: Unknown Pin: Pin FB3-2
+Add Pin To Net: Unknown Pin: Pin FB4-1
+Add Pin To Net: Unknown Pin: Pin FB4-2
+Add Pin To Net: Unknown Pin: Pin IC1-7
+Add Pin To Net: Unknown Pin: Pin IC1-8
+Add Pin To Net: Unknown Pin: Pin IC1-9
+Add Pin To Net: Unknown Pin: Pin J1-1
+Add Pin To Net: Unknown Pin: Pin J1-2
+Add Pin To Net: Unknown Pin: Pin J1-3
+Add Pin To Net: Unknown Pin: Pin J2-1
+Add Pin To Net: Unknown Pin: Pin J2-2
+Added Pin To Net: NetName=NetR3_1 Pin=R3-1
+Added Pin To Net: NetName=VCC Pin=R3-2
+Added Pin To Net: NetName=NetFB1_1 Pin=R4-2
+Added Pin To Net: NetName=NetR5_1 Pin=R5-1
+Added Pin To Net: NetName=NetFB2_1 Pin=R5-2
+Add Pin To Net: Unknown Pin: Pin U3-2
+Add Pin To Net: Unknown Pin: Pin U3-7
+Added Member To Class: ClassName=RS485 Member=Component C11 10uF
+Added Member To Class: ClassName=RS485 Member=Component C12 100nF
+Add Class Member: Failed to add class member : Component D1 SMAJ13CA
+Add Class Member: Failed to add class member : Component D2 SMAJ13CA
+Add Class Member: Failed to add class member : Component FB1 FBMJ2125HM330-T
+Add Class Member: Failed to add class member : Component FB2 FBMJ2125HM330-T
+Add Class Member: Failed to add class member : Component FB3 FBMJ2125HM330-T
+Add Class Member: Failed to add class member : Component FB4 FBMJ2125HM330-T
+Add Class Member: Failed to add class member : Component J1 691216510003S
+Add Class Member: Failed to add class member : Component J2 691216510002S
+Added Member To Class: ClassName=RS485 Member=Component R3 10K
+Added Member To Class: ClassName=RS485 Member=Component R4 *
+Added Member To Class: ClassName=RS485 Member=Component R5 *
+Add Class Member: Failed to add class member : Component U3 SN65HVD72D

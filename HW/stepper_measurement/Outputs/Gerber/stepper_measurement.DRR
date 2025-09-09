@@ -1,0 +1,20 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: stepper_measurement.PcbDoc   28.03.2025  9:16:20
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII Plated RoundHoles File : stepper_measurement-Plated.TXT
+ASCII Non-Plated RoundHoles File : stepper_measurement-NonPlated.TXT
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      12mil (0.3mm)                                             Round             67        PTH        13.91inch (353.39mm)
+T2      26mil (0.65mm)                                            Round             3         PTH        0.10inch (2.54mm)
+T3      28mil (0.701mm)                                           Round             40        PTH        1.95inch (49.53mm)
+T4      28mil (0.711mm)                                           Round             1         PTH        0.00inch (0.00mm)
+T5      43mil (1.1mm)                                             Round             23        PTH        8.04inch (204.11mm)
+T6      43mil (1.1mm)                                             Round             7         NPTH       0.69inch (17.40mm)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              141
+
+Total Processing Time (hh:mm:ss) : 00:00:01

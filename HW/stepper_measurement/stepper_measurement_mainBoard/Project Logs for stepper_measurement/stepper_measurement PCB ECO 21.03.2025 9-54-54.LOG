@@ -1,0 +1,18 @@
+Removed Pin From Net: NetName=Stepper_PowerSupply Pin=J2-37
+Change Component Description : Designator=L1 Old Description=High Current Shielded Power Inductor New Description=High Current Shielded Power Inductor | 0.47uH | 18A | 1LN | 7.3 x 6.8 x 3mm Footprint | 3mm Height Profile
+Change Component Description : Designator=J5 Old Description=PCB Terminal Screw 2.54mm 20AWG 160V 6A 2 Position COMBICON MPT Series New Description=PCB Terminal Screw 2.54mm 20AWG 160V 6A 2 Position COMBICON MPT Series | Phoenix Contact 1725656
+Change Component Description : Designator=J7 Old Description=PCB Terminal Screw 2.54mm 20AWG 160V 6A 2 Position COMBICON MPT Series New Description=PCB Terminal Screw 2.54mm 20AWG 160V 6A 2 Position COMBICON MPT Series | Phoenix Contact 1725656
+Change Component Description : Designator=J1 Old Description=PCB Terminal Screw 2.54mm 20AWG 160V 6A 3 Position COMBICON MPT Series New Description=PCB Terminal Screw 2.54mm 20AWG 160V 6A 3 Position COMBICON MPT Series | Phoenix Contact 1725669
+Added Component: Designator=J8(HARWIN_M50-3530342)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3530342"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=Stepper_PowerSupply Pin=J8-1
+Added Pin To Net: NetName=8-95V Pin=J8-3
+Added Pin To Net: NetName=OAMP_Power Pin=J2-37
+Added Pin To Net: NetName=OAMP_Power Pin=J8-2
+Added Net: Name=OAMP_Power
+Added Member To Class: ClassName=main Member=Component J8 M50-3530342

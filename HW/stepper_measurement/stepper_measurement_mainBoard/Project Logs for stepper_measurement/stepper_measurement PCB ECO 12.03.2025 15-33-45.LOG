@@ -1,0 +1,10 @@
+Added Component: Designator=L1(IND_F1D1-060603W-R47M)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/F1D1-060603W-R47M/Bel+Circuit+Protection/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Bel Fuse"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "F1D1-060603W-R47M"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/F1D1-060603W-R47M/Bel+Circuit+Protection/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetC8_1 Pin=L1-1
+Added Pin To Net: NetName=+5 Pin=L1-2
+Added Member To Class: ClassName=DCDC_5V0 Member=Component L1 F1D1-060603W-R47M

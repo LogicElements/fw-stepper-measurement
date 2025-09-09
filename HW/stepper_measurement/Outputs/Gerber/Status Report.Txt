@@ -1,0 +1,12 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : PCB Document [Senzor.PcbDoc]
+   Generated File[Senzor-Plated.TXT]
+   Generated File[Senzor.LDP]
+   Generated File[Senzor.DRR]
+
+
+Files Generated   : 3
+Documents Printed : 0
+
+Finished Output Generation At 9:23:29 On 28.03.2025

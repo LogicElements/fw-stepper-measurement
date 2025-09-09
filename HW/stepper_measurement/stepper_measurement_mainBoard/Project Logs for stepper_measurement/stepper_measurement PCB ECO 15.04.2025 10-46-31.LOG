@@ -1,0 +1,5 @@
+Change Component Description : Designator=L1 Old Description=High Current Shielded Power Inductor New Description=High Current Shielded Power Inductor | 33uH | 18A | 1LN | 7.3 x 6.8 x 3mm Footprint | 3mm Height Profile
+Change Component Description : Designator=J2 Old Description=PCB Terminal Screw 2.54mm 20AWG 160V 6A 2 Position COMBICON MPT Series New Description=PCB Terminal Screw 2.54mm 20AWG 160V 6A 2 Position COMBICON MPT Series | Phoenix Contact 1725656
+Change Component Description : Designator=J7 Old Description=PCB Terminal Screw 2.54mm 20AWG 160V 6A 2 Position COMBICON MPT Series New Description=PCB Terminal Screw 2.54mm 20AWG 160V 6A 2 Position COMBICON MPT Series | Phoenix Contact 1725656
+Change Component Description : Designator=J1 Old Description=PCB Terminal Screw 2.54mm 20AWG 160V 6A 3 Position COMBICON MPT Series New Description=PCB Terminal Screw 2.54mm 20AWG 160V 6A 3 Position COMBICON MPT Series | Phoenix Contact 1725669
+Added Member To Class: ClassName=power Member=Component D1 *

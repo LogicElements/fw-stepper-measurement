@@ -1,0 +1,18 @@
+Added Component: Designator=C8(CAPC3225X280N)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/HMJ325KC7475KMHPE/Taiyo+Yuden/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Taiyo Yuden"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "HMJ325KC7475KMHPE"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "3225 Taiyo Yuden"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/HMJ325KC7475KMHPE/Taiyo+Yuden/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C9(CAPC3225X280N)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/HMJ325KC7475KMHPE/Taiyo+Yuden/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Taiyo Yuden"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "HMJ325KC7475KMHPE"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "3225 Taiyo Yuden"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/HMJ325KC7475KMHPE/Taiyo+Yuden/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=C8-1
+Added Pin To Net: NetName=8-48V Pin=C8-2
+Added Pin To Net: NetName=GND Pin=C9-1
+Added Pin To Net: NetName=8-48V Pin=C9-2

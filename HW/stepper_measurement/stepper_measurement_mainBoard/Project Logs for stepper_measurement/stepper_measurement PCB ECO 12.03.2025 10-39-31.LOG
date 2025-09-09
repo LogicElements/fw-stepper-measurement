@@ -1,0 +1,49 @@
+Removed Pin From Net: NetName=NetIC2_93 Pin=J2-19
+Removed Pin From Net: NetName=NetIC2_92 Pin=J2-21
+Removed Pin From Net: NetName=NetIC2_79 Pin=J2-23
+Removed Pin From Net: NetName=NetIC2_78 Pin=J2-25
+Change Component Description : Designator=J5 Old Description=PCB Terminal Screw 2.54mm 20AWG 160V 6A 2 Position COMBICON MPT Series New Description=PCB Terminal Screw 2.54mm 20AWG 160V 6A 2 Position COMBICON MPT Series | Phoenix Contact 1725656
+Change Component Description : Designator=J1 Old Description=PCB Terminal Screw 2.54mm 20AWG 160V 6A 3 Position COMBICON MPT Series New Description=PCB Terminal Screw 2.54mm 20AWG 160V 6A 3 Position COMBICON MPT Series | Phoenix Contact 1725669
+Added Pin To Net: NetName=NetIC2_93 Pin=J2-23
+Added Pin To Net: NetName=NetIC2_92 Pin=J2-25
+Added Pin To Net: NetName=NetIC2_79 Pin=J2-27
+Added Pin To Net: NetName=NetIC2_78 Pin=J2-29
+Change Net Name : Old Net Name=Stepper1_A_IN1 New Net Name=NetJ2_2
+Change Net Name : Old Net Name=Stepper1_A_IN2 New Net Name=NetJ2_4
+Change Net Name : Old Net Name=Stepper1_A_OUT1 New Net Name=NetJ2_10
+Change Net Name : Old Net Name=Stepper1_A_OUT2 New Net Name=NetJ2_12
+Change Net Name : Old Net Name=Stepper1_B_IN1 New Net Name=NetJ2_6
+Change Net Name : Old Net Name=Stepper1_B_IN2 New Net Name=NetJ2_8
+Change Net Name : Old Net Name=Stepper1_B_OUT1 New Net Name=NetJ2_14
+Change Net Name : Old Net Name=Stepper1_B_OUT2 New Net Name=NetJ2_16
+Added Pin To Net: NetName=NetIC2_31 Pin=IC2-31
+Added Pin To Net: NetName=NetIC2_31 Pin=J2-19
+Added Net: Name=NetIC2_31
+Added Pin To Net: NetName=NetIC2_32 Pin=IC2-32
+Added Pin To Net: NetName=NetIC2_32 Pin=J2-21
+Added Net: Name=NetIC2_32
+Added Pin To Net: NetName=NetJ2_18 Pin=J2-18
+Added Pin To Net: NetName=NetJ2_18 Pin=J6-8
+Added Net: Name=NetJ2_18
+Added Pin To Net: NetName=NetJ2_20 Pin=J2-20
+Added Pin To Net: NetName=NetJ2_20 Pin=J6-7
+Added Net: Name=NetJ2_20
+Added Pin To Net: NetName=NetJ2_22 Pin=J2-22
+Added Pin To Net: NetName=NetJ2_22 Pin=J6-6
+Added Net: Name=NetJ2_22
+Added Pin To Net: NetName=NetJ2_24 Pin=J2-24
+Added Pin To Net: NetName=NetJ2_24 Pin=J6-5
+Added Net: Name=NetJ2_24
+Added Pin To Net: NetName=NetJ2_26 Pin=J2-26
+Added Pin To Net: NetName=NetJ2_26 Pin=J6-4
+Added Net: Name=NetJ2_26
+Added Pin To Net: NetName=NetJ2_28 Pin=J2-28
+Added Pin To Net: NetName=NetJ2_28 Pin=J6-3
+Added Net: Name=NetJ2_28
+Added Pin To Net: NetName=NetJ2_30 Pin=J2-30
+Added Pin To Net: NetName=NetJ2_30 Pin=J6-2
+Added Net: Name=NetJ2_30
+Added Pin To Net: NetName=NetJ2_32 Pin=J2-32
+Added Pin To Net: NetName=NetJ2_32 Pin=J6-1
+Added Net: Name=NetJ2_32
+Added Member To Class: ClassName=main Member=Component J2 M50-3902042
