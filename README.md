@@ -1,10 +1,10 @@
-# Precise RTD Simulator
+# Stepper Measurement System
 
-This repo contains firmware and utilities for Precise RTD Simulator
- - Application firmware
+This repository contains hardware and firmware for the Stepper Measurement System:
+ - Hardware board 
  - Bootloader
- - Python class
- - Test suite
+ - Application firmware
+ - Python test scripts
  - Documentation
 
 # Register map
@@ -31,13 +31,6 @@ Any further debugging can be done using IDE.
 
 # Python tools
 
-There are python support tools in the directory ./Tests/prec-rtd-dim/.
-In order to use VisualModbus application, proceed as follows:
-
-- make sure python >= 3.7 is installed and accessible via PATH
-- install requirements `pip install -r requirements.txt`
-- edit communication settings in ComSettings.json (mainly COM port)
-- run visual application `python VisualRtdSim.py`
 
 
 
