@@ -1,0 +1,11 @@
+Removed Pin From Net: NetName=Voltage1_B Pin=P1-1
+Removed Member From Class: ClassName=main Member=P1
+Added Component: Designator=J?(HARWIN_H2173-05)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "H2173-05"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=Voltage1_B Pin=J?-1
+Added Member To Class: ClassName=main Member=Component J? H2173-05

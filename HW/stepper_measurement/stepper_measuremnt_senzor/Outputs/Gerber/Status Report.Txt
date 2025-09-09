@@ -1,0 +1,13 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : PCB Document [stepper_measurement.PcbDoc]
+   Generated File[stepper_measurement-Plated.TXT]
+   Generated File[stepper_measurement-NonPlated.TXT]
+   Generated File[stepper_measurement.LDP]
+   Generated File[stepper_measurement.DRR]
+
+
+Files Generated   : 4
+Documents Printed : 0
+
+Finished Output Generation At 14:11:07 On 16.04.2025

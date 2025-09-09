@@ -1,0 +1,38 @@
+Added Component: Designator=J1(HARWIN_M50-3202045)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/M50-3202045/Harwin/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Harwin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3202045"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/M50-3202045/Harwin/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=VCC Pin=J1-1
+Added Pin To Net: NetName=NetC2.1_2 Pin=J1-2
+Added Pin To Net: NetName=+5 Pin=J1-3
+Added Pin To Net: NetName=NetC1.1_2 Pin=J1-4
+Added Pin To Net: NetName=8-95V Pin=J1-5
+Added Pin To Net: NetName=NetC2.3_2 Pin=J1-6
+Added Pin To Net: NetName=Voltage1_A Pin=J1-7
+Added Pin To Net: NetName=NetC1.3_2 Pin=J1-8
+Added Pin To Net: NetName=Voltage1_B Pin=J1-9
+Added Pin To Net: NetName=NetJ1_10 Pin=J1-10
+Added Pin To Net: NetName=Voltage2_A Pin=J1-11
+Added Pin To Net: NetName=NetJ1_12 Pin=J1-12
+Added Pin To Net: NetName=Voltage2_B Pin=J1-13
+Added Pin To Net: NetName=NetJ1_14 Pin=J1-14
+Added Pin To Net: NetName=Current1_A Pin=J1-15
+Added Pin To Net: NetName=NetJ1_16 Pin=J1-16
+Added Pin To Net: NetName=Current1_B Pin=J1-17
+Added Pin To Net: NetName=NetC2.2_2 Pin=J1-18
+Added Pin To Net: NetName=Current2_A Pin=J1-19
+Added Pin To Net: NetName=NetC1.2_2 Pin=J1-20
+Added Pin To Net: NetName=Current2_B Pin=J1-21
+Added Pin To Net: NetName=NetC2.4_2 Pin=J1-22
+Added Pin To Net: NetName=NetC1.4_2 Pin=J1-24
+Added Pin To Net: NetName=NetJ1_26 Pin=J1-26
+Added Pin To Net: NetName=NetJ1_28 Pin=J1-28
+Added Pin To Net: NetName=NetJ1_30 Pin=J1-30
+Added Pin To Net: NetName=NetJ1_32 Pin=J1-32
+Added Pin To Net: NetName=VCC Pin=J1-37
+Added Pin To Net: NetName=GND Pin=J1-39
+Added Pin To Net: NetName=GND Pin=J1-40
+Added Member To Class: ClassName=main Member=Component J1 M50-3202045

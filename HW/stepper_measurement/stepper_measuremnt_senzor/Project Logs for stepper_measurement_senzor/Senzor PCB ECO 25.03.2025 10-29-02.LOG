@@ -1,0 +1,14 @@
+Change Component Footprint: Designator=J? Old Footprint=3128100150000080 New Footprint=3157000150000030
+Change Component Comment : Designator=J? Old Comment=3128-1-00-15-00-00-08-0 New Comment=3157-0-00-15-00-00-03-0
+Change component parameters: Designator = "J?" ("J?"); Footprint = "3128100150000080"; UniqueID = "\UQQJOMGW" ("\UQQJOMGW")
+Change component parameters (AddParameter): Name = "Arrow Part Number"; Value = "3157-0-00-15-00-00-03-0"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Arrow Price/Stock"; Value = "https://www.arrow.com/en/products/3157-0-00-15-00-00-03-0/mill-max?region=nac"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet Link"; Value = "https://www.mill-max.com/products/datasheet/pinsrecs/3157-0-00-15-00-00-03-0"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Height"; Value = "1.651mm"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Name"; Value = "Mill-Max"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Part_Number"; Value = "3157-0-00-15-00-00-03-0"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Part Number"; Value = "575-3157000"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/Mill-Max/3157-0-00-15-00-00-03-0?qs=1wcGhl1mtLPUZvqKAbBegA%3D%3D"; VariantName = "[No Variations]"
+Added Member To Class: ClassName=main Member=Component J? 3128-1-00-15-00-00-08-0
+Added Member To Class: ClassName=main Member=Component J? 3128-1-00-15-00-00-08-0
+Added Member To Class: ClassName=main Member=Component J? 3157-0-00-15-00-00-03-0

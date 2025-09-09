@@ -1,0 +1,7 @@
+Change Component Designator: OldDesignator=D?.1 NewDesignator=D2.1
+Change Component Designator: OldDesignator=D?.2 NewDesignator=D2.2
+Change Component Designator: OldDesignator=D?.3 NewDesignator=D2.3
+Change Component Designator: OldDesignator=D?.4 NewDesignator=D2.4
+Change Component Designator: OldDesignator=LED? NewDesignator=LED1
+Change Component Designator: OldDesignator=R? NewDesignator=R12
+Change Net Name : Old Net Name=NetLED?_1 New Net Name=NetLED1_1

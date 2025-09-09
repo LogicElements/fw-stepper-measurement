@@ -1,0 +1,13 @@
+Added Component: Designator=J?(13671)
+Add component (AddParameter): Name = "Arrow Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Arrow Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://www.keyelco.com/product-pdf.cfm?p=2988"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "5.85mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Keystone Electronics"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "1367-1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = "534-1367-1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.com/Search/Refine.aspx?Keyword=534-1367-1"; VariantName = "[No Variations]"
+Added Member To Class: ClassName=main Member=Component J? 3128-1-00-15-00-00-08-0
+Added Member To Class: ClassName=main Member=Component J? 1367-1
+Added Member To Class: ClassName=main Member=Component J? 3157-0-00-15-00-00-03-0
+Added Member To Class: ClassName=main Member=Component J? 3128-1-00-15-00-00-08-0

@@ -1,0 +1,4 @@
+Removed Pin From Net: NetName=8-95V Pin=J1-5
+Change Net Name : Old Net Name=8-95V New Net Name=Stepper_PowerSupply
+Added Pin To Net: NetName=8-95V Pin=J1-5
+Added Net: Name=8-95V

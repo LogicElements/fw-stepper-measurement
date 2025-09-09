@@ -1,0 +1,310 @@
+Removed Pin From Net: NetName=NetC1.1_2 Pin=J1-4
+Removed Pin From Net: NetName=NetC1.3_2 Pin=J1-8
+Removed Pin From Net: NetName=NetC1.2_2 Pin=J1-20
+Removed Pin From Net: NetName=NetC1.4_2 Pin=J1-24
+Removed Pin From Net: NetName=NetC1.1_2 Pin=R5.1-1
+Removed Pin From Net: NetName=NetC1.2_2 Pin=R5.2-1
+Removed Pin From Net: NetName=NetC1.3_2 Pin=R5.3-1
+Removed Pin From Net: NetName=NetC1.4_2 Pin=R5.4-1
+Removed Pin From Net: NetName=NetJ1_10 Pin=U2.1-1
+Removed Pin From Net: NetName=NetJ1_26 Pin=U2.2-1
+Removed Pin From Net: NetName=NetJ1_14 Pin=U2.3-1
+Removed Pin From Net: NetName=NetJ1_30 Pin=U2.4-1
+Added Component: Designator=D?.1(SMD_DO-214AC)
+Add component (AddParameter): Name = "DO-214AC"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000043508&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1010199473"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SOD-123"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000043508&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1010130987"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=D?.2(SMD_DO-214AC)
+Add component (AddParameter): Name = "DO-214AC"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000043508&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1010199473"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SOD-123"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000043508&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1010130987"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=D?.3(SMD_DO-214AC)
+Add component (AddParameter): Name = "DO-214AC"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000043508&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1010199473"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SOD-123"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000043508&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1010130987"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=D?.4(SMD_DO-214AC)
+Add component (AddParameter): Name = "DO-214AC"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000043508&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1010199473"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SOD-123"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000043508&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1010130987"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J2.1(HARWIN_M50-3530242)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Harwin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3530242"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J2.2(HARWIN_M50-3530242)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Harwin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3530242"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J2.3(HARWIN_M50-3530242)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Harwin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3530242"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J2.4(HARWIN_M50-3530242)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Harwin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3530242"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J3.1(HARWIN_M50-3530242)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Harwin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3530242"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J3.2(HARWIN_M50-3530242)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Harwin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3530242"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J3.3(HARWIN_M50-3530242)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Harwin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3530242"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J3.4(HARWIN_M50-3530242)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Harwin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3530242"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J4.1(HARWIN_M50-3530242)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Harwin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3530242"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J4.2(HARWIN_M50-3530242)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Harwin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3530242"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J4.3(HARWIN_M50-3530242)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Harwin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3530242"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J4.4(HARWIN_M50-3530242)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Harwin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3530242"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=LED?(SMD_LED_0805)
+Add component (AddParameter): Name = "3MM"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000006139&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1010173716,1012220634"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "5MM"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000006139&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1010195550,1012220634"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000006139&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1010144644,1010253269"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000006139&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1010144644,1010305184"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SUPER_BRIGHT"; Value = "http://cz.farnell.com/kingbright/ka-3535sylz4s/led-hb-yellow-525mw-12lm/dp/2373359+"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "Red"; VariantName = "[No Variations]"
+Added Component: Designator=R8.1(SMD_RESISTOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10K"; VariantName = "[No Variations]"
+Added Component: Designator=R8.2(SMD_RESISTOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10K"; VariantName = "[No Variations]"
+Added Component: Designator=R8.3(SMD_RESISTOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10K"; VariantName = "[No Variations]"
+Added Component: Designator=R8.4(SMD_RESISTOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10K"; VariantName = "[No Variations]"
+Added Component: Designator=R9.1(SMD_RESISTOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10K"; VariantName = "[No Variations]"
+Added Component: Designator=R9.2(SMD_RESISTOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10K"; VariantName = "[No Variations]"
+Added Component: Designator=R9.3(SMD_RESISTOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10K"; VariantName = "[No Variations]"
+Added Component: Designator=R9.4(SMD_RESISTOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10K"; VariantName = "[No Variations]"
+Added Component: Designator=R10.1(SMD_RESISTOR_1206)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "150K"; VariantName = "[No Variations]"
+Added Component: Designator=R10.2(SMD_RESISTOR_1206)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "150K"; VariantName = "[No Variations]"
+Added Component: Designator=R10.3(SMD_RESISTOR_1206)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "150K"; VariantName = "[No Variations]"
+Added Component: Designator=R10.4(SMD_RESISTOR_1206)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "150K"; VariantName = "[No Variations]"
+Added Component: Designator=R11.1(SMD_RESISTOR_1206)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10"; VariantName = "[No Variations]"
+Added Component: Designator=R11.2(SMD_RESISTOR_1206)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10"; VariantName = "[No Variations]"
+Added Component: Designator=R11.3(SMD_RESISTOR_1206)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10"; VariantName = "[No Variations]"
+Added Component: Designator=R11.4(SMD_RESISTOR_1206)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10"; VariantName = "[No Variations]"
+Added Component: Designator=R?(SMD_RESISTOR_0805)
+Add component (AddParameter): Name = "0805"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&sort=P_PRICE&pageSize=100&showResults=true&sf=502,707&pf=1012211743"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "1206"; Value = "http://cz.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=420&storeId=10156&categoryId=700000005450&pageSize=100&showResults=true&sf=502,707&pf=1012211755"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "1K"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=D?.1-1
+Added Pin To Net: NetName=Current1_A Pin=D?.1-2
+Added Pin To Net: NetName=GND Pin=D?.2-1
+Added Pin To Net: NetName=Current2_A Pin=D?.2-2
+Added Pin To Net: NetName=GND Pin=D?.3-1
+Added Pin To Net: NetName=Current1_B Pin=D?.3-2
+Added Pin To Net: NetName=GND Pin=D?.4-1
+Added Pin To Net: NetName=Current2_B Pin=D?.4-2
+Added Pin To Net: NetName=NetJ1_2 Pin=J2.1-1
+Added Pin To Net: NetName=NetC2.1_2 Pin=J2.1-2
+Added Pin To Net: NetName=NetJ1_18 Pin=J2.2-1
+Added Pin To Net: NetName=NetC2.2_2 Pin=J2.2-2
+Added Pin To Net: NetName=NetJ1_6 Pin=J2.3-1
+Added Pin To Net: NetName=NetC2.3_2 Pin=J2.3-2
+Added Pin To Net: NetName=NetJ1_22 Pin=J2.4-1
+Added Pin To Net: NetName=NetC2.4_2 Pin=J2.4-2
+Added Pin To Net: NetName=NetC1.1_2 Pin=J3.1-1
+Added Pin To Net: NetName=NetC1.2_2 Pin=J3.2-1
+Added Pin To Net: NetName=NetC1.3_2 Pin=J3.3-1
+Added Pin To Net: NetName=NetC1.4_2 Pin=J3.4-1
+Added Pin To Net: NetName=NetJ1_10 Pin=J4.1-2
+Added Pin To Net: NetName=NetJ1_26 Pin=J4.2-2
+Added Pin To Net: NetName=NetJ1_14 Pin=J4.3-2
+Added Pin To Net: NetName=NetJ1_30 Pin=J4.4-2
+Added Pin To Net: NetName=GND Pin=LED?-2
+Added Pin To Net: NetName=NetR6.1_2 Pin=R8.1-1
+Added Pin To Net: NetName=NetC1.1_2 Pin=R8.1-2
+Added Pin To Net: NetName=NetR6.2_2 Pin=R8.2-1
+Added Pin To Net: NetName=NetC1.2_2 Pin=R8.2-2
+Added Pin To Net: NetName=NetR6.3_2 Pin=R8.3-1
+Added Pin To Net: NetName=NetC1.3_2 Pin=R8.3-2
+Added Pin To Net: NetName=NetR6.4_2 Pin=R8.4-1
+Added Pin To Net: NetName=NetC1.4_2 Pin=R8.4-2
+Added Pin To Net: NetName=NetC1.1_2 Pin=R9.1-1
+Added Pin To Net: NetName=NetC1.2_2 Pin=R9.2-1
+Added Pin To Net: NetName=NetC1.3_2 Pin=R9.3-1
+Added Pin To Net: NetName=NetC1.4_2 Pin=R9.4-1
+Added Pin To Net: NetName=Current1_A Pin=R10.1-1
+Added Pin To Net: NetName=Current2_A Pin=R10.2-1
+Added Pin To Net: NetName=Current1_B Pin=R10.3-1
+Added Pin To Net: NetName=Current2_B Pin=R10.4-1
+Added Pin To Net: NetName=NetJ1_10 Pin=R11.1-2
+Added Pin To Net: NetName=NetJ1_26 Pin=R11.2-2
+Added Pin To Net: NetName=NetJ1_14 Pin=R11.3-2
+Added Pin To Net: NetName=NetJ1_30 Pin=R11.4-2
+Added Pin To Net: NetName=VCC Pin=R?-1
+Added Pin To Net: NetName=NetJ1_4 Pin=J1-4
+Added Pin To Net: NetName=NetJ1_4 Pin=J3.1-2
+Added Pin To Net: NetName=NetJ1_4 Pin=R5.1-1
+Added Pin To Net: NetName=NetJ1_4 Pin=R9.1-2
+Added Net: Name=NetJ1_4
+Added Pin To Net: NetName=NetJ1_8 Pin=J1-8
+Added Pin To Net: NetName=NetJ1_8 Pin=J3.3-2
+Added Pin To Net: NetName=NetJ1_8 Pin=R5.3-1
+Added Pin To Net: NetName=NetJ1_8 Pin=R9.3-2
+Added Net: Name=NetJ1_8
+Added Pin To Net: NetName=NetJ1_20 Pin=J1-20
+Added Pin To Net: NetName=NetJ1_20 Pin=J3.2-2
+Added Pin To Net: NetName=NetJ1_20 Pin=R5.2-1
+Added Pin To Net: NetName=NetJ1_20 Pin=R9.2-2
+Added Net: Name=NetJ1_20
+Added Pin To Net: NetName=NetJ1_24 Pin=J1-24
+Added Pin To Net: NetName=NetJ1_24 Pin=J3.4-2
+Added Pin To Net: NetName=NetJ1_24 Pin=R5.4-1
+Added Pin To Net: NetName=NetJ1_24 Pin=R9.4-2
+Added Net: Name=NetJ1_24
+Added Pin To Net: NetName=NetJ4.1_1 Pin=J4.1-1
+Added Pin To Net: NetName=NetJ4.1_1 Pin=R10.1-2
+Added Pin To Net: NetName=NetJ4.1_1 Pin=R11.1-1
+Added Pin To Net: NetName=NetJ4.1_1 Pin=U2.1-1
+Added Net: Name=NetJ4.1_1
+Added Pin To Net: NetName=NetJ4.2_1 Pin=J4.2-1
+Added Pin To Net: NetName=NetJ4.2_1 Pin=R10.2-2
+Added Pin To Net: NetName=NetJ4.2_1 Pin=R11.2-1
+Added Pin To Net: NetName=NetJ4.2_1 Pin=U2.2-1
+Added Net: Name=NetJ4.2_1
+Added Pin To Net: NetName=NetJ4.3_1 Pin=J4.3-1
+Added Pin To Net: NetName=NetJ4.3_1 Pin=R10.3-2
+Added Pin To Net: NetName=NetJ4.3_1 Pin=R11.3-1
+Added Pin To Net: NetName=NetJ4.3_1 Pin=U2.3-1
+Added Net: Name=NetJ4.3_1
+Added Pin To Net: NetName=NetJ4.4_1 Pin=J4.4-1
+Added Pin To Net: NetName=NetJ4.4_1 Pin=R10.4-2
+Added Pin To Net: NetName=NetJ4.4_1 Pin=R11.4-1
+Added Pin To Net: NetName=NetJ4.4_1 Pin=U2.4-1
+Added Net: Name=NetJ4.4_1
+Added Pin To Net: NetName=NetLED?_1 Pin=LED?-1
+Added Pin To Net: NetName=NetLED?_1 Pin=R?-2
+Added Net: Name=NetLED?_1
+Added Member To Class: ClassName=Stepper_current_A_1 Member=Component D?.1 (D?) *
+Added Member To Class: ClassName=Stepper_current_A_2 Member=Component D?.2 (D?) *
+Added Member To Class: ClassName=Stepper_current_B_1 Member=Component D?.3 (D?) *
+Added Member To Class: ClassName=Stepper_current_B_2 Member=Component D?.4 (D?) *
+Added Member To Class: ClassName=Stepper_voltage_A_1 Member=Component J2.1 (J2) M50-3530242
+Added Member To Class: ClassName=Stepper_voltage_A_2 Member=Component J2.2 (J2) M50-3530242
+Added Member To Class: ClassName=Stepper_voltage_B_1 Member=Component J2.3 (J2) M50-3530242
+Added Member To Class: ClassName=Stepper_voltage_B_2 Member=Component J2.4 (J2) M50-3530242
+Added Member To Class: ClassName=Stepper_voltage_A_1 Member=Component J3.1 (J3) M50-3530242
+Added Member To Class: ClassName=Stepper_voltage_A_2 Member=Component J3.2 (J3) M50-3530242
+Added Member To Class: ClassName=Stepper_voltage_B_1 Member=Component J3.3 (J3) M50-3530242
+Added Member To Class: ClassName=Stepper_voltage_B_2 Member=Component J3.4 (J3) M50-3530242
+Added Member To Class: ClassName=Stepper_current_A_1 Member=Component J4.1 (J4) M50-3530242
+Added Member To Class: ClassName=Stepper_current_A_2 Member=Component J4.2 (J4) M50-3530242
+Added Member To Class: ClassName=Stepper_current_B_1 Member=Component J4.3 (J4) M50-3530242
+Added Member To Class: ClassName=Stepper_current_B_2 Member=Component J4.4 (J4) M50-3530242
+Added Member To Class: ClassName=main Member=Component LED? Red
+Added Member To Class: ClassName=Stepper_voltage_A_1 Member=Component R8.1 (R8) 10K
+Added Member To Class: ClassName=Stepper_voltage_A_2 Member=Component R8.2 (R8) 10K
+Added Member To Class: ClassName=Stepper_voltage_B_1 Member=Component R8.3 (R8) 10K
+Added Member To Class: ClassName=Stepper_voltage_B_2 Member=Component R8.4 (R8) 10K
+Added Member To Class: ClassName=Stepper_voltage_A_1 Member=Component R9.1 (R9) 10K
+Added Member To Class: ClassName=Stepper_voltage_A_2 Member=Component R9.2 (R9) 10K
+Added Member To Class: ClassName=Stepper_voltage_B_1 Member=Component R9.3 (R9) 10K
+Added Member To Class: ClassName=Stepper_voltage_B_2 Member=Component R9.4 (R9) 10K
+Added Member To Class: ClassName=Stepper_current_A_1 Member=Component R10.1 (R10) 150K
+Added Member To Class: ClassName=Stepper_current_A_2 Member=Component R10.2 (R10) 150K
+Added Member To Class: ClassName=Stepper_current_B_1 Member=Component R10.3 (R10) 150K
+Added Member To Class: ClassName=Stepper_current_B_2 Member=Component R10.4 (R10) 150K
+Added Member To Class: ClassName=Stepper_current_A_1 Member=Component R11.1 (R11) 10
+Added Member To Class: ClassName=Stepper_current_A_2 Member=Component R11.2 (R11) 10
+Added Member To Class: ClassName=Stepper_current_B_1 Member=Component R11.3 (R11) 10
+Added Member To Class: ClassName=Stepper_current_B_2 Member=Component R11.4 (R11) 10
+Added Member To Class: ClassName=main Member=Component R? 1K

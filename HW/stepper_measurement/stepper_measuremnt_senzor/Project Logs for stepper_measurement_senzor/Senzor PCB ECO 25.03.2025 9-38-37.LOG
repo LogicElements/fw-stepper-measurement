@@ -1,0 +1,8 @@
+Add Component: Footprint Not Found TP06R
+Added Pin To Net: NetName=NetJ1_2 Pin=D1.3-2
+Added Pin To Net: NetName=NetJ1_2 Pin=J1-9
+Added Pin To Net: NetName=NetJ1_2 Pin=R6.3-1
+Added Pin To Net: NetName=NetJ1_2 Pin=R7.3-2
+Add Pin To Net: Unknown Pin: Pin TP1-1
+Change Net Name : Old Net Name=NetJ1_2 New Net Name=Voltage1_B
+Add Class Member: Failed to add class member : Component TP1 TPAD6R

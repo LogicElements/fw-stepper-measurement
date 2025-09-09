@@ -1,0 +1,17 @@
+Remove Pin from Net: Failed to remove Pin
+Remove Pin from Net: Failed to remove Pin
+Removed Pin From Net: NetName=NetJ1_6 Pin=J?-1
+Remove Pin from Net: Failed to remove Pin
+Removed Member From Class: ClassName=main Member=J?
+Added Component: Designator=P1(THT_HEADER_100MIL_1X1_MALE)
+Added Component: Designator=P2(THT_HEADER_100MIL_1X1_MALE)
+Added Component: Designator=P3(THT_HEADER_100MIL_1X1_MALE)
+Added Component: Designator=P4(THT_HEADER_100MIL_1X1_MALE)
+Added Pin To Net: NetName=NetJ1_8 Pin=P1-1
+Added Pin To Net: NetName=NetJ1_6 Pin=P2-1
+Added Pin To Net: NetName=NetJ1_4 Pin=P3-1
+Added Pin To Net: NetName=NetJ1_2 Pin=P4-1
+Added Member To Class: ClassName=main Member=Component P1 Header 1x1
+Added Member To Class: ClassName=main Member=Component P2 Header 1x1
+Added Member To Class: ClassName=main Member=Component P3 Header 1x1
+Added Member To Class: ClassName=main Member=Component P4 Header 1x1

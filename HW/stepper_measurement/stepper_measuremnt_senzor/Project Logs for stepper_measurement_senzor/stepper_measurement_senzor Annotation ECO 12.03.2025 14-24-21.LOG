@@ -1,0 +1,12 @@
+Change Component Physical Designator: Old Designator=C4_Stepper_current_A_1 New Designator=C4.1
+Change Component Physical Designator: Old Designator=C4_Stepper_current_A_2 New Designator=C4.2
+Change Component Physical Designator: Old Designator=C4_Stepper_current_B_1 New Designator=C4.3
+Change Component Physical Designator: Old Designator=C4_Stepper_current_B_2 New Designator=C4.4
+Change Component Physical Designator: Old Designator=R3_Stepper_current_A_1 New Designator=R3.1
+Change Component Physical Designator: Old Designator=R3_Stepper_current_A_2 New Designator=R3.2
+Change Component Physical Designator: Old Designator=R3_Stepper_current_B_1 New Designator=R3.3
+Change Component Physical Designator: Old Designator=R3_Stepper_current_B_2 New Designator=R3.4
+Change Component Physical Designator: Old Designator=U2_Stepper_current_A_1 New Designator=U2.1
+Change Component Physical Designator: Old Designator=U2_Stepper_current_A_2 New Designator=U2.2
+Change Component Physical Designator: Old Designator=U2_Stepper_current_B_1 New Designator=U2.3
+Change Component Physical Designator: Old Designator=U2_Stepper_current_B_2 New Designator=U2.4

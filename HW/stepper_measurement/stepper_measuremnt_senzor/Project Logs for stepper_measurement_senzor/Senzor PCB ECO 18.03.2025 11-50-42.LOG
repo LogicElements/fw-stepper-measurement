@@ -1,0 +1,60 @@
+Added Component: Designator=J2_Stepper_voltage_A_1(HARWIN_M50-3530242)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Harwin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3530242"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J2_Stepper_voltage_A_2(HARWIN_M50-3530242)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Harwin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3530242"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J2_Stepper_voltage_B_1(HARWIN_M50-3530242)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Harwin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3530242"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J3_Stepper_voltage_A_2(HARWIN_M50-3530242)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Harwin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3530242"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J3_Stepper_voltage_B_1(HARWIN_M50-3530242)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Harwin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3530242"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J3_Stepper_voltage_B_2(HARWIN_M50-3530242)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Harwin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3530242"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetJ1_2 Pin=J2_Stepper_voltage_A_1-1
+Added Pin To Net: NetName=NetC2.1_2 Pin=J2_Stepper_voltage_A_1-2
+Added Pin To Net: NetName=NetJ1_18 Pin=J2_Stepper_voltage_A_2-1
+Added Pin To Net: NetName=NetC2.2_2 Pin=J2_Stepper_voltage_A_2-2
+Added Pin To Net: NetName=NetJ1_6 Pin=J2_Stepper_voltage_B_1-1
+Added Pin To Net: NetName=NetC2.3_2 Pin=J2_Stepper_voltage_B_1-2
+Added Pin To Net: NetName=NetC1.2_2 Pin=J3_Stepper_voltage_A_2-1
+Added Pin To Net: NetName=NetJ1_20 Pin=J3_Stepper_voltage_A_2-2
+Added Pin To Net: NetName=NetC1.3_2 Pin=J3_Stepper_voltage_B_1-1
+Added Pin To Net: NetName=NetJ1_8 Pin=J3_Stepper_voltage_B_1-2
+Added Pin To Net: NetName=NetC1.4_2 Pin=J3_Stepper_voltage_B_2-1
+Added Pin To Net: NetName=NetJ1_24 Pin=J3_Stepper_voltage_B_2-2
+Added Member To Class: ClassName=Stepper_voltage_A_1 Member=Component J2_Stepper_voltage_A_1 (J2) M50-3530242
+Added Member To Class: ClassName=Stepper_voltage_A_2 Member=Component J2_Stepper_voltage_A_2 (J2) M50-3530242
+Added Member To Class: ClassName=Stepper_voltage_B_1 Member=Component J2_Stepper_voltage_B_1 (J2) M50-3530242
+Added Member To Class: ClassName=Stepper_voltage_A_2 Member=Component J3_Stepper_voltage_A_2 (J3) M50-3530242
+Added Member To Class: ClassName=Stepper_voltage_B_1 Member=Component J3_Stepper_voltage_B_1 (J3) M50-3530242
+Added Member To Class: ClassName=Stepper_voltage_B_2 Member=Component J3_Stepper_voltage_B_2 (J3) M50-3530242

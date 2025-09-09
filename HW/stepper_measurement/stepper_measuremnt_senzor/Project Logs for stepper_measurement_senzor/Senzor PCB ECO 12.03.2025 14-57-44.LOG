@@ -1,0 +1,4 @@
+Change Component Designator: OldDesignator=U2_Stepper_current_A_1 NewDesignator=U2.1
+Change Component Designator: OldDesignator=U2_Stepper_current_A_2 NewDesignator=U2.2
+Change Component Designator: OldDesignator=U2_Stepper_current_B_1 NewDesignator=U2.3
+Change Component Designator: OldDesignator=U2_Stepper_current_B_2 NewDesignator=U2.4

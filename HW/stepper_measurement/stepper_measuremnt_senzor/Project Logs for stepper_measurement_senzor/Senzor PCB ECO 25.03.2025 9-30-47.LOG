@@ -1,0 +1,3 @@
+Added Component: Designator=P1(THT_HEADER_100MIL_1X1_MALE)
+Added Pin To Net: NetName=NetJ1_2 Pin=P1-1
+Added Member To Class: ClassName=main Member=Component P1 Header 1x1

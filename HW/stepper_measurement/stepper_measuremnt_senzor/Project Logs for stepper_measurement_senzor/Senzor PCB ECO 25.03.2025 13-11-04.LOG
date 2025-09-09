@@ -1,0 +1,32 @@
+Removed Pin From Net: NetName=NetJ1_16 Pin=J2.1-1
+Removed Pin From Net: NetName=NetJ1_6 Pin=J3.1-2
+Removed Pin From Net: NetName=NetJ1_16 Pin=R4.1-2
+Removed Pin From Net: NetName=NetJ1_6 Pin=R5.1-1
+Removed Pin From Net: NetName=NetJ1_6 Pin=R9.1-2
+Added Component: Designator=J?(HARWIN_M50-3530242)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Harwin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3530242"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J?(HARWIN_M50-3530242)
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Harwin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "M50-3530242"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/M50-3530242/Harwin/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetJ1_6 Pin=J?-2
+Added Pin To Net: NetName=NetJ1_16 Pin=J?-2
+Added Pin To Net: NetName=NetJ2.1_1 Pin=J2.1-1
+Added Pin To Net: NetName=NetJ2.1_1 Pin=J?-1
+Added Pin To Net: NetName=NetJ2.1_1 Pin=R4.1-2
+Added Net: Name=NetJ2.1_1
+Added Pin To Net: NetName=NetJ3.1_2 Pin=J3.1-2
+Added Pin To Net: NetName=NetJ3.1_2 Pin=J?-1
+Added Pin To Net: NetName=NetJ3.1_2 Pin=R5.1-1
+Added Pin To Net: NetName=NetJ3.1_2 Pin=R9.1-2
+Added Net: Name=NetJ3.1_2
+Added Member To Class: ClassName=main Member=Component J? M50-3530242
+Added Member To Class: ClassName=main Member=Component J? M50-3530242

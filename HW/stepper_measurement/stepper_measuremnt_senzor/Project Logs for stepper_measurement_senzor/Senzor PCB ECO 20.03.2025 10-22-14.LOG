@@ -1,0 +1,80 @@
+Removed Pin From Net: NetName=NetJ1_2 Pin=J1-2
+Removed Pin From Net: NetName=NetJ1_4 Pin=J1-4
+Removed Pin From Net: NetName=NetJ1_6 Pin=J1-6
+Removed Pin From Net: NetName=NetJ1_8 Pin=J1-8
+Change Component Designator: OldDesignator=C5.1 NewDesignator=C5_Stepper_voltage_A_1
+Change Component Designator: OldDesignator=C5.2 NewDesignator=C5_Stepper_voltage_A_2
+Change Component Designator: OldDesignator=C5.3 NewDesignator=C5_Stepper_voltage_B_1
+Change Component Designator: OldDesignator=C5.4 NewDesignator=C5_Stepper_voltage_B_2
+Change Component Designator: OldDesignator=D1.1 NewDesignator=D1_Stepper_voltage_A_1
+Change Component Designator: OldDesignator=D1.2 NewDesignator=D1_Stepper_voltage_A_2
+Change Component Designator: OldDesignator=D1.3 NewDesignator=D1_Stepper_voltage_B_1
+Change Component Designator: OldDesignator=D1.4 NewDesignator=D1_Stepper_voltage_B_2
+Change Component Designator: OldDesignator=D2.1 NewDesignator=D2_Stepper_current_A_1
+Change Component Designator: OldDesignator=D2.2 NewDesignator=D2_Stepper_current_A_2
+Change Component Designator: OldDesignator=D2.3 NewDesignator=D2_Stepper_current_B_1
+Change Component Designator: OldDesignator=D2.4 NewDesignator=D2_Stepper_current_B_2
+Change Component Designator: OldDesignator=J2.1 NewDesignator=J2_Stepper_voltage_A_1
+Change Component Designator: OldDesignator=J2.2 NewDesignator=J2_Stepper_voltage_A_2
+Change Component Designator: OldDesignator=J2.3 NewDesignator=J2_Stepper_voltage_B_1
+Change Component Designator: OldDesignator=J2.4 NewDesignator=J2_Stepper_voltage_B_2
+Change Component Designator: OldDesignator=J3.1 NewDesignator=J3_Stepper_voltage_A_1
+Change Component Designator: OldDesignator=J3.2 NewDesignator=J3_Stepper_voltage_A_2
+Change Component Designator: OldDesignator=J3.3 NewDesignator=J3_Stepper_voltage_B_1
+Change Component Designator: OldDesignator=J3.4 NewDesignator=J3_Stepper_voltage_B_2
+Change Component Designator: OldDesignator=R4.1 NewDesignator=R4_Stepper_voltage_A_1
+Change Component Designator: OldDesignator=R4.2 NewDesignator=R4_Stepper_voltage_A_2
+Change Component Designator: OldDesignator=R4.3 NewDesignator=R4_Stepper_voltage_B_1
+Change Component Designator: OldDesignator=R4.4 NewDesignator=R4_Stepper_voltage_B_2
+Change Component Designator: OldDesignator=R5.1 NewDesignator=R5_Stepper_voltage_A_1
+Change Component Designator: OldDesignator=R5.2 NewDesignator=R5_Stepper_voltage_A_2
+Change Component Designator: OldDesignator=R5.3 NewDesignator=R5_Stepper_voltage_B_1
+Change Component Designator: OldDesignator=R5.4 NewDesignator=R5_Stepper_voltage_B_2
+Change Component Designator: OldDesignator=R6.1 NewDesignator=R6_Stepper_voltage_A_1
+Change Component Designator: OldDesignator=R6.2 NewDesignator=R6_Stepper_voltage_A_2
+Change Component Designator: OldDesignator=R6.3 NewDesignator=R6_Stepper_voltage_B_1
+Change Component Designator: OldDesignator=R6.4 NewDesignator=R6_Stepper_voltage_B_2
+Change Component Designator: OldDesignator=R7.1 NewDesignator=R7_Stepper_voltage_A_1
+Change Component Designator: OldDesignator=R7.2 NewDesignator=R7_Stepper_voltage_A_2
+Change Component Designator: OldDesignator=R7.3 NewDesignator=R7_Stepper_voltage_B_1
+Change Component Designator: OldDesignator=R7.4 NewDesignator=R7_Stepper_voltage_B_2
+Change Component Designator: OldDesignator=R8.1 NewDesignator=R8_Stepper_voltage_A_1
+Change Component Designator: OldDesignator=R8.2 NewDesignator=R8_Stepper_voltage_A_2
+Change Component Designator: OldDesignator=R8.3 NewDesignator=R8_Stepper_voltage_B_1
+Change Component Designator: OldDesignator=R8.4 NewDesignator=R8_Stepper_voltage_B_2
+Change Component Designator: OldDesignator=R9.1 NewDesignator=R9_Stepper_voltage_A_1
+Change Component Designator: OldDesignator=R9.2 NewDesignator=R9_Stepper_voltage_A_2
+Change Component Designator: OldDesignator=R9.3 NewDesignator=R9_Stepper_voltage_B_1
+Change Component Designator: OldDesignator=R9.4 NewDesignator=R9_Stepper_voltage_B_2
+Change Component Designator: OldDesignator=U1.1 NewDesignator=U1_Stepper_voltage_A_1
+Change Component Designator: OldDesignator=U1.2 NewDesignator=U1_Stepper_voltage_A_2
+Change Component Designator: OldDesignator=U1.3 NewDesignator=U1_Stepper_voltage_B_1
+Change Component Designator: OldDesignator=U1.4 NewDesignator=U1_Stepper_voltage_B_2
+Change Component Designator: OldDesignator=U2.1 NewDesignator=U2_Stepper_current_A_1
+Change Component Designator: OldDesignator=U2.2 NewDesignator=U2_Stepper_current_A_2
+Change Component Designator: OldDesignator=U2.3 NewDesignator=U2_Stepper_current_B_1
+Change Component Designator: OldDesignator=U2.4 NewDesignator=U2_Stepper_current_B_2
+Added Pin To Net: NetName=NetJ1_8 Pin=J1-10
+Added Pin To Net: NetName=NetJ1_6 Pin=J1-12
+Added Pin To Net: NetName=NetJ1_4 Pin=J1-14
+Added Pin To Net: NetName=NetJ1_2 Pin=J1-16
+Change Net Name : Old Net Name=NetJ1_2 New Net Name=NetJ1_16
+Change Net Name : Old Net Name=NetJ1_4 New Net Name=NetJ1_14
+Change Net Name : Old Net Name=NetJ1_6 New Net Name=NetJ1_12
+Change Net Name : Old Net Name=NetJ1_8 New Net Name=NetJ1_10
+Change Net Name : Old Net Name=NetR6.1_2 New Net Name=NetR6_Stepper_voltage_A_1_2
+Change Net Name : Old Net Name=NetR6.2_2 New Net Name=NetR6_Stepper_voltage_A_2_2
+Change Net Name : Old Net Name=NetR6.3_2 New Net Name=NetR6_Stepper_voltage_B_1_2
+Change Net Name : Old Net Name=NetR6.4_2 New Net Name=NetR6_Stepper_voltage_B_2_2
+Added Pin To Net: NetName=NetJ1_2 Pin=J1-2
+Added Net: Name=NetJ1_2
+Added Pin To Net: NetName=NetJ1_4 Pin=J1-4
+Added Pin To Net: NetName=NetJ1_4 Pin=R3.3-1
+Added Pin To Net: NetName=NetJ1_4 Pin=U2_Stepper_current_B_1-1
+Added Net: Name=NetJ1_4
+Added Pin To Net: NetName=NetJ1_6 Pin=J1-6
+Added Net: Name=NetJ1_6
+Added Pin To Net: NetName=NetJ1_8 Pin=J1-8
+Added Pin To Net: NetName=NetJ1_8 Pin=R3.1-1
+Added Pin To Net: NetName=NetJ1_8 Pin=U2_Stepper_current_A_1-1
+Added Net: Name=NetJ1_8

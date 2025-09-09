@@ -1,0 +1,53 @@
+Change Component Designator: OldDesignator=C1_Stepper_voltage_A_1 NewDesignator=C?_Stepper_voltage_A_1
+Change Component Designator: OldDesignator=C1_Stepper_voltage_A_2 NewDesignator=C?_Stepper_voltage_A_2
+Change Component Designator: OldDesignator=C1_Stepper_voltage_B_1 NewDesignator=C?_Stepper_voltage_B_1
+Change Component Designator: OldDesignator=C1_Stepper_voltage_B_2 NewDesignator=C?_Stepper_voltage_B_2
+Change Component Designator: OldDesignator=C2_Stepper_voltage_A_1 NewDesignator=C?_Stepper_voltage_A_1
+Change Component Designator: OldDesignator=C2_Stepper_voltage_A_2 NewDesignator=C?_Stepper_voltage_A_2
+Change Component Designator: OldDesignator=C2_Stepper_voltage_B_1 NewDesignator=C?_Stepper_voltage_B_1
+Change Component Designator: OldDesignator=C2_Stepper_voltage_B_2 NewDesignator=C?_Stepper_voltage_B_2
+Change Component Designator: OldDesignator=C3_Stepper_voltage_A_1 NewDesignator=C?_Stepper_voltage_A_1
+Change Component Designator: OldDesignator=C3_Stepper_voltage_A_2 NewDesignator=C?_Stepper_voltage_A_2
+Change Component Designator: OldDesignator=C3_Stepper_voltage_B_1 NewDesignator=C?_Stepper_voltage_B_1
+Change Component Designator: OldDesignator=C3_Stepper_voltage_B_2 NewDesignator=C?_Stepper_voltage_B_2
+Change Component Designator: OldDesignator=J1 NewDesignator=J?
+Change Component Designator: OldDesignator=R1_Stepper_voltage_A_1 NewDesignator=R?_Stepper_voltage_A_1
+Change Component Designator: OldDesignator=R1_Stepper_voltage_A_2 NewDesignator=R?_Stepper_voltage_A_2
+Change Component Designator: OldDesignator=R1_Stepper_voltage_B_1 NewDesignator=R?_Stepper_voltage_B_1
+Change Component Designator: OldDesignator=R1_Stepper_voltage_B_2 NewDesignator=R?_Stepper_voltage_B_2
+Change Component Designator: OldDesignator=R2_Stepper_voltage_A_1 NewDesignator=R?_Stepper_voltage_A_1
+Change Component Designator: OldDesignator=R2_Stepper_voltage_A_2 NewDesignator=R?_Stepper_voltage_A_2
+Change Component Designator: OldDesignator=R2_Stepper_voltage_B_1 NewDesignator=R?_Stepper_voltage_B_1
+Change Component Designator: OldDesignator=R2_Stepper_voltage_B_2 NewDesignator=R?_Stepper_voltage_B_2
+Change Component Designator: OldDesignator=U1_Stepper_voltage_A_1 NewDesignator=U?_Stepper_voltage_A_1
+Change Component Designator: OldDesignator=U1_Stepper_voltage_A_2 NewDesignator=U?_Stepper_voltage_A_2
+Change Component Designator: OldDesignator=U1_Stepper_voltage_B_1 NewDesignator=U?_Stepper_voltage_B_1
+Change Component Designator: OldDesignator=U1_Stepper_voltage_B_2 NewDesignator=U?_Stepper_voltage_B_2
+Change Net Name : Old Net Name=NetC1_Stepper_voltage_A_1_2 New Net Name=NetC?_Stepper_voltage_A_1_2
+Change Net Name : Old Net Name=NetC1_Stepper_voltage_A_2_2 New Net Name=NetC?_Stepper_voltage_A_2_2
+Change Net Name : Old Net Name=NetC1_Stepper_voltage_B_1_2 New Net Name=NetC?_Stepper_voltage_B_1_2
+Change Net Name : Old Net Name=NetC1_Stepper_voltage_B_2_2 New Net Name=NetC?_Stepper_voltage_B_2_2
+Change Net Name : Old Net Name=NetC2_Stepper_voltage_A_1_2 New Net Name=NetC?_Stepper_voltage_A_1_2
+Change Net Name : Old Net Name=NetC2_Stepper_voltage_A_2_2 New Net Name=NetC?_Stepper_voltage_A_2_2
+Change Net Name : Old Net Name=NetC2_Stepper_voltage_B_1_2 New Net Name=NetC?_Stepper_voltage_B_1_2
+Change Net Name : Old Net Name=NetC2_Stepper_voltage_B_2_2 New Net Name=NetC?_Stepper_voltage_B_2_2
+Change Net Name : Old Net Name=NetC3_Stepper_voltage_A_1_2 New Net Name=NetC?_Stepper_voltage_A_1_2
+Change Net Name : Old Net Name=NetC3_Stepper_voltage_A_2_2 New Net Name=NetC?_Stepper_voltage_A_2_2
+Change Net Name : Old Net Name=NetC3_Stepper_voltage_B_1_2 New Net Name=NetC?_Stepper_voltage_B_1_2
+Change Net Name : Old Net Name=NetC3_Stepper_voltage_B_2_2 New Net Name=NetC?_Stepper_voltage_B_2_2
+Change Net Name : Old Net Name=NetJ1_2 New Net Name=NetJ?_2
+Change Net Name : Old Net Name=NetJ1_4 New Net Name=NetJ?_4
+Change Net Name : Old Net Name=NetJ1_6 New Net Name=NetJ?_6
+Change Net Name : Old Net Name=NetJ1_8 New Net Name=NetJ?_8
+Change Net Name : Old Net Name=NetJ1_18 New Net Name=NetJ?_18
+Change Net Name : Old Net Name=NetJ1_20 New Net Name=NetJ?_20
+Change Net Name : Old Net Name=NetJ1_22 New Net Name=NetJ?_22
+Change Net Name : Old Net Name=NetJ1_24 New Net Name=NetJ?_24
+Change Net Name : Old Net Name=NetJ1_26 New Net Name=NetJ?_26
+Change Net Name : Old Net Name=NetJ1_28 New Net Name=NetJ?_28
+Change Net Name : Old Net Name=NetJ1_30 New Net Name=NetJ?_30
+Change Net Name : Old Net Name=NetJ1_32 New Net Name=NetJ?_32
+Change Net Name : Old Net Name=NetU1_Stepper_voltage_A_1_6 New Net Name=NetU?_Stepper_voltage_A_1_6
+Change Net Name : Old Net Name=NetU1_Stepper_voltage_A_2_6 New Net Name=NetU?_Stepper_voltage_A_2_6
+Change Net Name : Old Net Name=NetU1_Stepper_voltage_B_1_6 New Net Name=NetU?_Stepper_voltage_B_1_6
+Change Net Name : Old Net Name=NetU1_Stepper_voltage_B_2_6 New Net Name=NetU?_Stepper_voltage_B_2_6

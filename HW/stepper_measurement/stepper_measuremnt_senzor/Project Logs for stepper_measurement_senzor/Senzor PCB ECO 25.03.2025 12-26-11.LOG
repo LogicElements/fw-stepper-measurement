@@ -1,0 +1,26 @@
+Removed Pin From Net: NetName=NetJ1_8 Pin=P1-1
+Removed Pin From Net: NetName=NetJ1_6 Pin=P2-1
+Removed Pin From Net: NetName=NetJ1_4 Pin=P3-1
+Removed Pin From Net: NetName=NetJ1_2 Pin=P4-1
+Removed Member From Class: ClassName=main Member=P1
+Removed Member From Class: ClassName=main Member=P2
+Removed Member From Class: ClassName=main Member=P3
+Removed Member From Class: ClassName=main Member=P4
+Added Component: Designator=J?(HARWIN_H2175-05)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "H2175-05"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J?(HARWIN_H2173-05)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "H2173-05"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetJ1_4 Pin=J?-1
+Added Pin To Net: NetName=NetJ1_6 Pin=J?-1
+Added Member To Class: ClassName=main Member=Component J? H2175-05
+Added Member To Class: ClassName=main Member=Component J? H2173-05

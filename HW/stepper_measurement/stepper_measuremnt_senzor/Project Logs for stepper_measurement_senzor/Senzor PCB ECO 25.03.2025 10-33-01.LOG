@@ -1,0 +1,14 @@
+Change Component Footprint: Designator=J? Old Footprint=3128100150000080 New Footprint=H217405
+Change Component Comment : Designator=J? Old Comment=3128-1-00-15-00-00-08-0 New Comment=H2174-05
+Change component parameters: Designator = "J?" ("J?"); Footprint = "3128100150000080"; UniqueID = "\DEYSGXMV" ("\DEYSGXMV")
+Change component parameters (AddParameter): Name = "Arrow Part Number"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Arrow Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet Link"; Value = "https://cdn.harwin.com/pdfs/H2170-H2174.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Height"; Value = "2.72mm"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Name"; Value = "Harwin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Part_Number"; Value = "H2174-05"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Part Number"; Value = "855-H2174-05"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/Harwin/H2174-05?qs=ulE8k0yEMYbaw7L48pb8OA%3D%3D"; VariantName = "[No Variations]"
+Added Member To Class: ClassName=main Member=Component J? 3128-1-00-15-00-00-08-0
+Added Member To Class: ClassName=main Member=Component J? 3128-1-00-15-00-00-08-0
+Added Member To Class: ClassName=main Member=Component J? H2174-05

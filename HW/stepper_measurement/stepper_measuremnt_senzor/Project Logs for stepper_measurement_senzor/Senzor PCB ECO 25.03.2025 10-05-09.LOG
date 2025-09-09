@@ -1,0 +1,11 @@
+Added Component: Designator=J?(5145000150000030)
+Add component (AddParameter): Name = "Arrow Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Arrow Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://www.mill-max.com/products/datasheet/pinsrecs/5145-0-00-15-00-00-03-0"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "1.778mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Mill-Max"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "5145-0-00-15-00-00-03-0"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = "575-5145000150000000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/Mill-Max/5145-0-00-15-00-00-03-0?qs=OlC7AqGiEDlX%252B%252B6o1zki%252Bg%3D%3D"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=Voltage1_B Pin=J?-1
+Added Member To Class: ClassName=main Member=Component J? 5145-0-00-15-00-00-03-0
