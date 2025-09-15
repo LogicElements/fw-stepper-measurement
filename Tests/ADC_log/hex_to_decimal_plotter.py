@@ -468,16 +468,41 @@ class HexDataPlotter:
                     except ValueError:
                         continue
                     
+            # Odebereme prvních 5 hodnot (simulace „vymazání“ prvních pěti hodnot ze souboru)
             if which == 1:
+                if len(self.decimal_data1) > 5:
+                    self.decimal_data1 = self.decimal_data1[5:]
+                    self.hex_data1 = self.hex_data1[5:]
+                else:
+                    self.decimal_data1 = []
+                    self.hex_data1 = []
                 loaded = len(self.decimal_data1)
                 preview = ", ".join(self.hex_data1[:5]) + ("..." if len(self.hex_data1) > 5 else "")
             elif which == 2:
+                if len(self.decimal_data2) > 5:
+                    self.decimal_data2 = self.decimal_data2[5:]
+                    self.hex_data2 = self.hex_data2[5:]
+                else:
+                    self.decimal_data2 = []
+                    self.hex_data2 = []
                 loaded = len(self.decimal_data2)
                 preview = ", ".join(self.hex_data2[:5]) + ("..." if len(self.hex_data2) > 5 else "")
             elif which == 3:
+                if len(self.decimal_data3) > 5:
+                    self.decimal_data3 = self.decimal_data3[5:]
+                    self.hex_data3 = self.hex_data3[5:]
+                else:
+                    self.decimal_data3 = []
+                    self.hex_data3 = []
                 loaded = len(self.decimal_data3)
                 preview = ", ".join(self.hex_data3[:5]) + ("..." if len(self.hex_data3) > 5 else "")
             else:  # which == 4
+                if len(self.decimal_data4) > 5:
+                    self.decimal_data4 = self.decimal_data4[5:]
+                    self.hex_data4 = self.hex_data4[5:]
+                else:
+                    self.decimal_data4 = []
+                    self.hex_data4 = []
                 loaded = len(self.decimal_data4)
                 preview = ", ".join(self.hex_data4[:5]) + ("..." if len(self.hex_data4) > 5 else "")
                 
@@ -589,51 +614,60 @@ class HexDataPlotter:
         # Main plot
         ax = plt.subplot(111)
         
-        # Plot dataset 1 if available and enabled (only first 10000 samples, all values shown)
+        # Skip first N samples in plotting
+        start_index = 10
+        window_len = 10000
+        # Uložíme si pro tooltipy
+        self.plot_start_index = start_index
+        self.plot_window_len = window_len
+        
+        # Plot dataset 1 if available and enabled (only first 10000 samples)
         lines = []
         labels = []
         if self.decimal_data1 and self.show_data1_var.get():
             # Limit to first 10000 samples, show all values
-            plot_data1 = self.decimal_data1[:10000]
-            line1, = ax.plot(plot_data1, '-', color='tab:blue', linewidth=1, marker='o', markersize=3)
+            plot_data1 = self.decimal_data1[start_index:start_index+window_len]
+            line1, = ax.plot(plot_data1, '-', color='tab:blue', linewidth=1.2, marker='o', markersize=3)
             lines.append(line1)
-            labels.append(f'Data 1 (prvních 10000 z {len(self.decimal_data1)})')
+            labels.append(f'Data 1 (10000 zobrazených z {len(self.decimal_data1)}, vynecháno prvních 10)')
             
-        # Plot dataset 2 if available and enabled (only first 10000 samples, all values shown)
+        # Plot dataset 2 if available and enabled (only first 10000 samples)
         if self.decimal_data2 and self.show_data2_var.get():
             # Limit to first 10000 samples, show all values
-            plot_data2 = self.decimal_data2[:10000]
-            line2, = ax.plot(plot_data2, '-', color='tab:orange', linewidth=1, marker='s', markersize=3)
+            plot_data2 = self.decimal_data2[start_index:start_index+window_len]
+            line2, = ax.plot(plot_data2, '-', color='tab:orange', linewidth=1.2, marker='s', markersize=3)
             lines.append(line2)
-            labels.append(f'Data 2 (prvních 10000 z {len(self.decimal_data2)})')
+            labels.append(f'Data 2 (10000 zobrazených z {len(self.decimal_data2)}, vynecháno prvních 10)')
             
-        # Plot dataset 3 if available and enabled (only first 10000 samples, all values shown)
+        # Plot dataset 3 if available and enabled (only first 10000 samples)
         if self.decimal_data3 and self.show_data3_var.get():
             # Limit to first 10000 samples, show all values
-            plot_data3 = self.decimal_data3[:10000]
+            plot_data3 = self.decimal_data3[start_index:start_index+window_len]
             # Posuneme data o 2050 jednotek nahoru na ose Y
             plot_data3_offset = [y + 2050 for y in plot_data3]
-            line3, = ax.plot(plot_data3_offset, '-', color='tab:green', linewidth=1, marker='^', markersize=3)
+            line3, = ax.plot(plot_data3_offset, '-', color='tab:green', linewidth=1.2, marker='^', markersize=3)
             lines.append(line3)
-            labels.append(f'Data 3 (prvních 10000 z {len(self.decimal_data3)}) + 2050')
+            labels.append(f'Data 3 (10000 zobrazených z {len(self.decimal_data3)}) + 2050, vynecháno prvních 10')
             
-        # Plot dataset 4 if available and enabled (only first 10000 samples, all values shown)
+        # Plot dataset 4 if available and enabled (only first 10000 samples)
         if self.decimal_data4 and self.show_data4_var.get():
             # Limit to first 10000 samples, show all values
-            plot_data4 = self.decimal_data4[:10000]
+            plot_data4 = self.decimal_data4[start_index:start_index+window_len]
             # Posuneme data o 2050 jednotek nahoru na ose Y a vynásobíme *30
             plot_data4_offset = [y * 30 + 2050 for y in plot_data4]
-            line4, = ax.plot(plot_data4_offset, '-', color='tab:red', linewidth=1, marker='D', markersize=3)
+            line4, = ax.plot(plot_data4_offset, '-', color='tab:red', linewidth=1.2, marker='D', markersize=3)
             lines.append(line4)
-            labels.append(f'Data 4 - Kroky (prvních 10000 z {len(self.decimal_data4)}) * 30 + 2050')
+            labels.append(f'Data 4 - Kroky (10000 zobrazených z {len(self.decimal_data4)}) * 30 + 2050, vynecháno prvních 10')
             
             # Najdeme body kde se hodnota změní a zobrazíme je jako velké růžové body na středu sinusovky
             change_points_x = []
             change_points_y = []
             
-            for i in range(1, min(len(self.decimal_data4), 10000)):
+            # Pro vyznačení změn použijeme stejné okno jako pro vykreslení
+            end_index = min(len(self.decimal_data4), start_index + window_len)
+            for i in range(start_index + 1, end_index):
                 if self.decimal_data4[i] != self.decimal_data4[i-1]:
-                    change_points_x.append(i)
+                    change_points_x.append(i - start_index)
                     change_points_y.append(2050)  # Střed sinusovky - konstantní hodnota 2050
             
             # Zobrazíme velké růžové body na místech změn

@@ -72,6 +72,19 @@ typedef struct
     uint8_t count;
 } AngleBufferFIFO_t;
 
+/* --- struktura motoru --- */
+typedef struct
+{
+    Filter_t I1_filter;       // proud fáze 1
+    Filter_t I2_filter;       // proud fáze 2
+    int16_t  I1_last;         // poslední vyfiltrovaný proud fáze 1
+    int16_t  I2_last;         // poslední vyfiltrovaný proud fáze 2
+    int16_t  angle_deg;       // aktuální úhel motoru
+    rotation_dir_t dir;       // směr otáčení
+    int16_t  step_count;      // počet kroků
+    int16_t  last_step_angle; // poslední krokový úhel
+} MotorProbe_t;
+
 /* Private variables ---------------------------------------------------------*/
 #if (BUFFERING == 1)
 static volatile capture_state_t capture_state = CAPT_WAIT_TRIGGER;
@@ -82,16 +95,12 @@ static float volatile capture_buffer_angle[CAPTURE_SAMPLES];
 static volatile int32_t capture_buffer_steps[CAPTURE_SAMPLES];
 static volatile uint8_t capture_ready = 0;
 #endif
-volatile int16_t angle_deg = 0;
-volatile int16_t angle_deg_B = 0;  // nový pro B
 
-/* Filtry */
-static Filter_t IA1_filter;
-static Filter_t IA2_filter;
-static Filter_t IB1_filter;
-static Filter_t IB2_filter;
+/* Dva motory (A, B) */
+static MotorProbe_t motorA;
+static MotorProbe_t motorB;
 
-/* FIFO na úhly */
+/* FIFO na úhly (společný) */
 static AngleBufferFIFO_t angle_buffer;
 
 static step_state_t step_state = STEP_IDLE;
@@ -102,27 +111,42 @@ volatile uint8_t adc_ready = 1;
 uint16_t adc_ready_counter = 0;
 static uint8_t sample_divider = 0;
 
-static int16_t step_count = 0;
-static volatile int16_t last_step_angle = 9999;
-
 static const int16_t step_angles[] =
 { 178, 90, 0, -90, -178 };
-volatile rotation_dir_t dir = DIR_NONE;
 
 /* Private prototypes --------------------------------------------------------*/
 void Probe_InitHAL(void);
 static inline void Capture_HandleSample(uint16_t adc_sample[]);
 static inline void Filter_Reset(Filter_t *f);
 static inline uint16_t Filter_Step(Filter_t *f, uint16_t x);
+static inline void Motor_HandleSample(MotorProbe_t *m,
+                                      uint16_t raw_I1,
+                                      uint16_t raw_I2);
+static void Motor_StepDetectionAndUpdate(MotorProbe_t *m);
+static void StepCounter_Update(MotorProbe_t *m);
 
 /* Public functions ----------------------------------------------------------*/
 void Probe_Init(void)
 {
     Probe_InitHAL();
-    Filter_Reset(&IA1_filter);
-    Filter_Reset(&IA2_filter);
-    Filter_Reset(&IB1_filter);   // nový
-    Filter_Reset(&IB2_filter);
+
+    Filter_Reset(&motorA.I1_filter);
+    Filter_Reset(&motorA.I2_filter);
+    motorA.I1_last = 0;
+    motorA.I2_last = 0;
+    motorA.angle_deg = 0;
+    motorA.dir = DIR_NONE;
+    motorA.step_count = 0;
+    motorA.last_step_angle = 9999;
+
+    Filter_Reset(&motorB.I1_filter);
+    Filter_Reset(&motorB.I2_filter);
+    motorB.I1_last = 0;
+    motorB.I2_last = 0;
+    motorB.angle_deg = 0;
+    motorB.dir = DIR_NONE;
+    motorB.step_count = 0;
+    motorB.last_step_angle = 9999;
 }
 
 /* Private functions ---------------------------------------------------------*/
@@ -227,6 +251,64 @@ static inline uint16_t Filter_Step(Filter_t *f, uint16_t x)
     return (uint16_t) f->last_value;
 }
 
+/* Motor sample handler ------------------------------------------------------*/
+static inline void Motor_HandleSample(MotorProbe_t *m,
+                                      uint16_t raw_I1,
+                                      uint16_t raw_I2)
+{
+    m->I1_last = Filter_Step(&m->I1_filter, raw_I1);
+    m->I2_last = Filter_Step(&m->I2_filter, raw_I2);
+
+    float angle_rad = atan2f((float)m->I1_last - MIDDLE_VALUE,
+                             (float)m->I2_last - MIDDLE_VALUE);
+    m->angle_deg = (int16_t)(angle_rad * (180.0f / M_PI));
+}
+
+/* Step counter --------------------------------------------------------------*/
+static void StepCounter_Update(MotorProbe_t *m)
+{
+    for (uint8_t i = 0; i < STEP_ANGLES_COUNT; i++)
+    {
+        if (abs(m->angle_deg - step_angles[i]) <= STEP_TOLERANCE)
+        {
+            if (abs(m->last_step_angle) == abs(step_angles[i]))
+                return;
+
+            if (m->dir == DIR_CW)
+                m->step_count++;
+            else if (m->dir == DIR_CCW)
+                m->step_count--;
+
+            m->last_step_angle = step_angles[i];
+            return;
+        }
+    }
+}
+
+/* Motor step detection & update ---------------------------------------------*/
+static void Motor_StepDetectionAndUpdate(MotorProbe_t *m)
+{
+    const int16_t hysteresis = 30;
+
+    if (abs(m->I1_last - MIDDLE_VALUE) > hysteresis &&
+        abs(m->I2_last - MIDDLE_VALUE) > hysteresis)
+    {
+        step_state = STEP_ACTIVE;
+
+        AngleBufferFIFO_Add(&angle_buffer, m->angle_deg);
+        m->dir = Detect_RotationDirection(&angle_buffer);
+
+        if (m->dir == DIR_CW || m->dir == DIR_CCW)
+        {
+            StepCounter_Update(m);
+        }
+    }
+    else
+    {
+        step_state = STEP_IDLE;
+    }
+}
+
 /* ADC measurement start -----------------------------------------------------*/
 void StartAdcMeasurement(void)
 {
@@ -244,78 +326,35 @@ void StartAdcMeasurement(void)
     }
 }
 
-static inline uint8_t Detect_Step(uint16_t I1, uint16_t I2, int16_t angle)
-{
-    const int16_t hysteresis = 30;
-
-    if (abs((int16_t) I1 - MIDDLE_VALUE) > hysteresis && abs(
-            (int16_t) I2 - MIDDLE_VALUE)
-                                                         > hysteresis)
-    {
-        step_state = STEP_ACTIVE;
-        return 1;
-    }
-    else
-    {
-        step_state = STEP_IDLE;
-    }
-
-    return 0;
-}
-
-static void StepCounter_Update(rotation_dir_t dir, int16_t angle)
-{
-    for (uint8_t i = 0; i < STEP_ANGLES_COUNT; i++)
-    {
-        if (abs(angle - step_angles[i]) <= STEP_TOLERANCE)
-        {
-            if (abs(last_step_angle) == abs(step_angles[i]))
-                return;
-
-            if (dir == DIR_CW)
-                step_count++;
-            else if (dir == DIR_CCW)
-                step_count--;
-
-            last_step_angle = step_angles[i];
-            return;
-        }
-    }
-}
-
 /* Capture handler -----------------------------------------------------------*/
 static inline void Capture_HandleSample(uint16_t adc_sample[])
 {
+    /* Motor A = IA1 + IA2 */
+    Motor_HandleSample(&motorA,
+                       adc_sample[ADC_CHANNEL_IA1],
+                       adc_sample[ADC_CHANNEL_IA2]);
 
-    uint16_t IA1 = Filter_Step(&IA1_filter, adc_sample[ADC_CHANNEL_IA1]);
-    uint16_t IA2 = Filter_Step(&IA2_filter, adc_sample[ADC_CHANNEL_IA2]);
-
-    float angle_rad = atan2f((float) IA1 - MIDDLE_VALUE,
-                             (float) IA2 - MIDDLE_VALUE);
-    angle_deg = (int16_t) (angle_rad * (180.0f / M_PI));
-
-    uint16_t IB1 = Filter_Step(&IB1_filter, adc_sample[ADC_CHANNEL_IB1]);
-    uint16_t IB2 = Filter_Step(&IB2_filter, adc_sample[ADC_CHANNEL_IB2]);
-    float angle_rad_B = atan2f((float) IB1 - MIDDLE_VALUE,
-                               (float) IB2 - MIDDLE_VALUE);
-    angle_deg_B = (int16_t) (angle_rad_B * (180.0f / M_PI));
+    /* Motor B = IB1 + IB2 */
+    Motor_HandleSample(&motorB,
+                       adc_sample[ADC_CHANNEL_IB1],
+                       adc_sample[ADC_CHANNEL_IB2]);
 
 #if (BUFFERING == 1)
     switch (capture_state)
     {
         case CAPT_WAIT_TRIGGER:
-            if ((abs(IA1 - TRIGGER_THRESHOLD) > 50) || (abs(
-                    IB2 - TRIGGER_THRESHOLD)> 50))
+            if ((abs(adc_sample[ADC_CHANNEL_IA1] - TRIGGER_THRESHOLD) > 50) ||
+                (abs(adc_sample[ADC_CHANNEL_IB2] - TRIGGER_THRESHOLD) > 50))
             {
                 capture_state = CAPT_CAPTURING;
                 capture_count = 0;
-                Filter_Reset(&IA1_filter);
-                Filter_Reset(&IA2_filter);
+                Filter_Reset(&motorA.I1_filter);
+                Filter_Reset(&motorA.I2_filter);
 
-                capture_buffer[capture_count] = IA1;   //IA1;
-                capture_buffer_ch2[capture_count] = IA2;   //IA2;
-                capture_buffer_angle[capture_count] = angle_deg;
-                capture_buffer_steps[capture_count] = step_count;
+                capture_buffer[capture_count]       = adc_sample[ADC_CHANNEL_IA1];
+                capture_buffer_ch2[capture_count]   = adc_sample[ADC_CHANNEL_IA2];
+                capture_buffer_angle[capture_count] = motorA.angle_deg;
+                capture_buffer_steps[capture_count] = motorA.step_count;
                 capture_count++;
             }
             break;
@@ -328,10 +367,10 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
                 {
                     sample_divider = 0;
 
-                    capture_buffer[capture_count] = IA1;   //IA1;
-                    capture_buffer_ch2[capture_count] = IA2;   //IA2;
-                    capture_buffer_angle[capture_count] = angle_deg;
-                    capture_buffer_steps[capture_count] = step_count;
+                    capture_buffer[capture_count]       = adc_sample[ADC_CHANNEL_IA1];
+                    capture_buffer_ch2[capture_count]   = adc_sample[ADC_CHANNEL_IB1];
+                    capture_buffer_angle[capture_count] = motorA.angle_deg;
+                    capture_buffer_steps[capture_count] = motorA.step_count;
 
                     capture_count++;
 
@@ -350,16 +389,9 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
     }
 #endif
 
-    if (Detect_Step(IA1, IA2, angle_deg))
-    {
-        AngleBufferFIFO_Add(&angle_buffer, angle_deg);
-        dir = Detect_RotationDirection(&angle_buffer);
-
-        if (dir == DIR_CW || dir == DIR_CCW)
-        {
-            StepCounter_Update(dir, angle_deg);
-        }
-    }
+    /* Step detection (oba motory) */
+    Motor_StepDetectionAndUpdate(&motorA);
+    Motor_StepDetectionAndUpdate(&motorB);
 }
 /* Callback functions --------------------------------------------------------*/
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
