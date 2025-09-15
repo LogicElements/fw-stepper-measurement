@@ -187,10 +187,16 @@ class HexDataPlotter:
         self.show_data3_var = tk.BooleanVar(value=True)
         self.show_data4_var = tk.BooleanVar(value=True)
         
+        # Checkbox pro zobrazení tabulek hodnot
+        self.show_tables_var = tk.BooleanVar(value=False)
+        
         tk.Checkbutton(checkbox_frame, text="Data 1 (modrá)", variable=self.show_data1_var).pack(side=tk.LEFT, padx=(0, 15))
         tk.Checkbutton(checkbox_frame, text="Data 2 (oranžová)", variable=self.show_data2_var).pack(side=tk.LEFT, padx=(0, 15))
         tk.Checkbutton(checkbox_frame, text="Data 3 (zelená + 2050)", variable=self.show_data3_var).pack(side=tk.LEFT, padx=(0, 15))
         tk.Checkbutton(checkbox_frame, text="Data 4 (červená - Kroky)", variable=self.show_data4_var).pack(side=tk.LEFT)
+        
+        # Checkbox pro zobrazení tabulek hodnot
+        tk.Checkbutton(checkbox_frame, text="Zobrazit tabulky hodnot", variable=self.show_tables_var).pack(side=tk.LEFT, padx=(20, 0))
 
         # Buttons frame
         button_frame = tk.Frame(main_frame)
@@ -712,8 +718,9 @@ class HexDataPlotter:
         toolbar = NavigationToolbar2Tk(canvas, plot_window)
         toolbar.update()
         
-        # Right side: Scrollable text widgets for data values
-        self.create_data_text_widgets(plot_window)
+        # Right side: Scrollable text widgets for data values (only if checkbox is checked)
+        if self.show_tables_var.get():
+            self.create_data_text_widgets(plot_window)
         
         plt.tight_layout()
         

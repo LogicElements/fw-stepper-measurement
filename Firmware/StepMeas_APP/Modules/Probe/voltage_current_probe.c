@@ -88,8 +88,8 @@ volatile int16_t angle_deg_B = 0;  // nový pro B
 /* Filtry */
 static Filter_t IA1_filter;
 static Filter_t IA2_filter;
-static Filter_t IB1_filter;   // přidané
-static Filter_t IB2_filter;   // přidané
+static Filter_t IB1_filter;
+static Filter_t IB2_filter;
 
 /* FIFO na úhly */
 static AngleBufferFIFO_t angle_buffer;
