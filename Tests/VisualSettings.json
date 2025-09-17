@@ -1,6 +1,6 @@
 ﻿{
     "width": 686,
-    "height": 744,
+    "height": 792,
     "slave_address": 33,
     "reg_map": "StepperMeas_Modbus.json",
     "attempts": 2,

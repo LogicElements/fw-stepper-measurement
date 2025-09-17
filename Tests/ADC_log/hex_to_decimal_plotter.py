@@ -11,7 +11,7 @@ class HexDataPlotter:
         self.root.title("HEX to Decimal Plotter")
         self.root.geometry("800x600")
         
-        # Data storage for four datasets
+        # Data storage for six datasets
         self.hex_data1 = []
         self.decimal_data1 = []
         self.hex_data2 = []
@@ -20,6 +20,10 @@ class HexDataPlotter:
         self.decimal_data3 = []
         self.hex_data4 = []
         self.decimal_data4 = []
+        self.hex_data5 = []
+        self.decimal_data5 = []
+        self.hex_data6 = []
+        self.decimal_data6 = []
         
         # Setup proper window closing protocol
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
@@ -83,7 +87,7 @@ class HexDataPlotter:
 
         # File selection frame - Dataset 4 (Počítání kroků)
         file_frame4 = tk.Frame(main_frame)
-        file_frame4.pack(fill=tk.X, pady=(0, 20))
+        file_frame4.pack(fill=tk.X, pady=(0, 10))
         
         tk.Label(file_frame4, text="Soubor 4 (Kroky):").pack(side=tk.LEFT, padx=(0, 8))
         self.file_path_var4 = tk.StringVar()
@@ -94,6 +98,34 @@ class HexDataPlotter:
         browse_btn4.pack(side=tk.LEFT, padx=(0, 8))
         load_btn4 = tk.Button(file_frame4, text="Načíst 4", command=lambda: self.load_and_convert(4))
         load_btn4.pack(side=tk.LEFT)
+
+        # File selection frame - Dataset 5
+        file_frame5 = tk.Frame(main_frame)
+        file_frame5.pack(fill=tk.X, pady=(0, 10))
+        
+        tk.Label(file_frame5, text="Soubor 5:").pack(side=tk.LEFT, padx=(0, 8))
+        self.file_path_var5 = tk.StringVar()
+        file_entry5 = tk.Entry(file_frame5, textvariable=self.file_path_var5, width=45)
+        file_entry5.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(0, 8))
+        
+        browse_btn5 = tk.Button(file_frame5, text="Procházet", command=lambda: self.browse_file(5))
+        browse_btn5.pack(side=tk.LEFT, padx=(0, 8))
+        load_btn5 = tk.Button(file_frame5, text="Načíst 5", command=lambda: self.load_and_convert(5))
+        load_btn5.pack(side=tk.LEFT)
+
+        # File selection frame - Dataset 6
+        file_frame6 = tk.Frame(main_frame)
+        file_frame6.pack(fill=tk.X, pady=(0, 20))
+        
+        tk.Label(file_frame6, text="Soubor 6:").pack(side=tk.LEFT, padx=(0, 8))
+        self.file_path_var6 = tk.StringVar()
+        file_entry6 = tk.Entry(file_frame6, textvariable=self.file_path_var6, width=45)
+        file_entry6.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(0, 8))
+        
+        browse_btn6 = tk.Button(file_frame6, text="Procházet", command=lambda: self.browse_file(6))
+        browse_btn6.pack(side=tk.LEFT, padx=(0, 8))
+        load_btn6 = tk.Button(file_frame6, text="Načíst 6", command=lambda: self.load_and_convert(6))
+        load_btn6.pack(side=tk.LEFT)
         
         # Options frame
         options_frame = tk.Frame(main_frame)
@@ -186,6 +218,8 @@ class HexDataPlotter:
         self.show_data2_var = tk.BooleanVar(value=True)
         self.show_data3_var = tk.BooleanVar(value=True)
         self.show_data4_var = tk.BooleanVar(value=True)
+        self.show_data5_var = tk.BooleanVar(value=True)
+        self.show_data6_var = tk.BooleanVar(value=True)
         
         # Checkbox pro zobrazení tabulek hodnot
         self.show_tables_var = tk.BooleanVar(value=False)
@@ -195,8 +229,15 @@ class HexDataPlotter:
         tk.Checkbutton(checkbox_frame, text="Data 3 (zelená + 2050)", variable=self.show_data3_var).pack(side=tk.LEFT, padx=(0, 15))
         tk.Checkbutton(checkbox_frame, text="Data 4 (červená - Kroky)", variable=self.show_data4_var).pack(side=tk.LEFT)
         
+        # Second row of checkboxes
+        checkbox_frame2 = tk.Frame(visibility_frame)
+        checkbox_frame2.pack(fill=tk.X, pady=(5, 0))
+        
+        tk.Checkbutton(checkbox_frame2, text="Data 5 (fialová)", variable=self.show_data5_var).pack(side=tk.LEFT, padx=(0, 15))
+        tk.Checkbutton(checkbox_frame2, text="Data 6 (hnědá)", variable=self.show_data6_var).pack(side=tk.LEFT, padx=(0, 15))
+        
         # Checkbox pro zobrazení tabulek hodnot
-        tk.Checkbutton(checkbox_frame, text="Zobrazit tabulky hodnot", variable=self.show_tables_var).pack(side=tk.LEFT, padx=(20, 0))
+        tk.Checkbutton(checkbox_frame2, text="Zobrazit tabulky hodnot", variable=self.show_tables_var).pack(side=tk.LEFT, padx=(20, 0))
 
         # Buttons frame
         button_frame = tk.Frame(main_frame)
@@ -224,9 +265,11 @@ class HexDataPlotter:
         self.file_path_var2.set(os.path.join(current_dir, "sin_2.txt"))
         self.file_path_var3.set(os.path.join(current_dir, "deg.txt"))
         self.file_path_var4.set(os.path.join(current_dir, "steps.txt"))
+        self.file_path_var5.set(os.path.join(current_dir, "data5.txt"))
+        self.file_path_var6.set(os.path.join(current_dir, "data6.txt"))
         
         # Aktualizujeme status
-        self.status_var.set("Soubory předvyplněny: sin_1.txt, sin_2.txt, deg.txt, steps.txt")
+        self.status_var.set("Soubory předvyplněny: sin_1.txt, sin_2.txt, deg.txt, steps.txt, data5.txt, data6.txt")
         
     def toggle_byte_order(self):
         """Show/hide byte order options based on data type selection"""
@@ -247,8 +290,12 @@ class HexDataPlotter:
                 self.file_path_var2.set(file_path)
             elif which == 3:
                 self.file_path_var3.set(file_path)
-            else:  # which == 4
+            elif which == 4:
                 self.file_path_var4.set(file_path)
+            elif which == 5:
+                self.file_path_var5.set(file_path)
+            else:  # which == 6
+                self.file_path_var6.set(file_path)
             self.status_var.set(f"Vybraný soubor {which}: {os.path.basename(file_path)}")
             
     def load_and_convert(self, which: int):
@@ -258,8 +305,12 @@ class HexDataPlotter:
             file_path = self.file_path_var2.get()
         elif which == 3:
             file_path = self.file_path_var3.get()
-        else:  # which == 4
+        elif which == 4:
             file_path = self.file_path_var4.get()
+        elif which == 5:
+            file_path = self.file_path_var5.get()
+        else:  # which == 6
+            file_path = self.file_path_var6.get()
             
         if not file_path:
             messagebox.showerror("Chyba", f"Vyberte prosím soubor {which}")
@@ -313,9 +364,15 @@ class HexDataPlotter:
             elif which == 3:
                 self.decimal_data3 = []
                 self.hex_data3 = []
-            else:  # which == 4
+            elif which == 4:
                 self.decimal_data4 = []
                 self.hex_data4 = []
+            elif which == 5:
+                self.decimal_data5 = []
+                self.hex_data5 = []
+            else:  # which == 6
+                self.decimal_data6 = []
+                self.hex_data6 = []
             
             # Speciální parsování pro třetí dataset (deg.txt) - IEEE-754 float
             if which == 3:
@@ -391,9 +448,15 @@ class HexDataPlotter:
                         elif which == 3:
                             self.decimal_data3.append(hex_value)
                             self.hex_data3.append(hex_display)
-                        else:  # which == 4
+                        elif which == 4:
                             self.decimal_data4.append(hex_value)
                             self.hex_data4.append(hex_display)
+                        elif which == 5:
+                            self.decimal_data5.append(hex_value)
+                            self.hex_data5.append(hex_display)
+                        else:  # which == 6
+                            self.decimal_data6.append(hex_value)
+                            self.hex_data6.append(hex_display)
                         
                     except ValueError:
                         continue
@@ -420,9 +483,15 @@ class HexDataPlotter:
                                 elif which == 3:
                                     self.decimal_data3.append(hex_value)
                                     self.hex_data3.append(hex_str)
-                                else:  # which == 4
+                                elif which == 4:
                                     self.decimal_data4.append(hex_value)
                                     self.hex_data4.append(hex_str)
+                                elif which == 5:
+                                    self.decimal_data5.append(hex_value)
+                                    self.hex_data5.append(hex_str)
+                                else:  # which == 6
+                                    self.decimal_data6.append(hex_value)
+                                    self.hex_data6.append(hex_str)
                     except ValueError:
                         pass
             else:
@@ -461,14 +530,20 @@ class HexDataPlotter:
                         elif which == 3:
                             self.decimal_data3.append(hex_value)
                             self.hex_data3.append(hex_str)
-                        else:  # which == 4
+                        elif which == 4:
                             self.decimal_data4.append(hex_value)
                             self.hex_data4.append(hex_str)
+                        elif which == 5:
+                            self.decimal_data5.append(hex_value)
+                            self.hex_data5.append(hex_str)
+                        else:  # which == 6
+                            self.decimal_data6.append(hex_value)
+                            self.hex_data6.append(hex_str)
                         
                     except ValueError:
                         continue
                     
-            # Odebereme prvních 5 hodnot (simulace „vymazání“ prvních pěti hodnot ze souboru)
+            # Odebereme prvních 5 hodnot (simulace „vymazání" prvních pěti hodnot ze souboru)
             if which == 1:
                 if len(self.decimal_data1) > 5:
                     self.decimal_data1 = self.decimal_data1[5:]
@@ -496,7 +571,7 @@ class HexDataPlotter:
                     self.hex_data3 = []
                 loaded = len(self.decimal_data3)
                 preview = ", ".join(self.hex_data3[:5]) + ("..." if len(self.hex_data3) > 5 else "")
-            else:  # which == 4
+            elif which == 4:
                 if len(self.decimal_data4) > 5:
                     self.decimal_data4 = self.decimal_data4[5:]
                     self.hex_data4 = self.hex_data4[5:]
@@ -505,11 +580,29 @@ class HexDataPlotter:
                     self.hex_data4 = []
                 loaded = len(self.decimal_data4)
                 preview = ", ".join(self.hex_data4[:5]) + ("..." if len(self.hex_data4) > 5 else "")
+            elif which == 5:
+                if len(self.decimal_data5) > 5:
+                    self.decimal_data5 = self.decimal_data5[5:]
+                    self.hex_data5 = self.hex_data5[5:]
+                else:
+                    self.decimal_data5 = []
+                    self.hex_data5 = []
+                loaded = len(self.decimal_data5)
+                preview = ", ".join(self.hex_data5[:5]) + ("..." if len(self.hex_data5) > 5 else "")
+            else:  # which == 6
+                if len(self.decimal_data6) > 5:
+                    self.decimal_data6 = self.decimal_data6[5:]
+                    self.hex_data6 = self.hex_data6[5:]
+                else:
+                    self.decimal_data6 = []
+                    self.hex_data6 = []
+                loaded = len(self.decimal_data6)
+                preview = ", ".join(self.hex_data6[:5]) + ("..." if len(self.hex_data6) > 5 else "")
                 
             if loaded:
                 self.status_var.set(f"Soubor {which}: načteno {loaded} hodnot. HEX: {preview}")
                 # Enable plot if at least one dataset is loaded
-                if len(self.decimal_data1) or len(self.decimal_data2) or len(self.decimal_data3) or len(self.decimal_data4):
+                if len(self.decimal_data1) or len(self.decimal_data2) or len(self.decimal_data3) or len(self.decimal_data4) or len(self.decimal_data5) or len(self.decimal_data6):
                     self.plot_button.config(state=tk.NORMAL)
                 # Status message without popup window
             else:
@@ -599,7 +692,7 @@ class HexDataPlotter:
         print(f"DEBUG: Parsování HEX kroků dokončeno - načteno {len(self.decimal_data4)} hodnot")
             
     def plot_data(self):
-        if not (self.decimal_data1 or self.decimal_data2 or self.decimal_data3 or self.decimal_data4):
+        if not (self.decimal_data1 or self.decimal_data2 or self.decimal_data3 or self.decimal_data4 or self.decimal_data5 or self.decimal_data6):
             messagebox.showerror("Chyba", "Nejsou k dispozici žádná data pro zobrazení")
             return
             
@@ -679,6 +772,22 @@ class HexDataPlotter:
                 lines.append(legend_line)
                 labels.append(f'Data 4 - Změny kroků ({len(change_points_x)} změn)')
 
+        # Plot dataset 5 if available and enabled (only first 10000 samples)
+        if self.decimal_data5 and self.show_data5_var.get():
+            # Limit to first 10000 samples, show all values
+            plot_data5 = self.decimal_data5[start_index:start_index+window_len]
+            line5, = ax.plot(plot_data5, '-', color='tab:purple', linewidth=1.2, marker='v', markersize=3)
+            lines.append(line5)
+            labels.append(f'Data 5 (10000 zobrazených z {len(self.decimal_data5)}, vynecháno prvních 10)')
+            
+        # Plot dataset 6 if available and enabled (only first 10000 samples)
+        if self.decimal_data6 and self.show_data6_var.get():
+            # Limit to first 10000 samples, show all values
+            plot_data6 = self.decimal_data6[start_index:start_index+window_len]
+            line6, = ax.plot(plot_data6, '-', color='tab:brown', linewidth=1.2, marker='p', markersize=3)
+            lines.append(line6)
+            labels.append(f'Data 6 (10000 zobrazených z {len(self.decimal_data6)}, vynecháno prvních 10)')
+
         title_counts = []
         if self.decimal_data1 and self.show_data1_var.get():
             title_counts.append(str(len(self.decimal_data1)))
@@ -688,6 +797,10 @@ class HexDataPlotter:
             title_counts.append(str(len(self.decimal_data3)))
         if self.decimal_data4 and self.show_data4_var.get():
             title_counts.append(str(len(self.decimal_data4)))
+        if self.decimal_data5 and self.show_data5_var.get():
+            title_counts.append(str(len(self.decimal_data5)))
+        if self.decimal_data6 and self.show_data6_var.get():
+            title_counts.append(str(len(self.decimal_data6)))
         
         if title_counts:
             ax.set_title('HEX Data Converted to Decimal (' + ' + '.join(title_counts) + ' values)')
@@ -708,6 +821,10 @@ class HexDataPlotter:
             combined.extend(self.decimal_data3)
         if self.decimal_data4 and self.show_data4_var.get():
             combined.extend(self.decimal_data4)
+        if self.decimal_data5 and self.show_data5_var.get():
+            combined.extend(self.decimal_data5)
+        if self.decimal_data6 and self.show_data6_var.get():
+            combined.extend(self.decimal_data6)
         mean_val = np.mean(combined)
         std_val = np.std(combined)
         min_val = np.min(combined)
@@ -727,6 +844,10 @@ class HexDataPlotter:
             max_len = max(max_len, len(self.decimal_data3))
         if self.decimal_data4 and self.show_data4_var.get():
             max_len = max(max_len, len(self.decimal_data4))
+        if self.decimal_data5 and self.show_data5_var.get():
+            max_len = max(max_len, len(self.decimal_data5))
+        if self.decimal_data6 and self.show_data6_var.get():
+            max_len = max(max_len, len(self.decimal_data6))
         
         max_len = min(10000, max_len)
         if max_len > 0:
@@ -950,6 +1071,62 @@ class HexDataPlotter:
             
             text4.config(state=tk.DISABLED)  # Make read-only
         
+        # Dataset 5 text widget - FIFTH SIDE
+        if self.decimal_data5:
+            # Fifth frame for Data 5
+            fifth_data_frame = tk.Frame(horizontal_frame)
+            fifth_data_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=(5, 0))
+            
+            # Title
+            tk.Label(fifth_data_frame, text=f"Data 5 - Prvních 10000 hodnot", 
+                    font=("Arial", 14, "bold")).pack(anchor=tk.W)
+            
+            # Text widget with scrollbar
+            text_frame5 = tk.Frame(fifth_data_frame)
+            text_frame5.pack(fill=tk.BOTH, expand=True, pady=(5, 10))
+            
+            text5 = tk.Text(text_frame5, width=15, height=30, font=("Arial", 11))
+            scrollbar5 = tk.Scrollbar(text_frame5, orient=tk.VERTICAL, command=text5.yview)
+            text5.configure(yscrollcommand=scrollbar5.set)
+            
+            text5.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+            scrollbar5.pack(side=tk.RIGHT, fill=tk.Y)
+            
+            # Insert data values - up to 10000 values
+            max_rows = min(10000, len(self.decimal_data5))
+            for i in range(max_rows):
+                text5.insert(tk.END, f"{self.decimal_data5[i]}\n")
+            
+            text5.config(state=tk.DISABLED)  # Make read-only
+        
+        # Dataset 6 text widget - SIXTH SIDE
+        if self.decimal_data6:
+            # Sixth frame for Data 6
+            sixth_data_frame = tk.Frame(horizontal_frame)
+            sixth_data_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=(5, 0))
+            
+            # Title
+            tk.Label(sixth_data_frame, text=f"Data 6 - Prvních 10000 hodnot", 
+                    font=("Arial", 14, "bold")).pack(anchor=tk.W)
+            
+            # Text widget with scrollbar
+            text_frame6 = tk.Frame(sixth_data_frame)
+            text_frame6.pack(fill=tk.BOTH, expand=True, pady=(5, 10))
+            
+            text6 = tk.Text(text_frame6, width=15, height=30, font=("Arial", 11))
+            scrollbar6 = tk.Scrollbar(text_frame6, orient=tk.VERTICAL, command=text6.yview)
+            text6.configure(yscrollcommand=scrollbar6.set)
+            
+            text6.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+            scrollbar6.pack(side=tk.RIGHT, fill=tk.Y)
+            
+            # Insert data values - up to 10000 values
+            max_rows = min(10000, len(self.decimal_data6))
+            for i in range(max_rows):
+                text6.insert(tk.END, f"{self.decimal_data6[i]}\n")
+            
+            text6.config(state=tk.DISABLED)  # Make read-only
+        
         # Instructions
         tk.Label(right_frame, text="Hodnoty lze kopírovat pomocí Ctrl+C (zobrazuje až 10000 hodnot)", 
                 font=("Arial", 10), fg="blue").pack(anchor=tk.W, pady=(10, 0))
@@ -1017,6 +1194,24 @@ class HexDataPlotter:
                         closest_distance = distance
                         closest_point = (i, y_offset)
                         dataset_info = f"Data 4 - Kroky: Index {i}, HEX: {self.hex_data4[i] if i < len(self.hex_data4) else 'N/A'}, Krok: {y} (zobrazeno: {y_offset})"
+            
+            # Check dataset 5 (pouze pokud je zobrazen)
+            if self.decimal_data5 and self.show_data5_var.get():
+                for i, y in enumerate(self.decimal_data5):
+                    distance = abs(i - x_mouse) + abs(y - y_mouse) * 0.1  # Weight y-distance less
+                    if distance < closest_distance:
+                        closest_distance = distance
+                        closest_point = (i, y)
+                        dataset_info = f"Data 5: Index {i}, HEX: {self.hex_data5[i] if i < len(self.hex_data5) else 'N/A'}, Decimal: {y}"
+            
+            # Check dataset 6 (pouze pokud je zobrazen)
+            if self.decimal_data6 and self.show_data6_var.get():
+                for i, y in enumerate(self.decimal_data6):
+                    distance = abs(i - x_mouse) + abs(y - y_mouse) * 0.1  # Weight y-distance less
+                    if distance < closest_distance:
+                        closest_distance = distance
+                        closest_point = (i, y)
+                        dataset_info = f"Data 6: Index {i}, HEX: {self.hex_data6[i] if i < len(self.hex_data6) else 'N/A'}, Decimal: {y}"
             
             # Show tooltip if we found a close point
             if closest_point and closest_distance < 1.5:  # Threshold for "close enough"

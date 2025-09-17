@@ -1,6 +1,5 @@
-../Modules/Probe/voltage_current_probe.c:289:13:Motor_StepDetectionAndUpdate	8	static
-../Modules/Probe/voltage_current_probe.c:153:6:Probe_InitHAL	8	static
-../Modules/Probe/voltage_current_probe.c:129:6:Probe_Init	8	static
-../Modules/Probe/voltage_current_probe.c:313:6:StartAdcMeasurement	8	static
-../Modules/Probe/voltage_current_probe.c:397:6:HAL_ADC_ConvCpltCallback	32	static
-../Modules/Probe/voltage_current_probe.c:406:6:HAL_GPIO_EXTI_Callback	0	static
+../Modules/Probe/voltage_current_probe.c:155:6:Probe_InitHAL	8	static
+../Modules/Probe/voltage_current_probe.c:131:6:Probe_Init	8	static
+../Modules/Probe/voltage_current_probe.c:315:6:StartAdcMeasurement	8	static
+../Modules/Probe/voltage_current_probe.c:406:6:HAL_ADC_ConvCpltCallback	24	static
+../Modules/Probe/voltage_current_probe.c:415:6:HAL_GPIO_EXTI_Callback	0	static
