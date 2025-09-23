@@ -1,6 +1,6 @@
-../Core/Common/configuration.c:62:10:Config_Init	8	static
-../Core/Common/configuration.c:83:10:Config_ApplyConfig	8	static
-../Core/Common/configuration.c:100:10:Config_ReadStream	32	static
+../Core/Common/configuration.c:62:10:Config_Init	16	static
+../Core/Common/configuration.c:83:10:Config_ApplyConfig	24	static
+../Core/Common/configuration.c:100:10:Config_ReadStream	40	static
 ../Core/Common/configuration.c:149:10:Config_FillStream	48	static
-../Core/Common/configuration.c:187:10:Config_CheckLimits	0	static
-../Core/Common/configuration.c:203:10:Config_IsFactoryRequest	0	static
+../Core/Common/configuration.c:187:10:Config_CheckLimits	24	static
+../Core/Common/configuration.c:203:10:Config_IsFactoryRequest	16	static

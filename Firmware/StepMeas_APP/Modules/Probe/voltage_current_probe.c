@@ -25,7 +25,7 @@
 #define ADC_CHANNEL_COUNT 4
 #define MIDDLE_VALUE      2045
 
-#define CAPTURE_SAMPLES   20000
+#define CAPTURE_SAMPLES   10000
 #define TRIGGER_THRESHOLD 2050
 #define MONITOR_CHANNEL   1   // hlavní monitorovaný kanál
 #define EXTRA_CHANNEL     0
@@ -91,8 +91,8 @@ static volatile capture_state_t capture_state = CAPT_WAIT_TRIGGER;
 static volatile uint32_t capture_count = 0;
 static volatile uint16_t capture_buffer[CAPTURE_SAMPLES];
 static volatile uint16_t capture_buffer_ch2[CAPTURE_SAMPLES];
-//static volatile uint16_t Ucapture_buffer[CAPTURE_SAMPLES];
-//static volatile uint16_t Ucapture_buffer_ch2[CAPTURE_SAMPLES];
+static volatile uint16_t Ucapture_buffer[CAPTURE_SAMPLES];
+static volatile uint16_t Ucapture_buffer_ch2[CAPTURE_SAMPLES];
 //static float volatile capture_buffer_angle[CAPTURE_SAMPLES];
 //static volatile int32_t capture_buffer_steps[CAPTURE_SAMPLES];
 static volatile uint8_t capture_ready = 0;
@@ -111,7 +111,7 @@ extern ADC_HandleTypeDef hadc1;
 uint16_t adc_values[ADC_CHANNEL_COUNT];
 volatile uint8_t adc_ready = 1;
 uint16_t adc_ready_counter = 0;
-static uint8_t sample_divider = 0;
+static uint16_t sample_divider = 0;
 
 static const int16_t step_angles[] =
 { 178, 90, 0, -90, -178 };
@@ -353,11 +353,11 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
                 Filter_Reset(&motorA.I1_filter);
                 Filter_Reset(&motorA.I2_filter);
 
-                capture_buffer[capture_count]       = adc_sample[ADC_CHANNEL_IA1];
-                capture_buffer_ch2[capture_count]   = adc_sample[ADC_CHANNEL_IA2];
+                capture_buffer[capture_count]       = adc_sample[ADC_CHANNEL_IB1];
+                capture_buffer_ch2[capture_count]   = adc_sample[ADC_CHANNEL_IB2];
 
-                //Ucapture_buffer[capture_count]       = adc_sample[ADC_CHANNEL_IB1];
-                //Ucapture_buffer_ch2[capture_count]   = adc_sample[ADC_CHANNEL_IB2];
+                Ucapture_buffer[capture_count]       = adc_sample[ADC_CHANNEL_IA1];
+              Ucapture_buffer_ch2[capture_count]   = adc_sample[ADC_CHANNEL_IA2];
 
                 //capture_buffer_angle[capture_count] = motorA.angle_deg;
                 //capture_buffer_steps[capture_count] = motorA.step_count;
@@ -369,15 +369,15 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
             if (capture_count < CAPTURE_SAMPLES)
             {
                 sample_divider++;
-                if (sample_divider >= 5)
+                if (sample_divider >= 0)
                 {
-                    sample_divider = 0;
+                    //sample_divider = 0;
 
-                    capture_buffer[capture_count]       = adc_sample[ADC_CHANNEL_IA1];
-                    capture_buffer_ch2[capture_count]   = adc_sample[ADC_CHANNEL_IA2];
+                    capture_buffer[capture_count]       = adc_sample[ADC_CHANNEL_IB1];
+                    capture_buffer_ch2[capture_count]   = adc_sample[ADC_CHANNEL_IB2];
 
-                   // Ucapture_buffer[capture_count]       = adc_sample[ADC_CHANNEL_IB1];
-                    //Ucapture_buffer_ch2[capture_count]   = adc_sample[ADC_CHANNEL_IB2];
+                    Ucapture_buffer[capture_count]       = adc_sample[ADC_CHANNEL_IA1];
+                    Ucapture_buffer_ch2[capture_count]   = adc_sample[ADC_CHANNEL_IA2];
                    // capture_buffer_angle[capture_count] = motorA.angle_deg;
                     //capture_buffer_steps[capture_count] = motorA.step_count;
 

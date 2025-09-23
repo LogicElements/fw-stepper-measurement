@@ -2,5 +2,5 @@
 ../Core/Common/configuration.c:83:10:Config_ApplyConfig	2
 ../Core/Common/configuration.c:100:10:Config_ReadStream	7
 ../Core/Common/configuration.c:149:10:Config_FillStream	3
-../Core/Common/configuration.c:187:10:Config_CheckLimits	2
+../Core/Common/configuration.c:187:10:Config_CheckLimits	3
 ../Core/Common/configuration.c:203:10:Config_IsFactoryRequest	1

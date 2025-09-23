@@ -1,5 +1,14 @@
-../Modules/Probe/voltage_current_probe.c:155:6:Probe_InitHAL	8	static
 ../Modules/Probe/voltage_current_probe.c:131:6:Probe_Init	8	static
+../Modules/Probe/voltage_current_probe.c:155:6:Probe_InitHAL	8	static
+../Modules/Probe/voltage_current_probe.c:163:20:AngleBufferFIFO_Reset	16	static
+../Modules/Probe/voltage_current_probe.c:168:20:AngleBufferFIFO_Add	24	static
+../Modules/Probe/voltage_current_probe.c:191:23:Detect_RotationDirection	24	static
+../Modules/Probe/voltage_current_probe.c:207:20:Filter_Reset	16	static
+../Modules/Probe/voltage_current_probe.c:216:24:Filter_Step	32	static
+../Modules/Probe/voltage_current_probe.c:257:20:Motor_HandleSample	24	static
+../Modules/Probe/voltage_current_probe.c:270:13:StepCounter_Update	24	static
+../Modules/Probe/voltage_current_probe.c:291:13:Motor_StepDetectionAndUpdate	24	static
 ../Modules/Probe/voltage_current_probe.c:315:6:StartAdcMeasurement	8	static
-../Modules/Probe/voltage_current_probe.c:406:6:HAL_ADC_ConvCpltCallback	24	static
-../Modules/Probe/voltage_current_probe.c:415:6:HAL_GPIO_EXTI_Callback	0	static
+../Modules/Probe/voltage_current_probe.c:332:20:Capture_HandleSample	16	static
+../Modules/Probe/voltage_current_probe.c:406:6:HAL_ADC_ConvCpltCallback	16	static
+../Modules/Probe/voltage_current_probe.c:415:6:HAL_GPIO_EXTI_Callback	16	static

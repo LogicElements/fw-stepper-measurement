@@ -1,5 +1,14 @@
+../Core/Src/main.c:101:5:main	5
 ../Core/Src/main.c:232:6:SystemClock_Config	4
-../Core/Src/main.c:101:5:main	18
+../Core/Src/main.c:288:13:MX_ADC1_Init	6
+../Core/Src/main.c:367:13:MX_CRC_Init	2
+../Core/Src/main.c:393:13:MX_I2C1_Init	2
+../Core/Src/main.c:427:13:MX_IWDG_Init	2
+../Core/Src/main.c:455:13:MX_SPI2_Init	2
+../Core/Src/main.c:493:13:MX_TIM2_Init	4
+../Core/Src/main.c:538:13:MX_UART5_Init	2
+../Core/Src/main.c:569:13:MX_DMA_Init	1
+../Core/Src/main.c:587:13:MX_GPIO_Init	1
 ../Core/Src/main.c:648:6:HAL_TIM_PeriodElapsedCallback	2
 ../Core/Src/main.c:657:6:HAL_UART_TxCpltCallback	1
 ../Core/Src/main.c:661:6:HAL_UART_RxCpltCallback	1

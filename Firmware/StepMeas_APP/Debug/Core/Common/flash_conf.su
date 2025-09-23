@@ -1,8 +1,8 @@
-../Core/Common/flash_conf.c:83:10:FlashConf_Init	0	static
-../Core/Common/flash_conf.c:326:10:FlashConf_EraseBlock	8	static
-../Core/Common/flash_conf.c:199:10:FlashConf_FindEntry	40	static
-../Core/Common/flash_conf.c:334:10:FlashConf_Read	16	static
-../Core/Common/flash_conf.c:89:10:FlashConf_Load	8	static
-../Core/Common/flash_conf.c:365:10:FlashConf_Write	16	static
-../Core/Common/flash_conf.c:121:10:FlashConf_Store	24	static
+../Core/Common/flash_conf.c:83:10:FlashConf_Init	16	static
+../Core/Common/flash_conf.c:89:10:FlashConf_Load	16	static
+../Core/Common/flash_conf.c:121:10:FlashConf_Store	16	static
 ../Core/Common/flash_conf.c:148:10:FlashConf_Test	32	static
+../Core/Common/flash_conf.c:199:10:FlashConf_FindEntry	32	static
+../Core/Common/flash_conf.c:326:10:FlashConf_EraseBlock	24	static
+../Core/Common/flash_conf.c:334:10:FlashConf_Read	24	static
+../Core/Common/flash_conf.c:365:10:FlashConf_Write	24	static
