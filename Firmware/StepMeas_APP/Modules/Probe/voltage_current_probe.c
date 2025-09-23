@@ -32,6 +32,7 @@
 #define ANGLE_BUFFER_LEN  20
 #define STEP_TOLERANCE    4
 #define STEP_ANGLES_COUNT (sizeof(step_angles)/sizeof(step_angles[0]))
+#define VOLTAGE_BUF_LEN 100
 
 /* Private typedefs ----------------------------------------------------------*/
 typedef enum
@@ -52,6 +53,13 @@ typedef struct
     uint8_t initialized;
     float last_value;
 } Filter_t;
+typedef struct
+{
+    uint16_t bufU1[VOLTAGE_BUF_LEN];
+    uint16_t bufU2[VOLTAGE_BUF_LEN];
+    uint16_t count;
+    uint8_t active;  // flag jestli právě sbíráme
+} VoltageBuffer_t;
 
 typedef enum
 {
@@ -77,12 +85,14 @@ typedef struct
 {
     Filter_t I1_filter;       // proud fáze 1
     Filter_t I2_filter;       // proud fáze 2
-    int16_t  I1_last;         // poslední vyfiltrovaný proud fáze 1
-    int16_t  I2_last;         // poslední vyfiltrovaný proud fáze 2
-    int16_t  angle_deg;       // aktuální úhel motoru
+    int16_t I1_last;         // poslední vyfiltrovaný proud fáze 1
+    int16_t I2_last;
+    int16_t U1_last;   // napětí fáze 1 (raw)
+    int16_t U2_last;   // poslední vyfiltrovaný proud fáze 2
+    int16_t angle_deg;       // aktuální úhel motoru
     rotation_dir_t dir;       // směr otáčení
-    int16_t  step_count;      // počet kroků
-    int16_t  last_step_angle; // poslední krokový úhel
+    int16_t step_count;      // počet kroků
+    int16_t last_step_angle; // poslední krokový úhel
 } MotorProbe_t;
 
 /* Private variables ---------------------------------------------------------*/
@@ -101,6 +111,7 @@ static volatile uint8_t capture_ready = 0;
 /* Dva motory (A, B) */
 static MotorProbe_t motorA;
 static MotorProbe_t motorB;
+static VoltageBuffer_t voltageBuf;
 
 /* FIFO na úhly (společný) */
 static AngleBufferFIFO_t angle_buffer;
@@ -121,9 +132,9 @@ void Probe_InitHAL(void);
 static inline void Capture_HandleSample(uint16_t adc_sample[]);
 static inline void Filter_Reset(Filter_t *f);
 static inline uint16_t Filter_Step(Filter_t *f, uint16_t x);
-static inline void Motor_HandleSample(MotorProbe_t *m,
-                                      uint16_t raw_I1,
-                                      uint16_t raw_I2);
+static inline void Motor_HandleSample(MotorProbe_t *m, uint16_t raw_I1,
+                                      uint16_t raw_I2, uint16_t raw_U1,
+                                      uint16_t raw_U2);
 static void Motor_StepDetectionAndUpdate(MotorProbe_t *m);
 static void StepCounter_Update(MotorProbe_t *m);
 
@@ -254,16 +265,18 @@ static inline uint16_t Filter_Step(Filter_t *f, uint16_t x)
 }
 
 /* Motor sample handler ------------------------------------------------------*/
-static inline void Motor_HandleSample(MotorProbe_t *m,
-                                      uint16_t raw_I1,
-                                      uint16_t raw_I2)
+static inline void Motor_HandleSample(MotorProbe_t *m, uint16_t raw_I1,
+                                      uint16_t raw_I2, uint16_t raw_U1,
+                                      uint16_t raw_U2)
 {
     m->I1_last = Filter_Step(&m->I1_filter, raw_I1);
     m->I2_last = Filter_Step(&m->I2_filter, raw_I2);
+    m->U1_last = raw_U1;
+    m->U2_last = raw_U2;
 
-    float angle_rad = atan2f((float)m->I1_last - MIDDLE_VALUE,
-                             (float)m->I2_last - MIDDLE_VALUE);
-    m->angle_deg = (int16_t)(angle_rad * (180.0f / M_PI));
+    float angle_rad = atan2f((float) m->I1_last - MIDDLE_VALUE,
+                             (float) m->I2_last - MIDDLE_VALUE);
+    m->angle_deg = (int16_t) (angle_rad * (180.0f / M_PI));
 }
 
 /* Step counter --------------------------------------------------------------*/
@@ -286,14 +299,62 @@ static void StepCounter_Update(MotorProbe_t *m)
         }
     }
 }
+static inline uint8_t Check_CurrentZero(MotorProbe_t *m)
+{
+    const int16_t tolerance = 100;   // okno kolem "nuly"
+    if (abs(m->I1_last - MIDDLE_VALUE) < tolerance ||
+        abs(m->I2_last - MIDDLE_VALUE) < tolerance)
+    {
+        return 1; // jeden proud v nule
+    }
+    return 0;
+}
+static inline void VoltageBuffer_Reset(VoltageBuffer_t *vb)
+{
+    vb->count = 0;
+    vb->active = 0;
+}
+
+static inline void VoltageBuffer_Add(VoltageBuffer_t *vb, uint16_t u1, uint16_t u2)
+{
+    if (vb->count < VOLTAGE_BUF_LEN)
+    {
+        vb->bufU1[vb->count] = u1;
+        vb->bufU2[vb->count] = u2;
+        vb->count++;
+    }
+}
+
+static void VoltageBuffer_Average(VoltageBuffer_t *vb, float *avgU1, float *avgU2)
+{
+    if (vb->count == 0)
+    {
+        *avgU1 = 0;
+        *avgU2 = 0;
+        return;
+    }
+
+    uint32_t sumU1 = 0;
+    uint32_t sumU2 = 0;
+
+    for (uint16_t i = 0; i < vb->count; i++)
+    {
+        sumU1 += vb->bufU1[i];
+        sumU2 += vb->bufU2[i];
+    }
+
+    *avgU1 = (float)sumU1 / vb->count;
+    *avgU2 = (float)sumU2 / vb->count;
+}
 
 /* Motor step detection & update ---------------------------------------------*/
 static void Motor_StepDetectionAndUpdate(MotorProbe_t *m)
 {
     const int16_t hysteresis = 30;
-
-    if (abs(m->I1_last - MIDDLE_VALUE) > hysteresis &&
-        abs(m->I2_last - MIDDLE_VALUE) > hysteresis)
+    // říká jestli nejsou proudy nulový
+    if (abs(m->I1_last - MIDDLE_VALUE) > hysteresis && abs(
+            m->I2_last - MIDDLE_VALUE)
+                                                       > hysteresis)
     {
         step_state = STEP_ACTIVE;
 
@@ -303,6 +364,31 @@ static void Motor_StepDetectionAndUpdate(MotorProbe_t *m)
         if (m->dir == DIR_CW || m->dir == DIR_CCW)
         {
             StepCounter_Update(m);
+        }
+
+        if (Check_CurrentZero(m))
+        {
+            if (!voltageBuf.active)
+            {
+                // začínáme sbírat
+                VoltageBuffer_Reset(&voltageBuf);
+                voltageBuf.active = 1;
+            }
+
+            // přidáme aktuální hodnoty do bufferu
+            VoltageBuffer_Add(&voltageBuf, m->U1_last, m->U2_last);
+        }
+        else
+        {
+            if (voltageBuf.active)
+            {
+
+                float avgU1, avgU2;
+                VoltageBuffer_Average(&voltageBuf, &avgU1, &avgU2);
+
+
+                voltageBuf.active = 0;
+            }
         }
     }
     else
@@ -332,33 +418,39 @@ void StartAdcMeasurement(void)
 static inline void Capture_HandleSample(uint16_t adc_sample[])
 {
     /* Motor A = IA1 + IA2 */
-    Motor_HandleSample(&motorA,
-                       adc_sample[ADC_CHANNEL_IA1],
+    Motor_HandleSample(&motorA, adc_sample[ADC_CHANNEL_IB1],
+                       adc_sample[ADC_CHANNEL_IB2], adc_sample[ADC_CHANNEL_IA1],
                        adc_sample[ADC_CHANNEL_IA2]);
-
     /* Motor B = IB1 + IB2 */
-   // Motor_HandleSample(&motorB,
-                      // adc_sample[ADC_CHANNEL_IB1],
-                      // adc_sample[ADC_CHANNEL_IB2]);
-
+    // Motor_HandleSample(&motorB,
+    // adc_sample[ADC_CHANNEL_IB1],
+    // adc_sample[ADC_CHANNEL_IB2]);
 #if (BUFFERING == 1)
     switch (capture_state)
     {
         case CAPT_WAIT_TRIGGER:
-            if ((abs(adc_sample[ADC_CHANNEL_IA1] - TRIGGER_THRESHOLD) > 50) ||
-                (abs(adc_sample[ADC_CHANNEL_IB2] - TRIGGER_THRESHOLD) > 50))
+            if ((abs(adc_sample[ADC_CHANNEL_IA1] - TRIGGER_THRESHOLD) > 50) || (abs(
+                    adc_sample[ADC_CHANNEL_IB2] - TRIGGER_THRESHOLD)
+                                                                                > 50))
             {
                 capture_state = CAPT_CAPTURING;
                 capture_count = 0;
                 Filter_Reset(&motorA.I1_filter);
                 Filter_Reset(&motorA.I2_filter);
 
-                capture_buffer[capture_count]       = adc_sample[ADC_CHANNEL_IB1];
-                capture_buffer_ch2[capture_count]   = adc_sample[ADC_CHANNEL_IB2];
+                capture_buffer[capture_count] = adc_sample[ADC_CHANNEL_IB1];
+                capture_buffer_ch2[capture_count] = adc_sample[ADC_CHANNEL_IB2];
 
-                Ucapture_buffer[capture_count]       = adc_sample[ADC_CHANNEL_IA1];
-              Ucapture_buffer_ch2[capture_count]   = adc_sample[ADC_CHANNEL_IA2];
-
+                if (voltageBuf.active)
+                                  {
+                                      Ucapture_buffer[capture_count]     = adc_sample[ADC_CHANNEL_IA1];
+                                      Ucapture_buffer_ch2[capture_count] = adc_sample[ADC_CHANNEL_IA2];
+                                  }
+                                  else
+                                  {
+                                      Ucapture_buffer[capture_count]     = 2050;
+                                      Ucapture_buffer_ch2[capture_count] = 2050;
+                                  }
                 //capture_buffer_angle[capture_count] = motorA.angle_deg;
                 //capture_buffer_steps[capture_count] = motorA.step_count;
                 capture_count++;
@@ -373,12 +465,20 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
                 {
                     //sample_divider = 0;
 
-                    capture_buffer[capture_count]       = adc_sample[ADC_CHANNEL_IB1];
-                    capture_buffer_ch2[capture_count]   = adc_sample[ADC_CHANNEL_IB2];
-
-                    Ucapture_buffer[capture_count]       = adc_sample[ADC_CHANNEL_IA1];
-                    Ucapture_buffer_ch2[capture_count]   = adc_sample[ADC_CHANNEL_IA2];
-                   // capture_buffer_angle[capture_count] = motorA.angle_deg;
+                    capture_buffer[capture_count] = adc_sample[ADC_CHANNEL_IB1];
+                    capture_buffer_ch2[capture_count] =
+                            adc_sample[ADC_CHANNEL_IB2];
+                    if (voltageBuf.active)
+                    {
+                        Ucapture_buffer[capture_count]     = adc_sample[ADC_CHANNEL_IA1];
+                        Ucapture_buffer_ch2[capture_count] = adc_sample[ADC_CHANNEL_IA2];
+                    }
+                    else
+                    {
+                        Ucapture_buffer[capture_count]     = 2050;
+                        Ucapture_buffer_ch2[capture_count] = 2050;
+                    }
+                    // capture_buffer_angle[capture_count] = motorA.angle_deg;
                     //capture_buffer_steps[capture_count] = motorA.step_count;
 
                     capture_count++;
@@ -400,7 +500,7 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
 
     /* Step detection (oba motory) */
     Motor_StepDetectionAndUpdate(&motorA);
-   // Motor_StepDetectionAndUpdate(&motorB);
+    // Motor_StepDetectionAndUpdate(&motorB);
 }
 /* Callback functions --------------------------------------------------------*/
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
