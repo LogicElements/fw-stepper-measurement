@@ -245,17 +245,5 @@ void DMA2_Stream0_IRQHandler(void)
 
 
 /* USER CODE BEGIN 1 */
-void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
-{
-    MbSlave_TxCpltCallback(huart);
-}
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
-{
-    MbSlave_RxCpltCallback(huart);
-}
 
-void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
-{
-    MbSlave_ErrorCallback(huart);
-}
 /* USER CODE END 1 */

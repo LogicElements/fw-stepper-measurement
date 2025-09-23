@@ -1,0 +1,6 @@
+2025-09-17 10:40:17,498 INFO     AppLogging:79 - Application started
+2025-09-17 10:40:35,985 WARNING  MbClient:69 - Port COM6 opened at baud rate 19200, parity E, stop bits 1
+2025-09-17 10:40:37,065 INFO     MbClient:136 - Read input registers from slave 33 at address 0, count 25.
+2025-09-17 10:40:37,090 INFO     MbClient:155 - Read holding registers from slave 33 at address 0, count 9.
+2025-09-17 10:40:37,105 INFO     MbClient:155 - Read holding registers from slave 33 at address 100, count 2.
+2025-09-17 13:54:53,186 WARNING  MbClient:91 - Port COM6 is closed now.

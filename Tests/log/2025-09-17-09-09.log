@@ -99,3 +99,4 @@
 2025-09-17 10:33:14,580 INFO     MbClient:136 - Read input registers from slave 33 at address 0, count 25.
 2025-09-17 10:33:14,604 INFO     MbClient:155 - Read holding registers from slave 33 at address 0, count 9.
 2025-09-17 10:33:14,620 INFO     MbClient:155 - Read holding registers from slave 33 at address 100, count 2.
+2025-09-17 10:35:25,972 WARNING  MbClient:91 - Port COM6 is closed now.
