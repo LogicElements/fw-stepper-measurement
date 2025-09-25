@@ -55,10 +55,12 @@ typedef struct
 } Filter_t;
 typedef struct
 {
-    uint16_t bufU1[VOLTAGE_BUF_LEN];
-    uint16_t bufU2[VOLTAGE_BUF_LEN];
-    uint16_t count;
-    uint8_t active;  // flag jestli právě sbíráme
+        uint16_t bufU1[VOLTAGE_BUF_LEN];
+          uint16_t bufU2[VOLTAGE_BUF_LEN];
+          uint16_t countU1;
+          uint16_t countU2;
+          uint8_t activeU1;
+          uint8_t activeU2;
 } VoltageBuffer_t;
 
 typedef enum
@@ -309,39 +311,51 @@ static inline uint8_t Check_CurrentZero(uint16_t *adc_sample, uint8_t channel)
     {
         return 1; // proud v nule
     }
-    voltageBuf.active = 0;
+
+    // když není v nule, ukončíme logování podle kanálu
+    if (channel == ADC_CHANNEL_IB1)
+    {
+        voltageBuf.activeU1 = 0;
+    }
+    else if (channel == ADC_CHANNEL_IB2)
+    {
+        voltageBuf.activeU2 = 0;
+    }
+
     return 0;     // proud mimo nulu
 }
-
-static void VoltageBuffer_Start(void)
+static void VoltageBuffer_StartU1(void)
 {
-    voltageBuf.count = 0;
-    voltageBuf.active = 1;
+    voltageBuf.countU1 = 0;
+    voltageBuf.activeU1 = 1;
+}
+
+static void VoltageBuffer_StartU2(void)
+{
+    voltageBuf.countU2 = 0;
+    voltageBuf.activeU2 = 1;
 }
 
 static void VoltageBuffer_AddU1(uint16_t U1)
 {
-    if (voltageBuf.active && voltageBuf.count < VOLTAGE_BUF_LEN)
+    if (voltageBuf.activeU1 && voltageBuf.countU1 < VOLTAGE_BUF_LEN)
     {
-        voltageBuf.bufU1[voltageBuf.count] = U1;
-        voltageBuf.count++;
-
-        if (voltageBuf.count >= VOLTAGE_BUF_LEN)
-            voltageBuf.active = 0;
+        voltageBuf.bufU1[voltageBuf.countU1++] = U1;
+        if (voltageBuf.countU1 >= VOLTAGE_BUF_LEN)
+            voltageBuf.activeU1 = 0;
     }
 }
 
 static void VoltageBuffer_AddU2(uint16_t U2)
 {
-    if (voltageBuf.active && voltageBuf.count < VOLTAGE_BUF_LEN)
+    if (voltageBuf.activeU2 && voltageBuf.countU2 < VOLTAGE_BUF_LEN)
     {
-        voltageBuf.bufU2[voltageBuf.count] = U2;
-        voltageBuf.count++;
-
-        if (voltageBuf.count >= VOLTAGE_BUF_LEN)
-            voltageBuf.active = 0;
+        voltageBuf.bufU2[voltageBuf.countU2++] = U2;
+        if (voltageBuf.countU2 >= VOLTAGE_BUF_LEN)
+            voltageBuf.activeU2 = 0;
     }
 }
+
 
 /* Motor step detection & update ---------------------------------------------*/
 static void Motor_StepDetectionAndUpdate(MotorProbe_t *m, uint16_t *adc_sample)
@@ -362,28 +376,29 @@ static void Motor_StepDetectionAndUpdate(MotorProbe_t *m, uint16_t *adc_sample)
             StepCounter_Update(m);
         }
 
+        if (Check_CurrentZero(adc_sample, ADC_CHANNEL_IB1))
+        {
+            if (!voltageBuf.activeU1)   // spustíme jen jednou
+                VoltageBuffer_StartU1();
+
+            VoltageBuffer_AddU1(adc_sample[ADC_CHANNEL_IA1]);
+        }
+
+        // --- kontrola nulového proudu pro IB2 ---
+        if (Check_CurrentZero(adc_sample, ADC_CHANNEL_IB2))
+        {
+            if (!voltageBuf.activeU2)   // spustíme jen jednou
+                VoltageBuffer_StartU2();
+
+            VoltageBuffer_AddU2(adc_sample[ADC_CHANNEL_IA2]);
+        }
+
     }
     else
     {
         step_state = STEP_IDLE;
     }
 
-    if (Check_CurrentZero(adc_sample, ADC_CHANNEL_IB1))
-    {
-        if (!voltageBuf.active)       // spustíme jen jednou
-            VoltageBuffer_Start();
-        // začni ukládat napětí IA1 do bufferu
-        VoltageBuffer_AddU1(adc_sample[ADC_CHANNEL_IA1]);
-    }
-
-    // --- kontrola nulového proudu pro IB2 ---
-    if (Check_CurrentZero(adc_sample, ADC_CHANNEL_IB2))
-    {
-        if (!voltageBuf.active)       // spustíme jen jednou
-            VoltageBuffer_Start();
-        // začni ukládat napětí IA2 do bufferu
-        VoltageBuffer_AddU2(adc_sample[ADC_CHANNEL_IA2]);
-    }
 }
 
 /* ADC measurement start -----------------------------------------------------*/
@@ -462,7 +477,7 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
                 capture_buffer[capture_count] = adc_sample[ADC_CHANNEL_IB1];
                 capture_buffer_ch2[capture_count] = adc_sample[ADC_CHANNEL_IB2];
 
-                if (voltageBuf.active)
+                if (voltageBuf.activeU1 || voltageBuf.activeU2)
                 {
                     Ucapture_buffer[capture_count] =
                             adc_sample[ADC_CHANNEL_IA1];
@@ -491,7 +506,7 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
                     capture_buffer[capture_count] = adc_sample[ADC_CHANNEL_IB1]; //motorA.I1_last;
                     capture_buffer_ch2[capture_count] =
                             adc_sample[ADC_CHANNEL_IB2];    //motorA.I2_last;
-                    if (voltageBuf.active)
+                    if (voltageBuf.activeU1 || voltageBuf.activeU2)
                     {
                         Ucapture_buffer[capture_count] =
                                 adc_sample[ADC_CHANNEL_IA1];
@@ -504,7 +519,7 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
                         Ucapture_buffer_ch2[capture_count] = 2050;
                     }
                     capture_buffer_angle[capture_count] = motorA.angle_deg;
-                    capture_buffer_steps[capture_count] = voltageBuf.active;
+                    capture_buffer_steps[capture_count] = voltageBuf.countU1;
 
                     capture_count++;
 
