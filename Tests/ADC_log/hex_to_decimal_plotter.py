@@ -265,11 +265,11 @@ class HexDataPlotter:
         self.file_path_var2.set(os.path.join(current_dir, "sin_2.txt"))
         self.file_path_var3.set(os.path.join(current_dir, "deg.txt"))
         self.file_path_var4.set(os.path.join(current_dir, "steps.txt"))
-        self.file_path_var5.set(os.path.join(current_dir, "data5.txt"))
-        self.file_path_var6.set(os.path.join(current_dir, "data6.txt"))
+        self.file_path_var5.set("C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Tests/ADC_log/Usin_1.txt")
+        self.file_path_var6.set("C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Tests/ADC_log/Usin_2.txt")
         
         # Aktualizujeme status
-        self.status_var.set("Soubory předvyplněny: sin_1.txt, sin_2.txt, deg.txt, steps.txt, data5.txt, data6.txt")
+        self.status_var.set("Soubory předvyplněny: sin_1.txt, sin_2.txt, deg.txt, steps.txt, Usin_1.txt, Usin_2.txt")
         
     def toggle_byte_order(self):
         """Show/hide byte order options based on data type selection"""
@@ -746,11 +746,11 @@ class HexDataPlotter:
         if self.decimal_data4 and self.show_data4_var.get():
             # Limit to first 10000 samples, show all values
             plot_data4 = self.decimal_data4[start_index:start_index+window_len]
-            # Posuneme data o 2050 jednotek nahoru na ose Y a vynásobíme *30
-            plot_data4_offset = [y * 30 + 2050 for y in plot_data4]
+            # Vykreslíme kroky bez posunu a s násobením *1
+            plot_data4_offset = [y * 1 for y in plot_data4]
             line4, = ax.plot(plot_data4_offset, '-', color='tab:red', linewidth=1.2, marker='D', markersize=3)
             lines.append(line4)
-            labels.append(f'Data 4 - Kroky (10000 zobrazených z {len(self.decimal_data4)}) * 30 + 2050, vynecháno prvních 10')
+            labels.append(f'Data 4 - Kroky (10000 zobrazených z {len(self.decimal_data4)}) * 1, vynecháno prvních 10')
             
             # Najdeme body kde se hodnota změní a zobrazíme je jako velké růžové body na středu sinusovky
             change_points_x = []
@@ -761,7 +761,8 @@ class HexDataPlotter:
             for i in range(start_index + 1, end_index):
                 if self.decimal_data4[i] != self.decimal_data4[i-1]:
                     change_points_x.append(i - start_index)
-                    change_points_y.append(2050)  # Střed sinusovky - konstantní hodnota 2050
+                    # Vykreslíme značku změny na aktuální hodnotě kroků
+                    change_points_y.append(plot_data4_offset[i - start_index])
             
             # Zobrazíme velké růžové body na místech změn
             if change_points_x:
@@ -1188,7 +1189,7 @@ class HexDataPlotter:
             if self.decimal_data4 and self.show_data4_var.get():
                 for i, y in enumerate(self.decimal_data4):
                     # Pro dataset 4 musíme zohlednit offset +2050 a násobení *30
-                    y_offset = y * 30 + 2050
+                    y_offset = y 
                     distance = abs(i - x_mouse) + abs(y_offset - y_mouse) * 0.1  # Weight y-distance less
                     if distance < closest_distance:
                         closest_distance = distance

@@ -23,10 +23,10 @@
 #define ADC_CHANNEL_IB1   3
 
 #define ADC_CHANNEL_COUNT 4
-#define MIDDLE_VALUE      2045
+#define MIDDLE_VALUE      2050
 
 #define CAPTURE_SAMPLES   5000
-#define TRIGGER_THRESHOLD 2050
+#define TRIGGER_THRESHOLD 2045
 #define MONITOR_CHANNEL   1   // hlavní monitorovaný kanál
 #define EXTRA_CHANNEL     0
 #define ANGLE_BUFFER_LEN  20
@@ -94,6 +94,8 @@ typedef struct
     int16_t U2_last;
     int16_t U1_last_filtered;
     int16_t U2_last_filtered;
+    int32_t average_U1;
+    int32_t average_U2;
     int16_t angle_deg;
     rotation_dir_t dir;
     int16_t step_count;
@@ -354,26 +356,40 @@ static void OnCurrentZeroCrossing(uint8_t channel, uint16_t voltageValue)
         }
         if (voltageBuf.countU1 < VOLTAGE_BUF_LEN)
         {
-            // --- omezení podle směru ---
-            if (motorA.CurrentDirectionA == 1)
+            static float lastU1 = 0.0f;   // drží poslední vyhlazenou hodnotu
+
+            // jednoduchý filtr: 50 % stará + 50 % nová
+            if (voltageBuf.countU1 == 0)
             {
-                // kladný směr → rozsah 2050–2500
-                if (voltageValue < 2050)
-                    voltageValue = 2050;
-                if (voltageValue > 3500)
-                    voltageValue = 3500;
+                lastU1 = (float) voltageValue; // první vzorek = rovnou
             }
             else
             {
-                // záporný směr → rozsah 1500–2050
-                if (voltageValue < 500)
-                    voltageValue = 500;
-                if (voltageValue > 2050)
-                    voltageValue = 2050;
+                lastU1 = 0.5f * (float) voltageValue + 0.5f * lastU1;
             }
 
-            voltageBuf.bufU1[voltageBuf.countU1++] = voltageValue;
-            motorA.U1_last_filtered = voltageValue;
+            uint16_t filteredU1 = voltageValue;//(uint16_t) lastU1;
+
+            // --- omezení podle směru ---
+            if (motorA.CurrentDirectionA == 1)
+            {
+                // kladný směr → rozsah 2050–3500
+                if (filteredU1 < 2050)
+                    filteredU1 = 2050;
+                if (filteredU1 > 3500)
+                    filteredU1 = 3500;
+            }
+            else
+            {
+                // záporný směr → rozsah 500–2050
+                if (filteredU1 < 500)
+                    filteredU1 = 500;
+                if (filteredU1 > 2050)
+                    filteredU1 = 2050;
+            }
+
+            voltageBuf.bufU1[voltageBuf.countU1++] = filteredU1;
+            motorA.U1_last_filtered = filteredU1;
         }
 
     }
@@ -385,58 +401,84 @@ static void OnCurrentZeroCrossing(uint8_t channel, uint16_t voltageValue)
             voltageBuf.activeU2 = 1;
         }
 
+        if (!voltageBuf.activeU2)
+        {
+            VoltageBuffer_Reset(channel);
+            voltageBuf.activeU2 = 1;
+        }
+
         if (voltageBuf.countU2 < VOLTAGE_BUF_LEN)
         {
-            // --- omezení podle směru ---
-            if (motorA.CurrentDirectionB == 1)
+            static float lastU2 = 0.0f;   // drží poslední vyhlazenou hodnotu
+
+            // jednoduchý filtr: 50 % stará + 50 % nová
+            if (voltageBuf.countU2 == 0)
             {
-                // kladný směr → rozsah 2050–2500
-                if (voltageValue < 2050)
-                    voltageValue = 2050;
-                if (voltageValue > 3500)
-                    voltageValue = 3500;
+                lastU2 = (float) voltageValue; // první vzorek = rovnou
             }
             else
             {
-                // záporný směr → rozsah 1500–2050
-                if (voltageValue < 500)
-                    voltageValue = 500;
-                if (voltageValue > 2050)
-                    voltageValue = 2050;
+                lastU2 = 0.5f * (float) voltageValue + 0.5f * lastU2;
             }
 
-            voltageBuf.bufU2[voltageBuf.countU2++] = voltageValue;
-            motorA.U2_last_filtered = voltageValue;
+            uint16_t filteredU2 = voltageValue;//(uint16_t) lastU2;
+
+            // --- omezení podle směru ---
+            if (motorA.CurrentDirectionB == 1)
+            {
+                // kladný směr → rozsah 2050–3500
+                if (filteredU2 < 2050)
+                    filteredU2 = 2050;
+                if (filteredU2 > 3500)
+                    filteredU2 = 3500;
+            }
+            else
+            {
+                // záporný směr → rozsah 500–2050
+                if (filteredU2 < 500)
+                    filteredU2 = 500;
+                if (filteredU2 > 2050)
+                    filteredU2 = 2050;
+            }
+
+            voltageBuf.bufU2[voltageBuf.countU2++] = filteredU2;
+            motorA.U2_last_filtered = filteredU2;
         }
     }
 }
 
 void ProcessVoltageBufferU1(void)
 {
-    if (voltageBuf.countU1 == 0)
+    uint16_t localCount = voltageBuf.countU1;
+    if (localCount == 0)
         return;
 
     uint32_t sum = 0;
-    for (uint16_t i = 0; i < voltageBuf.countU1; i++)
+    for (uint16_t i = 0; i < localCount; i++)
         sum += voltageBuf.bufU1[i];
 
-    float average = (float) sum / (float) voltageBuf.countU1;
+    uint32_t average = sum / localCount;
+    motorA.average_U1 =  average;
 
+    // bezpečný reset
     voltageBuf.countU1 = 0;
     voltageBuf.activeU1 = 0;
 }
 
 void ProcessVoltageBufferU2(void)
 {
-    if (voltageBuf.countU2 == 0)
+    uint16_t localCount = voltageBuf.countU2;
+    if (localCount == 0)
         return;
 
     uint32_t sum = 0;
-    for (uint16_t i = 0; i < voltageBuf.countU2; i++)
+    for (uint16_t i = 0; i < localCount; i++)
         sum += voltageBuf.bufU2[i];
 
-    float average = (float) sum / (float) voltageBuf.countU2;
+    uint32_t average = sum / localCount;
+    motorA.average_U2 =  average;
 
+    // bezpečný reset
     voltageBuf.countU2 = 0;
     voltageBuf.activeU2 = 0;
 }
@@ -446,10 +488,10 @@ void VoltageBuffer_Task(void)
     static uint8_t lastActiveU1 = 0;
     static uint8_t lastActiveU2 = 0;
 
-    if (lastActiveU1 == 1 && voltageBuf.activeU1 == 0 && voltageBuf.countU1 > 0)
+    if (lastActiveU1 == 1 && voltageBuf.activeU1 == 0 && voltageBuf.countU1 > 3)
         ProcessVoltageBufferU1();
 
-    if (lastActiveU2 == 1 && voltageBuf.activeU2 == 0 && voltageBuf.countU2 > 0)
+    if (lastActiveU2 == 1 && voltageBuf.activeU2 == 0 && voltageBuf.countU2 > 3)
         ProcessVoltageBufferU2();
 
     lastActiveU1 = voltageBuf.activeU1;
@@ -584,7 +626,7 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
             if (capture_count < CAPTURE_SAMPLES)
             {
                 sample_divider++;
-                if (sample_divider >= 0)
+                if (sample_divider >= 50000)
                 {
                     //sample_divider = 0;
 
@@ -607,8 +649,7 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
 
                     //capture_buffer_angle[capture_count] = motorA
                     // .CurrentDirectionA;
-                    capture_buffer_steps[capture_count] = motorA
-                            .CurrentDirectionA; //voltageBuf.countU1;
+                    capture_buffer_steps[capture_count] = motorA.average_U1;
 
                     capture_count++;
 
