@@ -344,7 +344,7 @@ static void VoltageBuffer_AddU1(uint16_t U1)
 
     if (voltageBuf.activeU1 && voltageBuf.countU1 < VOLTAGE_BUF_LEN)
     {
-        // --- vyhlazení ---
+
         if (voltageBuf.countU1 == 0)
         {
             lastU1 = (float) U1;
@@ -354,39 +354,43 @@ static void VoltageBuffer_AddU1(uint16_t U1)
             // vyhlazení: 30 % nové, 70 % staré
             lastU1 = 0.3f * (float) U1 + 0.7f * lastU1;
         }
-
         uint16_t filteredU1 = (uint16_t) lastU1;
 
-        // --- KONTROLA & SATURACE PODLE SMĚRU ---
-        if (motorA.CurrentDirectionA == 1)
+        // --- NOVÁ KONTROLA & SATURACE ---
+        if (motorA.CurrentDirectionB == 1)
         {
-            // kladný směr → rozsah 2050–3000
-            if (filteredU1 < 2050) filteredU1 = 2050;
-            if (filteredU1 > 3000) filteredU1 = 3000;
+            // kladný směr → rozsah 2050–2500
+            if (filteredU1 < 2050)
+                filteredU1 = 2050;
+            if (filteredU1 > 2500)
+                filteredU1 = 2500;
         }
         else
         {
-            // záporný směr → rozsah 1000–2050
-            if (filteredU1 < 1000) filteredU1 = 1000;
-            if (filteredU1 > 2050) filteredU1 = 2050;
+            // záporný směr → rozsah 1500–2050
+            if (filteredU1 < 1500)
+                filteredU1 = 1500;
+            if (filteredU1 > 2050)
+                filteredU1 = 2050;
         }
 
-        // --- uložení do bufferu ---
+        // uložíme vyhlazenou a oříznutou hodnotu
         voltageBuf.bufU1[voltageBuf.countU1++] = filteredU1;
 
         if (voltageBuf.countU1 >= VOLTAGE_BUF_LEN)
             voltageBuf.activeU1 = 0;
     }
 }
+
 static void VoltageBuffer_AddU2(uint16_t U2)
 {
     static float lastU2 = 0;   // drží poslední vyhlazenou hodnotu
 
     if (voltageBuf.activeU2 && voltageBuf.countU2 < VOLTAGE_BUF_LEN)
     {
-        // --- vyhlazení ---
         if (voltageBuf.countU2 == 0)
         {
+            // první hodnota – vezmeme rovnou tu změřenou
             lastU2 = (float) U2;
         }
         else
@@ -395,24 +399,8 @@ static void VoltageBuffer_AddU2(uint16_t U2)
             lastU2 = 0.3f * (float) U2 + 0.7f * lastU2;
         }
 
-        uint16_t filteredU2 = (uint16_t) lastU2;
-
-        // --- KONTROLA & SATURACE PODLE SMĚRU ---
-        if (motorA.CurrentDirectionB == 1)
-        {
-            // kladný směr → rozsah 2050–3000
-            if (filteredU2 < 2050) filteredU2 = 2050;
-            if (filteredU2 > 3000) filteredU2 = 3000;
-        }
-        else
-        {
-            // záporný směr → rozsah 1000–2050
-            if (filteredU2 < 1000) filteredU2 = 1000;
-            if (filteredU2 > 2050) filteredU2 = 2050;
-        }
-
-        // --- uložení do bufferu ---
-        voltageBuf.bufU2[voltageBuf.countU2++] = filteredU2;
+        // uložíme vyhlazenou hodnotu
+        voltageBuf.bufU2[voltageBuf.countU2++] = (uint16_t) lastU2;
 
         if (voltageBuf.countU2 >= VOLTAGE_BUF_LEN)
             voltageBuf.activeU2 = 0;
@@ -623,7 +611,7 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
             if (capture_count < CAPTURE_SAMPLES)
             {
                 sample_divider++;
-                if (sample_divider >=50000)
+                if (sample_divider >=0)
                 {
                     //sample_divider = 0;
 
@@ -632,7 +620,7 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
                             adc_sample[ADC_CHANNEL_IB2];
                     //motorA.I2_last;
                     static float lastU1_cap = 0;
-                    static float lastU2_cap = 0;
+                    static float lastU2_cap = 0;   // drží poslední filtrovanou hodnotu pro U2
 
                     if (voltageBuf.activeU1 || voltageBuf.activeU2)
                     {
