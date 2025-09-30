@@ -746,11 +746,11 @@ class HexDataPlotter:
         if self.decimal_data4 and self.show_data4_var.get():
             # Limit to first 10000 samples, show all values
             plot_data4 = self.decimal_data4[start_index:start_index+window_len]
-            # Vykreslíme kroky bez posunu a s násobením *1
-            plot_data4_offset = [y * 1 for y in plot_data4]
+            # Posuneme data o 2050 jednotek nahoru na ose Y a vynásobíme *20
+            plot_data4_offset = [y * 20 + 2050 for y in plot_data4]
             line4, = ax.plot(plot_data4_offset, '-', color='tab:red', linewidth=1.2, marker='D', markersize=3)
             lines.append(line4)
-            labels.append(f'Data 4 - Kroky (10000 zobrazených z {len(self.decimal_data4)}) * 1, vynecháno prvních 10')
+            labels.append(f'Data 4 - Kroky (10000 zobrazených z {len(self.decimal_data4)}) * 20 + 2050, vynecháno prvních 10')
             
             # Najdeme body kde se hodnota změní a zobrazíme je jako velké růžové body na středu sinusovky
             change_points_x = []
@@ -1188,8 +1188,8 @@ class HexDataPlotter:
             # Check dataset 4 (pouze pokud je zobrazen)
             if self.decimal_data4 and self.show_data4_var.get():
                 for i, y in enumerate(self.decimal_data4):
-                    # Pro dataset 4 musíme zohlednit offset +2050 a násobení *30
-                    y_offset = y 
+                    # Pro dataset 4 musíme zohlednit offset +2050 a násobení *20
+                    y_offset = y * 20 + 2050
                     distance = abs(i - x_mouse) + abs(y_offset - y_mouse) * 0.1  # Weight y-distance less
                     if distance < closest_distance:
                         closest_distance = distance

@@ -368,7 +368,7 @@ static void OnCurrentZeroCrossing(uint8_t channel, uint16_t voltageValue)
                 lastU1 = 0.5f * (float) voltageValue + 0.5f * lastU1;
             }
 
-            uint16_t filteredU1 = voltageValue;//(uint16_t) lastU1;
+            uint16_t filteredU1 = voltageValue; //(uint16_t) lastU1;
 
             // --- omezení podle směru ---
             if (motorA.CurrentDirectionA == 1)
@@ -421,7 +421,7 @@ static void OnCurrentZeroCrossing(uint8_t channel, uint16_t voltageValue)
                 lastU2 = 0.5f * (float) voltageValue + 0.5f * lastU2;
             }
 
-            uint16_t filteredU2 = voltageValue;//(uint16_t) lastU2;
+            uint16_t filteredU2 = voltageValue; //(uint16_t) lastU2;
 
             // --- omezení podle směru ---
             if (motorA.CurrentDirectionB == 1)
@@ -458,7 +458,7 @@ void ProcessVoltageBufferU1(void)
         sum += voltageBuf.bufU1[i];
 
     uint32_t average = sum / localCount;
-    motorA.average_U1 =  average;
+    motorA.average_U1 = average;
 
     // bezpečný reset
     voltageBuf.countU1 = 0;
@@ -476,7 +476,7 @@ void ProcessVoltageBufferU2(void)
         sum += voltageBuf.bufU2[i];
 
     uint32_t average = sum / localCount;
-    motorA.average_U2 =  average;
+    motorA.average_U2 = average;
 
     // bezpečný reset
     voltageBuf.countU2 = 0;
@@ -501,7 +501,7 @@ void VoltageBuffer_Task(void)
 /* Motor step detection & update ---------------------------------------------*/
 static void Motor_StepDetectionAndUpdate(MotorProbe_t *m, uint16_t *adc_sample)
 {
-    const int16_t hysteresis = 30;
+    const int16_t hysteresis = 20;
     if (abs(m->I1_last - MIDDLE_VALUE) > hysteresis && abs(
             m->I2_last - MIDDLE_VALUE)
                                                        > hysteresis)
@@ -514,23 +514,23 @@ static void Motor_StepDetectionAndUpdate(MotorProbe_t *m, uint16_t *adc_sample)
         if (m->dir == DIR_CW || m->dir == DIR_CCW)
             StepCounter_Update(m);
 
-        if (Check_CurrentZero(adc_sample, ADC_CHANNEL_IB1))
-        {
-            OnCurrentZeroCrossing(ADC_CHANNEL_IB1, adc_sample[ADC_CHANNEL_IA2]);
-
-        }
-
-        if (Check_CurrentZero(adc_sample, ADC_CHANNEL_IB2))
-        {
-            OnCurrentZeroCrossing(ADC_CHANNEL_IB2, adc_sample[ADC_CHANNEL_IA1]);
-        }
-
-        VoltageBuffer_Task();
     }
     else
     {
         step_state = STEP_IDLE;
     }
+    if (Check_CurrentZero(adc_sample, ADC_CHANNEL_IB1))
+    {
+        OnCurrentZeroCrossing(ADC_CHANNEL_IB1, adc_sample[ADC_CHANNEL_IA2]);
+
+    }
+
+    if (Check_CurrentZero(adc_sample, ADC_CHANNEL_IB2))
+    {
+        OnCurrentZeroCrossing(ADC_CHANNEL_IB2, adc_sample[ADC_CHANNEL_IA1]);
+    }
+
+    VoltageBuffer_Task();
 
 }
 
@@ -557,7 +557,7 @@ void DirCurrentDetection(void)
     static uint16_t lastValueB = 0;
     static uint16_t counter = 0;
     counter++;
-    if (counter > 30)
+    if (counter > 50)
     {
         uint16_t rawA = adc_values[ADC_CHANNEL_IB1];
         uint16_t rawB = adc_values[ADC_CHANNEL_IB2];
@@ -649,7 +649,7 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
 
                     //capture_buffer_angle[capture_count] = motorA
                     // .CurrentDirectionA;
-                    capture_buffer_steps[capture_count] = motorA.average_U1;
+                    capture_buffer_steps[capture_count] = motorA.CurrentDirectionB;
 
                     capture_count++;
 
