@@ -33,6 +33,7 @@
 #define STEP_TOLERANCE    4
 #define STEP_ANGLES_COUNT (sizeof(step_angles)/sizeof(step_angles[0]))
 #define VOLTAGE_BUF_LEN 90
+#define AVG_FIFO_LEN 5
 
 /* Private typedefs ----------------------------------------------------------*/
 typedef enum
@@ -53,6 +54,12 @@ typedef struct
     uint8_t initialized;
     float last_value;
 } Filter_t;
+
+typedef struct
+{
+    int32_t buf[AVG_FIFO_LEN];
+    uint8_t count;
+} AvgFifo_t;
 
 typedef struct
 {
@@ -113,8 +120,9 @@ static volatile uint16_t capture_buffer_ch2[CAPTURE_SAMPLES];
 static volatile uint16_t Ucapture_buffer[CAPTURE_SAMPLES];
 static volatile uint16_t Ucapture_buffer_ch2[CAPTURE_SAMPLES];
 //static float volatile capture_buffer_angle[CAPTURE_SAMPLES];
-static volatile int32_t capture_buffer_steps[CAPTURE_SAMPLES];
+//static volatile int32_t capture_buffer_steps[CAPTURE_SAMPLES];
 static volatile uint16_t capture_buffer_avg[CAPTURE_SAMPLES];
+static volatile uint16_t capture_buffer_avg2[CAPTURE_SAMPLES];
 static volatile uint8_t capture_ready = 0;
 #endif
 
@@ -125,14 +133,26 @@ static VoltageBuffer_t voltageBuf;
 
 /* FIFO na úhly (společný) */
 static AngleBufferFIFO_t angle_buffer;
+static AvgFifo_t avgU1_fifo =
+{ .count = 0 };
+static AvgFifo_t avgU2_fifo =
+{ .count = 0 };
+
+int stall = 0;
+int stall1 = 0;
+int stall2 = 0;
 
 static step_state_t step_state = STEP_IDLE;
 extern ADC_HandleTypeDef hadc1;
+
+static int32_t last_avgU1 = -1;
+static int32_t last_avgU2 = -1;
 
 uint16_t adc_values[ADC_CHANNEL_COUNT];
 volatile uint8_t adc_ready = 1;
 uint16_t adc_ready_counter = 0;
 static uint16_t sample_divider = 0;
+int16_t kroky = 0;
 
 static const int16_t step_angles[] =
 { 178, 90, 0, -90, -178 };
@@ -308,6 +328,7 @@ static void StepCounter_Update(MotorProbe_t *m)
             return;
         }
     }
+
 }
 
 static inline uint8_t Check_CurrentZero(uint16_t *adc_sample, uint8_t channel)
@@ -458,7 +479,7 @@ void ProcessVoltageBufferU1(void)
     for (uint16_t i = 0; i < localCount; i++)
         sum += voltageBuf.bufU1[i];
 
-    uint16_t average = (uint16_t)(sum / localCount);  // výsledek přetypován na uint16_t
+    uint16_t average = (uint16_t) (sum / localCount); // výsledek přetypován na uint16_t
     motorA.average_U1 = average;
 
     // bezpečný reset
@@ -477,10 +498,11 @@ void ProcessVoltageBufferU2(void)
     for (uint16_t i = 0; i < localCount; i++)
         sum += voltageBuf.bufU2[i];
 
-    uint16_t average = (uint16_t)(sum / localCount);  // výsledek přetypován na uint16_t
+    uint16_t average = (uint16_t) (sum / localCount); // výsledek přetypován na uint16_t
     motorA.average_U2 = average;
 
-    if (count == 5) {
+    if (count == 5)
+    {
         count++;
     }
 
@@ -495,14 +517,85 @@ void VoltageBuffer_Task(void)
     static uint8_t lastActiveU1 = 0;
     static uint8_t lastActiveU2 = 0;
 
-    if (lastActiveU1 == 1 && voltageBuf.activeU1 == 0 && voltageBuf.countU1 > 3)
+    if (lastActiveU1 == 1 && voltageBuf.activeU1 == 0 && voltageBuf.countU1 > 6)
         ProcessVoltageBufferU1();
 
-    if (lastActiveU2 == 1 && voltageBuf.activeU2 == 0 && voltageBuf.countU2 > 3)
+    if (lastActiveU2 == 1 && voltageBuf.activeU2 == 0 && voltageBuf.countU2 > 6)
         ProcessVoltageBufferU2();
 
     lastActiveU1 = voltageBuf.activeU1;
     lastActiveU2 = voltageBuf.activeU2;
+}
+static int32_t AvgFifo_Add(AvgFifo_t *fifo, int32_t value)
+{
+    // přidávej jen hodnoty větší než 2050
+    if (value <= 2050)
+    {
+        return -1; // nic se nepřidá, buffer se nemění
+    }
+
+    // pokud není buffer plný, přidáme hodnotu
+    if (fifo->count < AVG_FIFO_LEN)
+    {
+        fifo->buf[fifo->count++] = value;
+        return -1; // ještě není plno → nic nepočítáme
+    }
+
+    // FIFO plné → posunout hodnoty o jedno doleva
+    for (uint8_t i = 0; i < AVG_FIFO_LEN - 1; i++)
+    {
+        fifo->buf[i] = fifo->buf[i + 1];
+    }
+    fifo->buf[AVG_FIFO_LEN - 1] = value;
+
+    // spočítat průměr
+    int64_t sum = 0;
+    for (uint8_t i = 0; i < AVG_FIFO_LEN; i++)
+    {
+        sum += fifo->buf[i];
+    }
+    return (int32_t) (sum / AVG_FIFO_LEN);
+}
+
+static void Voltage_avg_process(void)
+{
+    int32_t avgU1 = motorA.average_U1;
+    int32_t avgU2 = motorA.average_U2;
+
+    // --- RESET pokud jsou oba proudy v nule ---
+    const int16_t tol = 20; // tolerance kolem 2050
+    if (abs(motorA.I1_last - MIDDLE_VALUE) < tol &&
+        abs(motorA.I2_last - MIDDLE_VALUE) < tol)
+    {
+        avgU1_fifo.count = 0;
+        avgU2_fifo.count = 0;
+        return; // dál nepočítáme, dokud není motor aktivní
+    }
+
+    // --- zpracování U1 ---
+    if (avgU1 != last_avgU1)
+    {
+        int32_t prumer = AvgFifo_Add(&avgU1_fifo, avgU1);
+        if (prumer >= 0)
+        {
+            stall1 = (prumer > 2350) ? 0 : 1;
+        }
+        last_avgU1 = avgU1;
+    }
+
+    // --- zpracování U2 ---
+    if (avgU2 != last_avgU2)
+    {
+        int32_t prumer = AvgFifo_Add(&avgU2_fifo, avgU2);
+        if (prumer >= 0)
+        {
+            stall2 = (prumer > 2350) ? 0 : 1;
+        }
+        last_avgU2 = avgU2;
+    }
+
+    // --- kombinace ---
+    stall = (stall1 == 1 && stall2 == 1) ? 1 : 0;
 }
 
 /* Motor step detection & update ---------------------------------------------*/
@@ -525,6 +618,8 @@ static void Motor_StepDetectionAndUpdate(MotorProbe_t *m, uint16_t *adc_sample)
     else
     {
         step_state = STEP_IDLE;
+
+
     }
     if (Check_CurrentZero(adc_sample, ADC_CHANNEL_IB1))
     {
@@ -538,6 +633,8 @@ static void Motor_StepDetectionAndUpdate(MotorProbe_t *m, uint16_t *adc_sample)
     }
 
     VoltageBuffer_Task();
+    Voltage_avg_process();
+    kroky = motorA.step_count;
 
 }
 
@@ -623,8 +720,9 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
                     Ucapture_buffer[capture_count] = 2050;
                     Ucapture_buffer_ch2[capture_count] = 2050;
                 }
-                // capture_buffer_angle[capture_count] = motorA.angle_deg;
+                //capture_buffer_angle[capture_count] = motorA.angle_deg;
                 //capture_buffer_steps[capture_count] = motorA.step_count;
+
                 capture_count++;
             }
             break;
@@ -634,9 +732,9 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
             {
                 sample_divider++;
 
-                if (sample_divider >= 50000)
+                if (sample_divider >= 0)
                 {
-                    if ((sample_divider % 1) == 0)   // jen každý pátý vzorek
+                    if ((sample_divider % 3) == 0)   // jen každý pátý vzorek
                     {
                         capture_buffer[capture_count] =
                                 adc_sample[ADC_CHANNEL_IB1];
@@ -657,6 +755,9 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
                         }
 
                         capture_buffer_avg[capture_count] = motorA.average_U2;
+                        capture_buffer_avg2[capture_count] = motorA.average_U1;
+                        //capture_buffer_angle[capture_count] = motorA.angle_deg;
+                        // capture_buffer_steps[capture_count] = motorA.step_count;
 
                         capture_count++;
 
