@@ -32,7 +32,7 @@
 #define ANGLE_BUFFER_LEN  20
 #define STEP_TOLERANCE    4
 #define STEP_ANGLES_COUNT (sizeof(step_angles)/sizeof(step_angles[0]))
-#define VOLTAGE_BUF_LEN 50
+#define VOLTAGE_BUF_LEN 90
 
 /* Private typedefs ----------------------------------------------------------*/
 typedef enum
@@ -114,6 +114,7 @@ static volatile uint16_t Ucapture_buffer[CAPTURE_SAMPLES];
 static volatile uint16_t Ucapture_buffer_ch2[CAPTURE_SAMPLES];
 //static float volatile capture_buffer_angle[CAPTURE_SAMPLES];
 static volatile int32_t capture_buffer_steps[CAPTURE_SAMPLES];
+static volatile uint16_t capture_buffer_avg[CAPTURE_SAMPLES];
 static volatile uint8_t capture_ready = 0;
 #endif
 
@@ -457,7 +458,7 @@ void ProcessVoltageBufferU1(void)
     for (uint16_t i = 0; i < localCount; i++)
         sum += voltageBuf.bufU1[i];
 
-    uint32_t average = sum / localCount;
+    uint16_t average = (uint16_t)(sum / localCount);  // výsledek přetypován na uint16_t
     motorA.average_U1 = average;
 
     // bezpečný reset
@@ -467,6 +468,7 @@ void ProcessVoltageBufferU1(void)
 
 void ProcessVoltageBufferU2(void)
 {
+    static int count = 0;
     uint16_t localCount = voltageBuf.countU2;
     if (localCount == 0)
         return;
@@ -475,12 +477,17 @@ void ProcessVoltageBufferU2(void)
     for (uint16_t i = 0; i < localCount; i++)
         sum += voltageBuf.bufU2[i];
 
-    uint32_t average = sum / localCount;
+    uint16_t average = (uint16_t)(sum / localCount);  // výsledek přetypován na uint16_t
     motorA.average_U2 = average;
+
+    if (count == 5) {
+        count++;
+    }
 
     // bezpečný reset
     voltageBuf.countU2 = 0;
     voltageBuf.activeU2 = 0;
+    count++;
 }
 
 void VoltageBuffer_Task(void)
@@ -626,37 +633,38 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
             if (capture_count < CAPTURE_SAMPLES)
             {
                 sample_divider++;
+
                 if (sample_divider >= 50000)
                 {
-                    //sample_divider = 0;
-
-                    capture_buffer[capture_count] = adc_sample[ADC_CHANNEL_IB1]; //motorA.I1_last;
-                    capture_buffer_ch2[capture_count] =
-                            adc_sample[ADC_CHANNEL_IB2];
-
-                    if (voltageBuf.activeU1 || voltageBuf.activeU2)
+                    if ((sample_divider % 1) == 0)   // jen každý pátý vzorek
                     {
-                        Ucapture_buffer[capture_count] =
-                                motorA.U2_last_filtered;
-                        Ucapture_buffer_ch2[capture_count] = motorA
-                                .U1_last_filtered;
-                    }
-                    else
-                    {
-                        Ucapture_buffer[capture_count] = 2050;
-                        Ucapture_buffer_ch2[capture_count] = 2050;
-                    }
+                        capture_buffer[capture_count] =
+                                adc_sample[ADC_CHANNEL_IB1];
+                        capture_buffer_ch2[capture_count] =
+                                adc_sample[ADC_CHANNEL_IB2];
 
-                    //capture_buffer_angle[capture_count] = motorA
-                    // .CurrentDirectionA;
-                    capture_buffer_steps[capture_count] = motorA.CurrentDirectionB;
+                        if (voltageBuf.activeU1 || voltageBuf.activeU2)
+                        {
+                            Ucapture_buffer[capture_count] = motorA
+                                    .U2_last_filtered;
+                            Ucapture_buffer_ch2[capture_count] = motorA
+                                    .U1_last_filtered;
+                        }
+                        else
+                        {
+                            Ucapture_buffer[capture_count] = 2050;
+                            Ucapture_buffer_ch2[capture_count] = 2050;
+                        }
 
-                    capture_count++;
+                        capture_buffer_avg[capture_count] = motorA.average_U2;
 
-                    if (capture_count >= CAPTURE_SAMPLES)
-                    {
-                        capture_state = CAPT_DONE;
-                        capture_ready = 1;
+                        capture_count++;
+
+                        if (capture_count >= CAPTURE_SAMPLES)
+                        {
+                            capture_state = CAPT_DONE;
+                            capture_ready = 1;
+                        }
                     }
                 }
             }
