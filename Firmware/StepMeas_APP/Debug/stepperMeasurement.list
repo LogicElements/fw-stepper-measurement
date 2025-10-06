@@ -21,9 +21,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   8 .data         0000002c  200000c0  08015c8c  0000b0c0  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          0000f75c  200000ec  08015cb8  0000b0ec  2**2
+  9 .bss          0000f76c  200000ec  08015cb8  0000b0ec  2**2
                   ALLOC
- 10 ._user_heap_stack 00000600  2000f848  08015cb8  0000b848  2**0
+ 10 ._user_heap_stack 00000600  2000f858  08015cb8  0000b858  2**0
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  0000b0ec  2**0
                   CONTENTS, READONLY
@@ -7083,7 +7083,7 @@ static void MX_TIM2_Init(void)
  800f2b6:	4b1a      	ldr	r3, [pc, #104]	@ (800f320 <MX_TIM2_Init+0x94>)
  800f2b8:	2200      	movs	r2, #0
  800f2ba:	609a      	str	r2, [r3, #8]
-  htim2.Init.Period = 55-1;
+  htim2.Init.Period = 55-1;    //55
  800f2bc:	4b18      	ldr	r3, [pc, #96]	@ (800f320 <MX_TIM2_Init+0x94>)
  800f2be:	2236      	movs	r2, #54	@ 0x36
  800f2c0:	60da      	str	r2, [r3, #12]
@@ -8669,7 +8669,7 @@ LoopFillZerobss:
   ldr r2, =_sbss
  800fb14:	200000ec 	.word	0x200000ec
   ldr r4, =_ebss
- 800fb18:	2000f848 	.word	0x2000f848
+ 800fb18:	2000f858 	.word	0x2000f858
 
 0800fb1c <ADC_IRQHandler>:
  * @retval None       
@@ -22643,9 +22643,9 @@ static void OnCurrentZeroCrossing(uint8_t channel, uint16_t voltageValue)
  8014db4:	46bd      	mov	sp, r7
  8014db6:	bd80      	pop	{r7, pc}
  8014db8:	2000f634 	.word	0x2000f634
- 8014dbc:	2000f820 	.word	0x2000f820
+ 8014dbc:	2000f830 	.word	0x2000f830
  8014dc0:	2000f58c 	.word	0x2000f58c
- 8014dc4:	2000f824 	.word	0x2000f824
+ 8014dc4:	2000f834 	.word	0x2000f834
 
 08014dc8 <ProcessVoltageBufferU1>:
 
@@ -22814,7 +22814,7 @@ void ProcessVoltageBufferU2(void)
  8014ec6:	bf00      	nop
  8014ec8:	2000f634 	.word	0x2000f634
  8014ecc:	2000f58c 	.word	0x2000f58c
- 8014ed0:	2000f828 	.word	0x2000f828
+ 8014ed0:	2000f838 	.word	0x2000f838
 
 08014ed4 <VoltageBuffer_Task>:
 
@@ -22870,9 +22870,9 @@ void VoltageBuffer_Task(void)
 }
  8014f2c:	bf00      	nop
  8014f2e:	bd80      	pop	{r7, pc}
- 8014f30:	2000f82c 	.word	0x2000f82c
+ 8014f30:	2000f83c 	.word	0x2000f83c
  8014f34:	2000f634 	.word	0x2000f634
- 8014f38:	2000f82d 	.word	0x2000f82d
+ 8014f38:	2000f83d 	.word	0x2000f83d
 
 08014f3c <AvgFifo_Add>:
 static int32_t AvgFifo_Add(AvgFifo_t *fifo, int32_t value)
@@ -22897,17 +22897,17 @@ static int32_t AvgFifo_Add(AvgFifo_t *fifo, int32_t value)
     // pokud není buffer plný, přidáme hodnotu
     if (fifo->count < AVG_FIFO_LEN)
  8014f58:	687b      	ldr	r3, [r7, #4]
- 8014f5a:	7d1b      	ldrb	r3, [r3, #20]
- 8014f5c:	2b04      	cmp	r3, #4
+ 8014f5a:	7f1b      	ldrb	r3, [r3, #28]
+ 8014f5c:	2b06      	cmp	r3, #6
  8014f5e:	d80d      	bhi.n	8014f7c <AvgFifo_Add+0x40>
     {
         fifo->buf[fifo->count++] = value;
  8014f60:	687b      	ldr	r3, [r7, #4]
- 8014f62:	7d1b      	ldrb	r3, [r3, #20]
+ 8014f62:	7f1b      	ldrb	r3, [r3, #28]
  8014f64:	1c5a      	adds	r2, r3, #1
  8014f66:	b2d1      	uxtb	r1, r2
  8014f68:	687a      	ldr	r2, [r7, #4]
- 8014f6a:	7511      	strb	r1, [r2, #20]
+ 8014f6a:	7711      	strb	r1, [r2, #28]
  8014f6c:	4619      	mov	r1, r3
  8014f6e:	687b      	ldr	r3, [r7, #4]
  8014f70:	683a      	ldr	r2, [r7, #0]
@@ -22936,13 +22936,13 @@ static int32_t AvgFifo_Add(AvgFifo_t *fifo, int32_t value)
  8014f96:	3301      	adds	r3, #1
  8014f98:	77fb      	strb	r3, [r7, #31]
  8014f9a:	7ffb      	ldrb	r3, [r7, #31]
- 8014f9c:	2b03      	cmp	r3, #3
+ 8014f9c:	2b05      	cmp	r3, #5
  8014f9e:	d9f0      	bls.n	8014f82 <AvgFifo_Add+0x46>
     }
     fifo->buf[AVG_FIFO_LEN - 1] = value;
  8014fa0:	687b      	ldr	r3, [r7, #4]
  8014fa2:	683a      	ldr	r2, [r7, #0]
- 8014fa4:	611a      	str	r2, [r3, #16]
+ 8014fa4:	619a      	str	r2, [r3, #24]
 
     // spočítat průměr
     int64_t sum = 0;
@@ -22970,12 +22970,12 @@ static int32_t AvgFifo_Add(AvgFifo_t *fifo, int32_t value)
  8014fd8:	3301      	adds	r3, #1
  8014fda:	73fb      	strb	r3, [r7, #15]
  8014fdc:	7bfb      	ldrb	r3, [r7, #15]
- 8014fde:	2b04      	cmp	r3, #4
+ 8014fde:	2b06      	cmp	r3, #6
  8014fe0:	d9ea      	bls.n	8014fb8 <AvgFifo_Add+0x7c>
     }
     return (int32_t) (sum / AVG_FIFO_LEN);
  8014fe2:	e9d7 0104 	ldrd	r0, r1, [r7, #16]
- 8014fe6:	f04f 0205 	mov.w	r2, #5
+ 8014fe6:	f04f 0207 	mov.w	r2, #7
  8014fea:	f04f 0300 	mov.w	r3, #0
  8014fee:	f7f7 fd49 	bl	800ca84 <__aeabi_ldivmod>
  8014ff2:	4602      	mov	r2, r0
@@ -23031,11 +23031,11 @@ static void Voltage_avg_process(void)
         avgU1_fifo.count = 0;
  801504e:	4b27      	ldr	r3, [pc, #156]	@ (80150ec <Voltage_avg_process+0xe8>)
  8015050:	2200      	movs	r2, #0
- 8015052:	751a      	strb	r2, [r3, #20]
+ 8015052:	771a      	strb	r2, [r3, #28]
         avgU2_fifo.count = 0;
  8015054:	4b26      	ldr	r3, [pc, #152]	@ (80150f0 <Voltage_avg_process+0xec>)
  8015056:	2200      	movs	r2, #0
- 8015058:	751a      	strb	r2, [r3, #20]
+ 8015058:	771a      	strb	r2, [r3, #28]
         return; // dál nepočítáme, dokud není motor aktivní
  801505a:	e042      	b.n	80150e2 <Voltage_avg_process+0xde>
     }
@@ -23058,9 +23058,9 @@ static void Voltage_avg_process(void)
  8015072:	2b00      	cmp	r3, #0
  8015074:	db0a      	blt.n	801508c <Voltage_avg_process+0x88>
         {
-            stall1 = (prumer > 2350) ? 0 : 1;
+            stall1 = (prumer > 2300) ? 0 : 1;            // ladění rozmezí co už je doraz a co ne  2250 -3000 nejlepší výsledek
  8015076:	68bb      	ldr	r3, [r7, #8]
- 8015078:	f640 122e 	movw	r2, #2350	@ 0x92e
+ 8015078:	f640 02fc 	movw	r2, #2300	@ 0x8fc
  801507c:	4293      	cmp	r3, r2
  801507e:	bfd4      	ite	le
  8015080:	2301      	movle	r3, #1
@@ -23094,9 +23094,9 @@ static void Voltage_avg_process(void)
  80150a8:	2b00      	cmp	r3, #0
  80150aa:	db0a      	blt.n	80150c2 <Voltage_avg_process+0xbe>
         {
-            stall2 = (prumer > 2350) ? 0 : 1;
+            stall2 = (prumer > 2300) ? 0 : 1;
  80150ac:	687b      	ldr	r3, [r7, #4]
- 80150ae:	f640 122e 	movw	r2, #2350	@ 0x92e
+ 80150ae:	f640 02fc 	movw	r2, #2300	@ 0x8fc
  80150b2:	4293      	cmp	r3, r2
  80150b4:	bfd4      	ite	le
  80150b6:	2301      	movle	r3, #1
@@ -23133,12 +23133,12 @@ static void Voltage_avg_process(void)
  80150e6:	bd80      	pop	{r7, pc}
  80150e8:	2000f58c 	.word	0x2000f58c
  80150ec:	2000f7d0 	.word	0x2000f7d0
- 80150f0:	2000f7e8 	.word	0x2000f7e8
+ 80150f0:	2000f7f0 	.word	0x2000f7f0
  80150f4:	200000cc 	.word	0x200000cc
- 80150f8:	2000f804 	.word	0x2000f804
+ 80150f8:	2000f814 	.word	0x2000f814
  80150fc:	200000d0 	.word	0x200000d0
- 8015100:	2000f808 	.word	0x2000f808
- 8015104:	2000f800 	.word	0x2000f800
+ 8015100:	2000f818 	.word	0x2000f818
+ 8015104:	2000f810 	.word	0x2000f810
 
 08015108 <Motor_StepDetectionAndUpdate>:
 
@@ -23271,10 +23271,10 @@ static void Motor_StepDetectionAndUpdate(MotorProbe_t *m, uint16_t *adc_sample)
  80151de:	3710      	adds	r7, #16
  80151e0:	46bd      	mov	sp, r7
  80151e2:	bd80      	pop	{r7, pc}
- 80151e4:	2000f80c 	.word	0x2000f80c
+ 80151e4:	2000f81c 	.word	0x2000f81c
  80151e8:	2000f7a4 	.word	0x2000f7a4
  80151ec:	2000f58c 	.word	0x2000f58c
- 80151f0:	2000f81c 	.word	0x2000f81c
+ 80151f0:	2000f82c 	.word	0x2000f82c
 
 080151f4 <StartAdcMeasurement>:
 
@@ -23317,9 +23317,9 @@ void StartAdcMeasurement(void)
  8015220:	bf00      	nop
  8015222:	bd80      	pop	{r7, pc}
  8015224:	200000d4 	.word	0x200000d4
- 8015228:	2000f810 	.word	0x2000f810
+ 8015228:	2000f820 	.word	0x2000f820
  801522c:	200008fc 	.word	0x200008fc
- 8015230:	2000f818 	.word	0x2000f818
+ 8015230:	2000f828 	.word	0x2000f828
 
 08015234 <DirCurrentDetection>:
 
@@ -23406,11 +23406,11 @@ void DirCurrentDetection(void)
  80152a0:	46bd      	mov	sp, r7
  80152a2:	f85d 7b04 	ldr.w	r7, [sp], #4
  80152a6:	4770      	bx	lr
- 80152a8:	2000f82e 	.word	0x2000f82e
- 80152ac:	2000f810 	.word	0x2000f810
- 80152b0:	2000f830 	.word	0x2000f830
+ 80152a8:	2000f83e 	.word	0x2000f83e
+ 80152ac:	2000f820 	.word	0x2000f820
+ 80152b0:	2000f840 	.word	0x2000f840
  80152b4:	2000f58c 	.word	0x2000f58c
- 80152b8:	2000f832 	.word	0x2000f832
+ 80152b8:	2000f842 	.word	0x2000f842
 
 080152bc <Capture_HandleSample>:
 
@@ -23708,7 +23708,7 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
  80154c8:	2000f634 	.word	0x2000f634
  80154cc:	20005948 	.word	0x20005948
  80154d0:	20008058 	.word	0x20008058
- 80154d4:	2000f81a 	.word	0x2000f81a
+ 80154d4:	2000f82a 	.word	0x2000f82a
  80154d8:	aaaaaaab 	.word	0xaaaaaaab
  80154dc:	2000a768 	.word	0x2000a768
  80154e0:	2000ce78 	.word	0x2000ce78
@@ -23744,7 +23744,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
  801550c:	bd80      	pop	{r7, pc}
  801550e:	bf00      	nop
  8015510:	40012000 	.word	0x40012000
- 8015514:	2000f810 	.word	0x2000f810
+ 8015514:	2000f820 	.word	0x2000f820
  8015518:	200000d4 	.word	0x200000d4
 
 0801551c <HAL_GPIO_EXTI_Callback>:
@@ -23988,7 +23988,7 @@ uint16_t Switch_GetAll(void)
  8015662:	bf00      	nop
  8015664:	200000d8 	.word	0x200000d8
  8015668:	08015c38 	.word	0x08015c38
- 801566c:	2000f834 	.word	0x2000f834
+ 801566c:	2000f844 	.word	0x2000f844
 
 08015670 <memcmp>:
  8015670:	b510      	push	{r4, lr}

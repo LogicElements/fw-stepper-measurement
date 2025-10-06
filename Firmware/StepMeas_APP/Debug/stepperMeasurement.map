@@ -7313,7 +7313,7 @@ LOAD C:/ST/STM32CubeIDE_1.16.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .igot.plt      0x200000ec        0x0 C:/ST/STM32CubeIDE_1.16.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard/crtbegin.o
                 0x200000ec                        . = ALIGN (0x4)
 
-.bss            0x200000ec     0xf75c load address 0x08015cb8
+.bss            0x200000ec     0xf76c load address 0x08015cb8
                 0x200000ec                        _sbss = .
                 0x200000ec                        __bss_start__ = _sbss
  *(.bss)
@@ -7388,58 +7388,58 @@ LOAD C:/ST/STM32CubeIDE_1.16.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
                 0x2000f7a4       0x2a ./Modules/Probe/voltage_current_probe.o
  *fill*         0x2000f7ce        0x2 
  .bss.avgU1_fifo
-                0x2000f7d0       0x18 ./Modules/Probe/voltage_current_probe.o
+                0x2000f7d0       0x20 ./Modules/Probe/voltage_current_probe.o
  .bss.avgU2_fifo
-                0x2000f7e8       0x18 ./Modules/Probe/voltage_current_probe.o
- .bss.stall     0x2000f800        0x4 ./Modules/Probe/voltage_current_probe.o
-                0x2000f800                stall
- .bss.stall1    0x2000f804        0x4 ./Modules/Probe/voltage_current_probe.o
-                0x2000f804                stall1
- .bss.stall2    0x2000f808        0x4 ./Modules/Probe/voltage_current_probe.o
-                0x2000f808                stall2
+                0x2000f7f0       0x20 ./Modules/Probe/voltage_current_probe.o
+ .bss.stall     0x2000f810        0x4 ./Modules/Probe/voltage_current_probe.o
+                0x2000f810                stall
+ .bss.stall1    0x2000f814        0x4 ./Modules/Probe/voltage_current_probe.o
+                0x2000f814                stall1
+ .bss.stall2    0x2000f818        0x4 ./Modules/Probe/voltage_current_probe.o
+                0x2000f818                stall2
  .bss.step_state
-                0x2000f80c        0x1 ./Modules/Probe/voltage_current_probe.o
- *fill*         0x2000f80d        0x3 
+                0x2000f81c        0x1 ./Modules/Probe/voltage_current_probe.o
+ *fill*         0x2000f81d        0x3 
  .bss.adc_values
-                0x2000f810        0x8 ./Modules/Probe/voltage_current_probe.o
-                0x2000f810                adc_values
+                0x2000f820        0x8 ./Modules/Probe/voltage_current_probe.o
+                0x2000f820                adc_values
  .bss.adc_ready_counter
-                0x2000f818        0x2 ./Modules/Probe/voltage_current_probe.o
-                0x2000f818                adc_ready_counter
+                0x2000f828        0x2 ./Modules/Probe/voltage_current_probe.o
+                0x2000f828                adc_ready_counter
  .bss.sample_divider
-                0x2000f81a        0x2 ./Modules/Probe/voltage_current_probe.o
- .bss.kroky     0x2000f81c        0x2 ./Modules/Probe/voltage_current_probe.o
-                0x2000f81c                kroky
- *fill*         0x2000f81e        0x2 
- .bss.lastU1.7  0x2000f820        0x4 ./Modules/Probe/voltage_current_probe.o
- .bss.lastU2.6  0x2000f824        0x4 ./Modules/Probe/voltage_current_probe.o
- .bss.count.5   0x2000f828        0x4 ./Modules/Probe/voltage_current_probe.o
+                0x2000f82a        0x2 ./Modules/Probe/voltage_current_probe.o
+ .bss.kroky     0x2000f82c        0x2 ./Modules/Probe/voltage_current_probe.o
+                0x2000f82c                kroky
+ *fill*         0x2000f82e        0x2 
+ .bss.lastU1.7  0x2000f830        0x4 ./Modules/Probe/voltage_current_probe.o
+ .bss.lastU2.6  0x2000f834        0x4 ./Modules/Probe/voltage_current_probe.o
+ .bss.count.5   0x2000f838        0x4 ./Modules/Probe/voltage_current_probe.o
  .bss.lastActiveU1.4
-                0x2000f82c        0x1 ./Modules/Probe/voltage_current_probe.o
+                0x2000f83c        0x1 ./Modules/Probe/voltage_current_probe.o
  .bss.lastActiveU2.3
-                0x2000f82d        0x1 ./Modules/Probe/voltage_current_probe.o
+                0x2000f83d        0x1 ./Modules/Probe/voltage_current_probe.o
  .bss.counter.2
-                0x2000f82e        0x2 ./Modules/Probe/voltage_current_probe.o
+                0x2000f83e        0x2 ./Modules/Probe/voltage_current_probe.o
  .bss.lastValueA.1
-                0x2000f830        0x2 ./Modules/Probe/voltage_current_probe.o
+                0x2000f840        0x2 ./Modules/Probe/voltage_current_probe.o
  .bss.lastValueB.0
-                0x2000f832        0x2 ./Modules/Probe/voltage_current_probe.o
- .bss.sw        0x2000f834       0x14 ./Modules/Switch/switch.o
+                0x2000f842        0x2 ./Modules/Probe/voltage_current_probe.o
+ .bss.sw        0x2000f844       0x14 ./Modules/Switch/switch.o
  *(COMMON)
-                0x2000f848                        . = ALIGN (0x4)
-                0x2000f848                        _ebss = .
-                0x2000f848                        __bss_end__ = _ebss
+                0x2000f858                        . = ALIGN (0x4)
+                0x2000f858                        _ebss = .
+                0x2000f858                        __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x2000f848      0x600 load address 0x08015cb8
-                0x2000f848                        . = ALIGN (0x8)
+                0x2000f858      0x600 load address 0x08015cb8
+                0x2000f858                        . = ALIGN (0x8)
                 [!provide]                        PROVIDE (end = .)
-                0x2000f848                        PROVIDE (_end = .)
-                0x2000fa48                        . = (. + _Min_Heap_Size)
- *fill*         0x2000f848      0x200 
-                0x2000fe48                        . = (. + _Min_Stack_Size)
- *fill*         0x2000fa48      0x400 
-                0x2000fe48                        . = ALIGN (0x8)
+                0x2000f858                        PROVIDE (_end = .)
+                0x2000fa58                        . = (. + _Min_Heap_Size)
+ *fill*         0x2000f858      0x200 
+                0x2000fe58                        . = (. + _Min_Stack_Size)
+ *fill*         0x2000fa58      0x400 
+                0x2000fe58                        . = ALIGN (0x8)
 
 /DISCARD/
  libc.a(*)

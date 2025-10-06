@@ -33,7 +33,7 @@
 #define STEP_TOLERANCE    4
 #define STEP_ANGLES_COUNT (sizeof(step_angles)/sizeof(step_angles[0]))
 #define VOLTAGE_BUF_LEN 90
-#define AVG_FIFO_LEN 5
+#define AVG_FIFO_LEN 7
 
 /* Private typedefs ----------------------------------------------------------*/
 typedef enum
@@ -578,7 +578,7 @@ static void Voltage_avg_process(void)
         int32_t prumer = AvgFifo_Add(&avgU1_fifo, avgU1);
         if (prumer >= 0)
         {
-            stall1 = (prumer > 2350) ? 0 : 1;
+            stall1 = (prumer > 2300) ? 0 : 1;            // ladění rozmezí co už je doraz a co ne  2250 -3000 nejlepší výsledek
         }
         last_avgU1 = avgU1;
     }
@@ -589,7 +589,7 @@ static void Voltage_avg_process(void)
         int32_t prumer = AvgFifo_Add(&avgU2_fifo, avgU2);
         if (prumer >= 0)
         {
-            stall2 = (prumer > 2350) ? 0 : 1;
+            stall2 = (prumer > 2300) ? 0 : 1;
         }
         last_avgU2 = avgU2;
     }
