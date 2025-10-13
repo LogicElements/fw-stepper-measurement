@@ -430,14 +430,14 @@ class HexDataPlotter:
                 self.decimal_data8 = []
                 self.hex_data8 = []
             
-            # Speciální parsování pro třetí dataset (deg.txt) - IEEE-754 float
+            # Speciální parsování pro třetí dataset (deg.txt) - int16_t
             if which == 3:
-                self.parse_ieee754_float(hex_strings, which)
+                self.parse_int16_data(hex_strings, which)
                 return
             
-            # Speciální parsování pro čtvrtý dataset (steps.txt) - počítání kroků
+            # Speciální parsování pro čtvrtý dataset (steps.txt) - int16_t
             if which == 4:
-                self.parse_steps_data(hex_strings, which)
+                self.parse_int16_data(hex_strings, which)
                 return
             
             # Check if we need to combine bytes (for 16-bit or 32-bit values)
@@ -742,46 +742,52 @@ class HexDataPlotter:
         
         print(f"DEBUG: IEEE-754 parsování dokončeno - načteno {len(self.decimal_data3)} hodnot")
     
-    def parse_steps_data(self, hex_strings, which):
-        """Parsuje hex stringy pro počítání kroků - převádí HEX na int32"""
-        print(f"DEBUG: Parsování HEX na int32 kroků pro dataset {which}")
+    def parse_int16_data(self, hex_strings, which):
+        """Parsuje hex stringy jako int16_t - převádí HEX na signed 16-bit integer"""
+        dataset_name = "angle" if which == 3 else "steps" if which == 4 else f"dataset {which}"
+        print(f"DEBUG: Parsování HEX na int16 pro {dataset_name} (dataset {which})")
         
-        # Procházíme hex stringy po 4 bytech (jeden int32 = 4 byty)
-        steps_count = 0
+        # Procházíme hex stringy po 2 bytech (jeden int16 = 2 byty)
+        value_count = 0
         
-        for i in range(0, len(hex_strings), 4):  # Po 4 bytech
+        for i in range(0, len(hex_strings), 2):  # Po 2 bytech
             try:
                 # Zkontrolujeme, že máme dostatek bytů
-                if i + 3 >= len(hex_strings):
+                if i + 1 >= len(hex_strings):
                     break
                 
-                # Vezmeme 4 byty a zkombinujeme je
+                # Vezmeme 2 byty a zkombinujeme je
                 byte1 = int(hex_strings[i].replace('0x', '').replace('0X', '').replace('h', '').replace('H', ''), 16)
                 byte2 = int(hex_strings[i+1].replace('0x', '').replace('0X', '').replace('h', '').replace('H', ''), 16)
-                byte3 = int(hex_strings[i+2].replace('0x', '').replace('0X', '').replace('h', '').replace('H', ''), 16)
-                byte4 = int(hex_strings[i+3].replace('0x', '').replace('0X', '').replace('h', '').replace('H', ''), 16)
                 
-                # Zkombinujeme do 32-bit hodnoty (little-endian)
-                # byte1 je nejnižší byte, byte4 je nejvyšší byte
-                combined_hex = f"{byte1:02x}{byte2:02x}{byte3:02x}{byte4:02x}"
+                # Zkombinujeme do 16-bit hodnoty (little-endian)
+                # byte1 je nejnižší byte, byte2 je nejvyšší byte
+                combined_hex = f"{byte1:02x}{byte2:02x}"
                 bytes_data = bytes.fromhex(combined_hex)
-                current_value = struct.unpack('<i', bytes_data)[0]  # little-endian signed int32
+                current_value = struct.unpack('<h', bytes_data)[0]  # little-endian signed int16
                 
-                # Uložíme hodnotu jako krok
-                self.decimal_data4.append(current_value)
-                self.hex_data4.append(f"{byte1:02x} {byte2:02x} {byte3:02x} {byte4:02x}")
+                # Uložíme hodnotu do příslušného datasetu
+                if which == 3:
+                    self.decimal_data3.append(current_value)
+                    self.hex_data3.append(f"{byte1:02x} {byte2:02x}")
+                elif which == 4:
+                    self.decimal_data4.append(current_value)
+                    self.hex_data4.append(f"{byte1:02x} {byte2:02x}")
                 
                 # Debug výpis pro prvních několik hodnot
-                if len(self.decimal_data4) <= 10:
-                    print(f"DEBUG: HEX krok {i//4}: {byte1} {byte2} {byte3} {byte4} → {current_value}")
+                if value_count < 10:
+                    print(f"DEBUG: HEX {dataset_name} {i//2}: {byte1:02x} {byte2:02x} → {current_value}")
                 
-                steps_count += 1
+                value_count += 1
                 
             except (ValueError, IndexError) as e:
-                print(f"DEBUG: Chyba při parsování HEX kroku na pozici {i}: {e}")
+                print(f"DEBUG: Chyba při parsování HEX na pozici {i}: {e}")
                 continue
         
-        print(f"DEBUG: Parsování HEX kroků dokončeno - načteno {len(self.decimal_data4)} hodnot")
+        if which == 3:
+            print(f"DEBUG: Parsování int16 {dataset_name} dokončeno - načteno {len(self.decimal_data3)} hodnot")
+        elif which == 4:
+            print(f"DEBUG: Parsování int16 {dataset_name} dokončeno - načteno {len(self.decimal_data4)} hodnot")
             
     def plot_data(self):
         if not (self.decimal_data1 or self.decimal_data2 or self.decimal_data3 or self.decimal_data4 or self.decimal_data5 or self.decimal_data6 or self.decimal_data7):

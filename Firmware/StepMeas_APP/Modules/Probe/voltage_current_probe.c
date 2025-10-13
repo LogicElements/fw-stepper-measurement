@@ -119,8 +119,8 @@ static volatile uint16_t capture_buffer[CAPTURE_SAMPLES];
 static volatile uint16_t capture_buffer_ch2[CAPTURE_SAMPLES];
 static volatile uint16_t Ucapture_buffer[CAPTURE_SAMPLES];
 static volatile uint16_t Ucapture_buffer_ch2[CAPTURE_SAMPLES];
-//static float volatile capture_buffer_angle[CAPTURE_SAMPLES];
-//static volatile int32_t capture_buffer_steps[CAPTURE_SAMPLES];
+//static  volatile int16_t capture_buffer_angle[CAPTURE_SAMPLES];
+//static volatile int16_t capture_buffer_steps[CAPTURE_SAMPLES];
 static volatile uint16_t capture_buffer_avg[CAPTURE_SAMPLES];
 static volatile uint16_t capture_buffer_avg2[CAPTURE_SAMPLES];
 static volatile uint8_t capture_ready = 0;
@@ -564,8 +564,9 @@ static void Voltage_avg_process(void)
 
     // --- RESET pokud jsou oba proudy v nule ---
     const int16_t tol = 20; // tolerance kolem 2050
-    if (abs(motorA.I1_last - MIDDLE_VALUE) < tol &&
-        abs(motorA.I2_last - MIDDLE_VALUE) < tol)
+    if (abs(motorA.I1_last - MIDDLE_VALUE) < tol && abs(
+            motorA.I2_last - MIDDLE_VALUE)
+                                                    < tol)
     {
         avgU1_fifo.count = 0;
         avgU2_fifo.count = 0;
@@ -578,7 +579,7 @@ static void Voltage_avg_process(void)
         int32_t prumer = AvgFifo_Add(&avgU1_fifo, avgU1);
         if (prumer >= 0)
         {
-            stall1 = (prumer > 2300) ? 0 : 1;            // ladění rozmezí co už je doraz a co ne  2250 -3000 nejlepší výsledek
+            stall1 = (prumer > 2300) ? 0 : 1; // ladění rozmezí co už je doraz a co ne  2250 -3000 nejlepší výsledek
         }
         last_avgU1 = avgU1;
     }
@@ -618,7 +619,6 @@ static void Motor_StepDetectionAndUpdate(MotorProbe_t *m, uint16_t *adc_sample)
     else
     {
         step_state = STEP_IDLE;
-
 
     }
     if (Check_CurrentZero(adc_sample, ADC_CHANNEL_IB1))
@@ -717,11 +717,15 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
                 }
                 else
                 {
-                    Ucapture_buffer[capture_count] = 2050;
-                    Ucapture_buffer_ch2[capture_count] = 2050;
+                    // Ucapture_buffer[capture_count] = 2050;
+                    //  Ucapture_buffer_ch2[capture_count] = 2050;
+                    Ucapture_buffer[capture_count] =
+                            adc_sample[ADC_CHANNEL_IA1];
+                    Ucapture_buffer_ch2[capture_count] =
+                            adc_sample[ADC_CHANNEL_IA2];
                 }
                 //capture_buffer_angle[capture_count] = motorA.angle_deg;
-                //capture_buffer_steps[capture_count] = motorA.step_count;
+                // capture_buffer_steps[capture_count] = motorA.step_count;
 
                 capture_count++;
             }
@@ -734,7 +738,7 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
 
                 if (sample_divider >= 0)
                 {
-                    if ((sample_divider % 3) == 0)   // jen každý pátý vzorek
+                    if ((sample_divider % 1) == 0)   // jen každý pátý vzorek
                     {
                         capture_buffer[capture_count] =
                                 adc_sample[ADC_CHANNEL_IB1];
@@ -750,14 +754,18 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
                         }
                         else
                         {
-                            Ucapture_buffer[capture_count] = 2050;
-                            Ucapture_buffer_ch2[capture_count] = 2050;
+                            // Ucapture_buffer[capture_count] = 2050;
+                            //  Ucapture_buffer_ch2[capture_count] = 2050;
+                            Ucapture_buffer[capture_count] =
+                                    adc_sample[ADC_CHANNEL_IA1];
+                            Ucapture_buffer_ch2[capture_count] =
+                                    adc_sample[ADC_CHANNEL_IA2];
                         }
 
                         capture_buffer_avg[capture_count] = motorA.average_U2;
                         capture_buffer_avg2[capture_count] = motorA.average_U1;
                         //capture_buffer_angle[capture_count] = motorA.angle_deg;
-                        // capture_buffer_steps[capture_count] = motorA.step_count;
+                        //capture_buffer_steps[capture_count] = motorA.step_count;
 
                         capture_count++;
 
