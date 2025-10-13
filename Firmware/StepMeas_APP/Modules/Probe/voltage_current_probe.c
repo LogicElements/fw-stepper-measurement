@@ -16,6 +16,7 @@
 
 /* Private definitions -------------------------------------------------------*/
 #define BUFFERING 1   // 1 = ukládání do bufferů aktivní, 0 = vypnuto
+#define MOTOR 0   // 1 starý motor, 0 nový motor
 /* ADC channel mapping (based on order in adc_values[]) */
 #define ADC_CHANNEL_IA2   0
 #define ADC_CHANNEL_IA1   1
@@ -599,6 +600,67 @@ static void Voltage_avg_process(void)
     stall = (stall1 == 1 && stall2 == 1) ? 1 : 0;
 }
 
+/* Detekce zastavení motoru na základě nízkého napětí -------------------------*/
+static void Motor_StallVoltageCheck(MotorProbe_t *m, uint16_t *adc_sample)
+{
+    static uint16_t lowVoltageCountA = 0;
+    static uint16_t lowVoltageCountB = 0;
+    static int16_t startStepCount = 0;
+    static uint8_t initialized = 0;
+
+    const uint16_t voltageThreshold = 1800;
+    const uint8_t lowLimitCount = 15;
+    const uint8_t stepWindow = 60;
+
+    // Inicializace – pouze jednou po resetu nebo na startu programu
+    if (!initialized)
+    {
+        startStepCount = m->step_count;
+        lowVoltageCountA = 0;
+        lowVoltageCountB = 0;
+        initialized = 1;
+    }
+
+    // Sleduj napětí jen když motor skutečně běží (úhly se mění)
+    if (step_state == STEP_ACTIVE)
+    {
+        if (adc_sample[ADC_CHANNEL_IA1] < voltageThreshold)
+            lowVoltageCountA++;
+
+        if (adc_sample[ADC_CHANNEL_IA2] < voltageThreshold)
+            lowVoltageCountA++;
+    }
+
+    // Pokud se počet kroků změnil od posledního měření
+    int16_t stepDiff = abs(m->step_count - startStepCount);
+    if (stepDiff >= stepWindow)
+    {
+        // --- Vyhodnocení ---
+        if (lowVoltageCountA > lowLimitCount)
+        {
+            stall = 0;   // motor stojí / má problém
+        }
+        else
+        {
+            stall = 1;   // motor běží normálně
+        }
+
+        // --- Reset okna pro další měření ---
+        startStepCount = m->step_count;
+        lowVoltageCountA = 0;
+        lowVoltageCountB = 0;
+    }
+
+    // Pokud se motor vrátil do klidu (STEP_IDLE) a uplynulo pár kroků,
+    // tak resetni i startStepCount, aby to nezačalo uprostřed
+    if (step_state == STEP_IDLE && stepDiff > 60)
+    {
+        startStepCount = m->step_count;
+        lowVoltageCountA = 0;
+        lowVoltageCountB = 0;
+    }
+}
+
 /* Motor step detection & update ---------------------------------------------*/
 static void Motor_StepDetectionAndUpdate(MotorProbe_t *m, uint16_t *adc_sample)
 {
@@ -621,19 +683,26 @@ static void Motor_StepDetectionAndUpdate(MotorProbe_t *m, uint16_t *adc_sample)
         step_state = STEP_IDLE;
 
     }
-    if (Check_CurrentZero(adc_sample, ADC_CHANNEL_IB1))
-    {
-        OnCurrentZeroCrossing(ADC_CHANNEL_IB1, adc_sample[ADC_CHANNEL_IA2]);
+#if (MOTOR == 1)
 
-    }
+        if (Check_CurrentZero(adc_sample, ADC_CHANNEL_IB1))
+        {
+            OnCurrentZeroCrossing(ADC_CHANNEL_IB1, adc_sample[ADC_CHANNEL_IA2]);
 
-    if (Check_CurrentZero(adc_sample, ADC_CHANNEL_IB2))
-    {
-        OnCurrentZeroCrossing(ADC_CHANNEL_IB2, adc_sample[ADC_CHANNEL_IA1]);
-    }
+        }
 
-    VoltageBuffer_Task();
-    Voltage_avg_process();
+        if (Check_CurrentZero(adc_sample, ADC_CHANNEL_IB2))
+        {
+            OnCurrentZeroCrossing(ADC_CHANNEL_IB2, adc_sample[ADC_CHANNEL_IA1]);
+        }
+        VoltageBuffer_Task();
+        Voltage_avg_process();
+
+#endif
+#if(MOTOR ==0)
+    Motor_StallVoltageCheck(&motorA, adc_sample);
+#endif
+
     kroky = motorA.step_count;
 
 }
@@ -736,7 +805,7 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
             {
                 sample_divider++;
 
-                if (sample_divider >= 0)
+                if (sample_divider >= 1000)
                 {
                     if ((sample_divider % 1) == 0)   // jen každý pátý vzorek
                     {
@@ -786,7 +855,7 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
 #endif
 
     /* Step detection (oba motory) */
-    // Motor_StepDetectionAndUpdate(&motorB);
+// Motor_StepDetectionAndUpdate(&motorB);
 }
 /* Callback functions --------------------------------------------------------*/
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
