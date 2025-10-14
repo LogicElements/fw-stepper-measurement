@@ -605,45 +605,74 @@ static void Voltage_avg_process(void)
 static void Motor_StallVoltageCheck(MotorProbe_t *m, uint16_t *adc_sample)
 {
     #define LOW_VOLTAGE_LIMIT 2000
-    #define MAX_SAMPLES       500     // velikost FIFO
-    #define AVG_THRESHOLD     50       // kolik vzorků potřebujeme pro výpočet
+    #define LOW_VOLTAGE_LIMIT_B 1800
+    #define PEAK_THRESHOLD    1600     // hranice, pod kterou nastavíme -500
+    #define PEAK_VALUE        -3500     // hodnota pro "hluboký pád"
+    #define MAX_SAMPLES       600
+    #define AVG_THRESHOLD     50
 
-    static uint16_t lowVoltageBuf[MAX_SAMPLES];
+    static int16_t lowVoltageBuf[MAX_SAMPLES];  // int16_t kvůli záporným hodnotám
     static uint16_t writeIndex = 0;
     static uint16_t sampleCount = 0;
-    static uint64_t runningSum = 0;     // průběžný součet pro rychlý průměr
+    static int64_t runningSum = 0;              // int64_t kvůli rozsahu i záporným číslům
 
-    uint16_t value = adc_sample[ADC_CHANNEL_IA1];
+    // --- 1. Načti obě fáze ---
+    int16_t valueA = (int16_t)adc_sample[ADC_CHANNEL_IA1];
+    int16_t valueB = (int16_t)adc_sample[ADC_CHANNEL_IA2];
 
-    // sbírej pouze pokud je napětí nízké
-    if (value < LOW_VOLTAGE_LIMIT)
+    // --- 2. Zpracuj první kanál (IA1) ---
+    if (valueA < LOW_VOLTAGE_LIMIT)
     {
+        if (valueA < PEAK_THRESHOLD)
+            valueA = PEAK_VALUE;
+
+        // FIFO logika
         if (sampleCount < MAX_SAMPLES)
         {
-            // buffer ještě není plný → jen přidej
-            lowVoltageBuf[writeIndex] = value;
-            runningSum += value;
+            lowVoltageBuf[writeIndex] = valueA;
+            runningSum += valueA;
             sampleCount++;
         }
         else
         {
-            // buffer plný → odečti nejstarší a přepiš ji novou
             runningSum -= lowVoltageBuf[writeIndex];
-            lowVoltageBuf[writeIndex] = value;
-            runningSum += value;
+            lowVoltageBuf[writeIndex] = valueA;
+            runningSum += valueA;
         }
 
-        // posuň index (kruhově)
         writeIndex = (writeIndex + 1) % MAX_SAMPLES;
     }
 
-    // počítej průměr, jakmile máme dost vzorků
+    // --- 3. Zpracuj druhý kanál (IA2) ---
+    if (valueB < LOW_VOLTAGE_LIMIT_B)
+    {
+        if (valueB < PEAK_THRESHOLD)
+            valueB = PEAK_VALUE;
+
+        // FIFO logika (stejná)
+        if (sampleCount < MAX_SAMPLES)
+        {
+            lowVoltageBuf[writeIndex] = valueB;
+            runningSum += valueB;
+            sampleCount++;
+        }
+        else
+        {
+            runningSum -= lowVoltageBuf[writeIndex];
+            lowVoltageBuf[writeIndex] = valueB;
+            runningSum += valueB;
+        }
+
+        writeIndex = (writeIndex + 1) % MAX_SAMPLES;
+    }
+
+    // --- 4. Výpočet průměru po dosažení prahu ---
     if (sampleCount >= AVG_THRESHOLD)
     {
-        uint16_t average = (uint16_t)(runningSum / sampleCount);
+        int16_t average = (int16_t)(runningSum / sampleCount);
 
-        pocty = average;                    // ladicí výstup
-        stall = (average < 1800) ? 1 : 0;   // příklad vyhodnocení
+        pocty = average;                      // ladicí výstup
+        stall = (average < 1750) ? 1 : 0;     // příkladové vyhodnocení
     }
 }
 /* Motor step detection & update ---------------------------------------------*/

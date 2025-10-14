@@ -14,10 +14,10 @@
 ../Modules/Probe/voltage_current_probe.c:517:6:VoltageBuffer_Task	8	static
 ../Modules/Probe/voltage_current_probe.c:531:16:AvgFifo_Add	56	static
 ../Modules/Probe/voltage_current_probe.c:562:13:Voltage_avg_process	32	static
-../Modules/Probe/voltage_current_probe.c:605:13:Motor_StallVoltageCheck	80	static
-../Modules/Probe/voltage_current_probe.c:650:13:Motor_StepDetectionAndUpdate	24	static
-../Modules/Probe/voltage_current_probe.c:696:6:StartAdcMeasurement	8	static
-../Modules/Probe/voltage_current_probe.c:712:6:DirCurrentDetection	16	static
-../Modules/Probe/voltage_current_probe.c:740:20:Capture_HandleSample	24	static
-../Modules/Probe/voltage_current_probe.c:846:6:HAL_ADC_ConvCpltCallback	16	static
-../Modules/Probe/voltage_current_probe.c:855:6:HAL_GPIO_EXTI_Callback	16	static
+../Modules/Probe/voltage_current_probe.c:605:13:Motor_StallVoltageCheck	128	static
+../Modules/Probe/voltage_current_probe.c:679:13:Motor_StepDetectionAndUpdate	24	static
+../Modules/Probe/voltage_current_probe.c:725:6:StartAdcMeasurement	8	static
+../Modules/Probe/voltage_current_probe.c:741:6:DirCurrentDetection	16	static
+../Modules/Probe/voltage_current_probe.c:769:20:Capture_HandleSample	24	static
+../Modules/Probe/voltage_current_probe.c:875:6:HAL_ADC_ConvCpltCallback	16	static
+../Modules/Probe/voltage_current_probe.c:884:6:HAL_GPIO_EXTI_Callback	16	static
