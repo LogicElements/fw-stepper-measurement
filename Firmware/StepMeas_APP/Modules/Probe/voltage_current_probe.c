@@ -142,6 +142,7 @@ static AvgFifo_t avgU2_fifo =
 int stall = 0;
 int stall1 = 0;
 int stall2 = 0;
+int pocty = 0;
 
 static step_state_t step_state = STEP_IDLE;
 extern ADC_HandleTypeDef hadc1;
@@ -603,64 +604,48 @@ static void Voltage_avg_process(void)
 /* Detekce zastavení motoru na základě nízkého napětí -------------------------*/
 static void Motor_StallVoltageCheck(MotorProbe_t *m, uint16_t *adc_sample)
 {
-    static uint16_t lowVoltageCountA = 0;
-    static uint16_t lowVoltageCountB = 0;
-    static int16_t startStepCount = 0;
-    static uint8_t initialized = 0;
+    #define LOW_VOLTAGE_LIMIT 2000
+    #define MAX_SAMPLES       500     // velikost FIFO
+    #define AVG_THRESHOLD     50       // kolik vzorků potřebujeme pro výpočet
 
-    const uint16_t voltageThreshold = 1800;
-    const uint8_t lowLimitCount = 15;
-    const uint8_t stepWindow = 60;
+    static uint16_t lowVoltageBuf[MAX_SAMPLES];
+    static uint16_t writeIndex = 0;
+    static uint16_t sampleCount = 0;
+    static uint64_t runningSum = 0;     // průběžný součet pro rychlý průměr
 
-    // Inicializace – pouze jednou po resetu nebo na startu programu
-    if (!initialized)
+    uint16_t value = adc_sample[ADC_CHANNEL_IA1];
+
+    // sbírej pouze pokud je napětí nízké
+    if (value < LOW_VOLTAGE_LIMIT)
     {
-        startStepCount = m->step_count;
-        lowVoltageCountA = 0;
-        lowVoltageCountB = 0;
-        initialized = 1;
-    }
-
-    // Sleduj napětí jen když motor skutečně běží (úhly se mění)
-    if (step_state == STEP_ACTIVE)
-    {
-        if (adc_sample[ADC_CHANNEL_IA1] < voltageThreshold)
-            lowVoltageCountA++;
-
-        if (adc_sample[ADC_CHANNEL_IA2] < voltageThreshold)
-            lowVoltageCountA++;
-    }
-
-    // Pokud se počet kroků změnil od posledního měření
-    int16_t stepDiff = abs(m->step_count - startStepCount);
-    if (stepDiff >= stepWindow)
-    {
-        // --- Vyhodnocení ---
-        if (lowVoltageCountA > lowLimitCount)
+        if (sampleCount < MAX_SAMPLES)
         {
-            stall = 0;   // motor stojí / má problém
+            // buffer ještě není plný → jen přidej
+            lowVoltageBuf[writeIndex] = value;
+            runningSum += value;
+            sampleCount++;
         }
         else
         {
-            stall = 1;   // motor běží normálně
+            // buffer plný → odečti nejstarší a přepiš ji novou
+            runningSum -= lowVoltageBuf[writeIndex];
+            lowVoltageBuf[writeIndex] = value;
+            runningSum += value;
         }
 
-        // --- Reset okna pro další měření ---
-        startStepCount = m->step_count;
-        lowVoltageCountA = 0;
-        lowVoltageCountB = 0;
+        // posuň index (kruhově)
+        writeIndex = (writeIndex + 1) % MAX_SAMPLES;
     }
 
-    // Pokud se motor vrátil do klidu (STEP_IDLE) a uplynulo pár kroků,
-    // tak resetni i startStepCount, aby to nezačalo uprostřed
-    if (step_state == STEP_IDLE && stepDiff > 60)
+    // počítej průměr, jakmile máme dost vzorků
+    if (sampleCount >= AVG_THRESHOLD)
     {
-        startStepCount = m->step_count;
-        lowVoltageCountA = 0;
-        lowVoltageCountB = 0;
+        uint16_t average = (uint16_t)(runningSum / sampleCount);
+
+        pocty = average;                    // ladicí výstup
+        stall = (average < 1800) ? 1 : 0;   // příklad vyhodnocení
     }
 }
-
 /* Motor step detection & update ---------------------------------------------*/
 static void Motor_StepDetectionAndUpdate(MotorProbe_t *m, uint16_t *adc_sample)
 {
