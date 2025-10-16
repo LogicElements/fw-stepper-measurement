@@ -78,8 +78,8 @@
 #define CONF_COM_MB_ADDRESS        0x03004111u  ///< Modbus slave address
 #define CONF_COM_MB_APPLY          0x03006151u  ///< Apply modbus parameters
 #define CONF_COM_MB_TIMEOUT        0x03008171u  ///< Modbus timeout
-#define CONF_STPMEAS_MODE          0x05000550u  ///< Emulation mode
-#define CONF_STPMEAS_NTC_BETA      0x05001151u  ///< NTC beta
+#define CONF_STPMEA_STEPS          0x05000152u  ///< Steps counter
+#define CONF_STPMEA_STALL          0x05004152u  ///< Motor Stall
 #define CONF_DBG_WRITES_CONF       0x06000112u  ///< Configuration writes
 
 
@@ -119,7 +119,7 @@
 #define CONF_REG_FLASH_LENGTH      (29)
 #define CONF_REG_LOCAL_LENGTH      (0)
 
-#define CONF_DIM_CONDITION ((sizeof(conf_reg_sys_t) != 24) || (sizeof(conf_reg_fact_t) != 16) || (sizeof(conf_reg_firm_t) != 16) || (sizeof(conf_reg_com_t) != 12) || (sizeof(conf_reg_stpmeas_t) != 4) || (sizeof(conf_reg_dbg_t) != 4) || 0)
+#define CONF_DIM_CONDITION ((sizeof(conf_reg_sys_t) != 24) || (sizeof(conf_reg_fact_t) != 16) || (sizeof(conf_reg_firm_t) != 16) || (sizeof(conf_reg_com_t) != 12) || (sizeof(conf_reg_stpmea_t) != 8) || (sizeof(conf_reg_dbg_t) != 4) || 0)
 
 
 /** @} */
@@ -158,13 +158,6 @@ typedef enum
   MB_STOP_1 = 0,
   MB_STOP_2 = 1,
 }com_mb_stop_bits_t ;
-
-typedef enum
-{
-  RTD_MD_RESISTANCE = 0,
-  RTD_MD_NTC = 1,
-  RTD_MD_PLATINUM = 2,
-}stpmeas_mode_t ;
 
 typedef struct __packed __aligned(4)
 {
@@ -205,9 +198,9 @@ typedef struct __packed __aligned(4)
 
 typedef struct __packed __aligned(4)
 {
-  stpmeas_mode_t mode;
-  uint16_t ntc_beta;
-}conf_reg_stpmeas_t;
+  uint32_t steps;
+  uint32_t stall;
+}conf_reg_stpmea_t;
 
 typedef struct __packed __aligned(4)
 {
@@ -222,7 +215,7 @@ typedef struct
   conf_reg_firm_t firm;
   conf_reg_com_t com;
   uint32_t res5;
-  conf_reg_stpmeas_t stpmeas;
+  conf_reg_stpmea_t stpmea;
   conf_reg_dbg_t dbg;
   uint32_t res8;
   uint32_t res9;

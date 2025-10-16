@@ -32,10 +32,10 @@
 conf_reg_t conf;
 
 
-uint8_t* const CONF_REG[CONF_REG_BLOCK_NUMBER] = {(uint8_t*)&conf.sys, (uint8_t*)&conf.fact, (uint8_t*)&conf.firm, (uint8_t*)&conf.com, NULL, (uint8_t*)&conf.stpmeas, (uint8_t*)&conf.dbg, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, };
+uint8_t* const CONF_REG[CONF_REG_BLOCK_NUMBER] = {(uint8_t*)&conf.sys, (uint8_t*)&conf.fact, (uint8_t*)&conf.firm, (uint8_t*)&conf.com, NULL, (uint8_t*)&conf.stpmea, (uint8_t*)&conf.dbg, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, };
 
 const uint32_t CONF_REG_LIMIT[CONF_REG_BLOCK_NUMBER] = {
-22, 16, 16, 10, 0, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
+22, 16, 16, 10, 0, 8, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
 
 const uint32_t CONF_REG_FLASH[CONF_REG_FLASH_NUMBER] = {
 CONF_SYS_REGMAP_VERSION, CONF_COM_MB_BAUD_RATE, CONF_COM_MB_PARITY, CONF_COM_MB_STOP_BITS, CONF_COM_MB_TIMEOUT, };
@@ -77,7 +77,8 @@ Status_t RegMap_RestoreFactoryValues(void)
   CONF_BYTE(CONF_COM_MB_STOP_BITS)       = 0;
   CONF_SHORT(CONF_COM_MB_ADDRESS)        = 32;
   CONF_SHORT(CONF_COM_MB_TIMEOUT)        = 10;
-  CONF_SHORT(CONF_STPMEAS_NTC_BETA)      = 3977;
+  CONF_INT(CONF_STPMEA_STEPS)            = 0;
+  CONF_INT(CONF_STPMEA_STALL)            = 0;
 
 
   return ret;

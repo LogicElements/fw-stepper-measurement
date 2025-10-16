@@ -8,7 +8,9 @@
 /* Includes ------------------------------------------------------------------*/
 #include "voltage_current_probe.h"
 #include "main.h"
-#include <math.h>   // atan2, M_PI
+#include <math.h>
+#include "reg_map.h"
+#include "configuration.h"
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -720,6 +722,11 @@ static void Motor_StepDetectionAndUpdate(MotorProbe_t *m, uint16_t *adc_sample)
     kroky = motorA.step_count;
 
 }
+void Probe_WriteToSharedMemory(void)
+{
+    CONF_INT(CONF_STPMEA_STEPS) = (int32_t)motorA.step_count;
+    CONF_INT(CONF_STPMEA_STALL) = (int32_t)stall;
+}
 
 /* ADC measurement start -----------------------------------------------------*/
 void StartAdcMeasurement(void)
@@ -774,6 +781,7 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
                        adc_sample[ADC_CHANNEL_IA2]);
     DirCurrentDetection();
     Motor_StepDetectionAndUpdate(&motorA, adc_sample);
+    Probe_WriteToSharedMemory();
 
 #if (BUFFERING == 1)
     switch (capture_state)

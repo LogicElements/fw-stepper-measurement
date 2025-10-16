@@ -37,7 +37,11 @@ Modules/Probe/voltage_current_probe.o: \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/main.h
+ ../Core/Inc/main.h \
+ C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/reg_map.h \
+ C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/common.h \
+ C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/configuration.h \
+ C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/reg_map.h
 ../Modules/Probe/voltage_current_probe.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -76,3 +80,7 @@ Modules/Probe/voltage_current_probe.o: \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 ../Core/Inc/main.h:
+C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/reg_map.h:
+C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/common.h:
+C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/configuration.h:
+C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Firmware/StepMeas_APP/Core/Common/reg_map.h:

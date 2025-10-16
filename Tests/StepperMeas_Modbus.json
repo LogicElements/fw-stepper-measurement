@@ -315,40 +315,30 @@
   },
   {
     "Type":"HOLD", 
-    "Name":"STPMEAS_MODE", 
-    "Id":83887440, 
-    "Address":[100],
-    "Format":"ENUM",
+    "Name":"STPMEA_STEPS", 
+    "Id":83886418, 
+    "Address":[9, 10],
+    "Format":"INT",
     "Value":0,
     "Access":"RW",
-    "Min":0,
-    "Max":2,
+    "Min":-32000,
+    "Max":32000,
     "Unit":"",
-    "Label":"Emulation mode",
-    "EnumStr": [
-      "Direct resistance",
-      "NTC thermistor",
-      "Platinum RTD"
-    ],
-    "EnumValue": [
-      0,
-      1,
-      2
-    ],
-    "Description":"Mode of RTD emulation. Selected mode is common for all 4 channels\r\nAllowed values: \r\nValue 0 - Direct resistance - Set resistance is directly applied to RTD ports.\r\nValue 1 - NTC thermistor - Set temperature is used for NTC resistance computation.\r\nValue 2 - Platinum RTD - Set temperature is used for PT1000 resistance computation.\r\n"
+    "Label":"Steps counter",
+    "Description":"NTC beta coefficient for computation"
   },
   {
     "Type":"HOLD", 
-    "Name":"STPMEAS_NTC_BETA", 
-    "Id":83890513, 
-    "Address":[101],
+    "Name":"STPMEA_STALL", 
+    "Id":83902802, 
+    "Address":[11, 12],
     "Format":"INT",
-    "Value":3977,
+    "Value":0,
     "Access":"RW",
-    "Min":3000,
-    "Max":5500,
+    "Min":-32000,
+    "Max":32000,
     "Unit":"",
-    "Label":"NTC beta",
+    "Label":"Motor Stall",
     "Description":"NTC beta coefficient for computation"
   },
   {

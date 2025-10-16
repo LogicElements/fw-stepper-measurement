@@ -170,11 +170,17 @@ Status_t MbRtu_ReadHoldingRegCallback(uint16_t address, uint16_t *value)
     case MB_HOLD_COM_MB_TIMEOUT:
       *value = conf.com.mb_timeout;
       break;
-    case MB_HOLD_STPMEAS_MODE:
-      *value = conf.stpmeas.mode;
+    case MB_HOLD_STPMEA_STEPS_0:
+      *value = *((uint16_t *)CONF_PTR(CONF_STPMEA_STEPS) + 0);
       break;
-    case MB_HOLD_STPMEAS_NTC_BETA:
-      *value = conf.stpmeas.ntc_beta;
+    case MB_HOLD_STPMEA_STEPS_1:
+      *value = *((uint16_t *)CONF_PTR(CONF_STPMEA_STEPS) + 1);
+      break;
+    case MB_HOLD_STPMEA_STALL_0:
+      *value = *((uint16_t *)CONF_PTR(CONF_STPMEA_STALL) + 0);
+      break;
+    case MB_HOLD_STPMEA_STALL_1:
+      *value = *((uint16_t *)CONF_PTR(CONF_STPMEA_STALL) + 1);
       break;
 
 
@@ -235,13 +241,19 @@ Status_t MbRtu_WriteHoldingRegCallback(uint16_t address, uint16_t value)
       conf.com.mb_timeout = value;
       id = CONF_COM_MB_TIMEOUT;
       break;
-    case MB_HOLD_STPMEAS_MODE:
-      conf.stpmeas.mode = (stpmeas_mode_t)value;
-      id = CONF_STPMEAS_MODE;
+    case MB_HOLD_STPMEA_STEPS_0:
+      *((uint16_t *)CONF_PTR(CONF_STPMEA_STEPS) + 0) = value;
       break;
-    case MB_HOLD_STPMEAS_NTC_BETA:
-      conf.stpmeas.ntc_beta = value;
-      id = CONF_STPMEAS_NTC_BETA;
+    case MB_HOLD_STPMEA_STEPS_1:
+      *((uint16_t *)CONF_PTR(CONF_STPMEA_STEPS) + 1) = value;
+      id = CONF_STPMEA_STEPS;
+      break;
+    case MB_HOLD_STPMEA_STALL_0:
+      *((uint16_t *)CONF_PTR(CONF_STPMEA_STALL) + 0) = value;
+      break;
+    case MB_HOLD_STPMEA_STALL_1:
+      *((uint16_t *)CONF_PTR(CONF_STPMEA_STALL) + 1) = value;
+      id = CONF_STPMEA_STALL;
       break;
 
 
