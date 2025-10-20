@@ -606,10 +606,10 @@ static void Voltage_avg_process(void)
 /* Detekce zastavení motoru na základě nízkého napětí -------------------------*/
 static void Motor_StallVoltageCheck(MotorProbe_t *m, uint16_t *adc_sample)
 {
-    #define LOW_VOLTAGE_LIMIT 2000
+    #define LOW_VOLTAGE_LIMIT 2005
     #define LOW_VOLTAGE_LIMIT_B 1800
     #define PEAK_THRESHOLD    1600     // hranice, pod kterou nastavíme -500
-    #define PEAK_VALUE        -3500     // hodnota pro "hluboký pád"
+    #define PEAK_VALUE        -5000     // hodnota pro "hluboký pád"
     #define MAX_SAMPLES       600
     #define AVG_THRESHOLD     50
 
