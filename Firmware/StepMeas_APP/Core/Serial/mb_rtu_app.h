@@ -94,8 +94,10 @@
 #define MB_HOLD_STPMEA_STEPS_1             10u
 #define MB_HOLD_STPMEA_STALL_0             11u
 #define MB_HOLD_STPMEA_STALL_1             12u
+#define MB_HOLD_STPMEA_BUFF_0              13u
+#define MB_HOLD_STPMEA_BUFF_1              14u
 
-#define MB_HOLD_LAST      12
+#define MB_HOLD_LAST      14
 
 
 /** @} */

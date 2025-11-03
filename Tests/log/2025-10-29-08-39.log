@@ -1,0 +1,8 @@
+2025-10-29 08:39:47,322 INFO     AppLogging:79 - Application started
+2025-10-29 08:41:32,773 WARNING  MbClient:69 - Port COM6 opened at baud rate 19200, parity E, stop bits 1
+2025-10-29 08:41:41,771 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:41:41,803 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 15.
+2025-10-29 08:41:44,108 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:41:44,138 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 15.
+2025-10-29 08:42:03,421 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:42:03,451 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 15.

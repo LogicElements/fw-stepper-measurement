@@ -1,0 +1,75 @@
+2025-10-29 08:18:44,549 INFO     AppLogging:79 - Application started
+2025-10-29 08:18:51,944 WARNING  MbClient:69 - Port COM6 opened at baud rate 19200, parity E, stop bits 1
+2025-10-29 08:18:55,808 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:18:55,836 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 9.
+2025-10-29 08:18:55,850 ERROR    MbClient:152 - Exception Response(131, 3, IllegalValue){'Address': 9, 'Count': 2000, 'Type': 'Holding', 'Slave': 32}
+2025-10-29 08:18:57,943 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:18:57,972 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 9.
+2025-10-29 08:18:57,993 ERROR    MbClient:152 - Exception Response(131, 3, IllegalValue){'Address': 9, 'Count': 2000, 'Type': 'Holding', 'Slave': 32}
+2025-10-29 08:19:56,917 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:19:56,945 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 9.
+2025-10-29 08:19:56,960 ERROR    MbClient:152 - Exception Response(131, 3, IllegalValue){'Address': 9, 'Count': 2000, 'Type': 'Holding', 'Slave': 32}
+2025-10-29 08:19:57,633 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:19:57,663 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 9.
+2025-10-29 08:19:57,678 ERROR    MbClient:152 - Exception Response(131, 3, IllegalValue){'Address': 9, 'Count': 2000, 'Type': 'Holding', 'Slave': 32}
+2025-10-29 08:19:58,283 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:19:58,311 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 9.
+2025-10-29 08:19:58,327 ERROR    MbClient:152 - Exception Response(131, 3, IllegalValue){'Address': 9, 'Count': 2000, 'Type': 'Holding', 'Slave': 32}
+2025-10-29 08:19:58,893 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:19:59,916 ERROR    MbClient:152 - Modbus Error: [Input/Output] Modbus Error: [Invalid Message] No response received, expected at least 2 bytes (0 received){'Address': 0, 'Count': 9, 'Type': 'Holding', 'Slave': 32}
+2025-10-29 08:19:59,943 WARNING  MbClient:108 - Port COM6 is not opened. Try to open the port first
+2025-10-29 08:19:59,969 WARNING  MbClient:69 - Port COM6 opened at baud rate 19200, parity E, stop bits 1
+2025-10-29 08:20:00,987 ERROR    MbClient:133 - Modbus Error: [Input/Output] Modbus Error: [Invalid Message] No response received, expected at least 2 bytes (0 received){'Address': 0, 'Count': 25, 'Type': 'Input', 'Slave': 32}
+2025-10-29 08:20:00,987 WARNING  MbClient:108 - Port COM6 is not opened. Try to open the port first
+2025-10-29 08:20:01,013 WARNING  MbClient:69 - Port COM6 opened at baud rate 19200, parity E, stop bits 1
+2025-10-29 08:20:02,024 ERROR    MbClient:152 - Modbus Error: [Input/Output] Modbus Error: [Invalid Message] No response received, expected at least 2 bytes (0 received){'Address': 0, 'Count': 9, 'Type': 'Holding', 'Slave': 32}
+2025-10-29 08:20:11,700 WARNING  MbClient:108 - Port COM6 is not opened. Try to open the port first
+2025-10-29 08:20:11,726 WARNING  MbClient:69 - Port COM6 opened at baud rate 19200, parity E, stop bits 1
+2025-10-29 08:20:11,773 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:20:11,801 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 9.
+2025-10-29 08:20:11,816 ERROR    MbClient:152 - Exception Response(131, 3, IllegalValue){'Address': 9, 'Count': 2000, 'Type': 'Holding', 'Slave': 32}
+2025-10-29 08:20:12,535 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:20:12,563 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 9.
+2025-10-29 08:20:12,579 ERROR    MbClient:152 - Exception Response(131, 3, IllegalValue){'Address': 9, 'Count': 2000, 'Type': 'Holding', 'Slave': 32}
+2025-10-29 08:20:20,579 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:20:20,606 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 9.
+2025-10-29 08:20:20,621 ERROR    MbClient:152 - Exception Response(131, 3, IllegalValue){'Address': 9, 'Count': 2000, 'Type': 'Holding', 'Slave': 32}
+2025-10-29 08:20:21,208 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:20:21,234 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 9.
+2025-10-29 08:20:21,249 ERROR    MbClient:152 - Exception Response(131, 3, IllegalValue){'Address': 9, 'Count': 2000, 'Type': 'Holding', 'Slave': 32}
+2025-10-29 08:20:21,734 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:20:21,761 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 9.
+2025-10-29 08:20:21,776 ERROR    MbClient:152 - Exception Response(131, 3, IllegalValue){'Address': 9, 'Count': 2000, 'Type': 'Holding', 'Slave': 32}
+2025-10-29 08:20:22,135 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:20:22,162 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 9.
+2025-10-29 08:20:22,178 ERROR    MbClient:152 - Exception Response(131, 3, IllegalValue){'Address': 9, 'Count': 2000, 'Type': 'Holding', 'Slave': 32}
+2025-10-29 08:20:22,326 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:20:22,354 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 9.
+2025-10-29 08:20:22,368 ERROR    MbClient:152 - Exception Response(131, 3, IllegalValue){'Address': 9, 'Count': 2000, 'Type': 'Holding', 'Slave': 32}
+2025-10-29 08:20:22,494 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:20:22,522 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 9.
+2025-10-29 08:20:22,537 ERROR    MbClient:152 - Exception Response(131, 3, IllegalValue){'Address': 9, 'Count': 2000, 'Type': 'Holding', 'Slave': 32}
+2025-10-29 08:20:22,685 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:20:22,713 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 9.
+2025-10-29 08:20:22,727 ERROR    MbClient:152 - Exception Response(131, 3, IllegalValue){'Address': 9, 'Count': 2000, 'Type': 'Holding', 'Slave': 32}
+2025-10-29 08:20:22,834 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:20:22,862 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 9.
+2025-10-29 08:20:22,878 ERROR    MbClient:152 - Exception Response(131, 3, IllegalValue){'Address': 9, 'Count': 2000, 'Type': 'Holding', 'Slave': 32}
+2025-10-29 08:20:23,167 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:20:23,194 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 9.
+2025-10-29 08:20:23,209 ERROR    MbClient:152 - Exception Response(131, 3, IllegalValue){'Address': 9, 'Count': 2000, 'Type': 'Holding', 'Slave': 32}
+2025-10-29 08:20:23,342 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:20:23,369 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 9.
+2025-10-29 08:20:23,385 ERROR    MbClient:152 - Exception Response(131, 3, IllegalValue){'Address': 9, 'Count': 2000, 'Type': 'Holding', 'Slave': 32}
+2025-10-29 08:20:23,525 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:20:23,553 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 9.
+2025-10-29 08:20:23,567 ERROR    MbClient:152 - Exception Response(131, 3, IllegalValue){'Address': 9, 'Count': 2000, 'Type': 'Holding', 'Slave': 32}
+2025-10-29 08:20:23,693 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:20:23,721 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 9.
+2025-10-29 08:20:23,737 ERROR    MbClient:152 - Exception Response(131, 3, IllegalValue){'Address': 9, 'Count': 2000, 'Type': 'Holding', 'Slave': 32}
+2025-10-29 08:20:25,092 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:20:25,121 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 9.
+2025-10-29 08:20:25,135 ERROR    MbClient:152 - Exception Response(131, 3, IllegalValue){'Address': 9, 'Count': 2000, 'Type': 'Holding', 'Slave': 32}
+2025-10-29 08:20:26,659 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-10-29 08:20:26,687 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 9.
+2025-10-29 08:20:26,702 ERROR    MbClient:152 - Exception Response(131, 3, IllegalValue){'Address': 9, 'Count': 2000, 'Type': 'Holding', 'Slave': 32}

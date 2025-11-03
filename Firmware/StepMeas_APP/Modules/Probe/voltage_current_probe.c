@@ -28,7 +28,7 @@
 #define ADC_CHANNEL_COUNT 4
 #define MIDDLE_VALUE      2050
 
-#define CAPTURE_SAMPLES   5000
+#define CAPTURE_SAMPLES   1000
 #define TRIGGER_THRESHOLD 2045
 #define MONITOR_CHANNEL   1   // hlavní monitorovaný kanál
 #define EXTRA_CHANNEL     0
@@ -606,21 +606,21 @@ static void Voltage_avg_process(void)
 /* Detekce zastavení motoru na základě nízkého napětí -------------------------*/
 static void Motor_StallVoltageCheck(MotorProbe_t *m, uint16_t *adc_sample)
 {
-    #define LOW_VOLTAGE_LIMIT 2005
-    #define LOW_VOLTAGE_LIMIT_B 1800
-    #define PEAK_THRESHOLD    1600     // hranice, pod kterou nastavíme -500
-    #define PEAK_VALUE        -5000     // hodnota pro "hluboký pád"
-    #define MAX_SAMPLES       600
-    #define AVG_THRESHOLD     50
+#define LOW_VOLTAGE_LIMIT 2005
+#define LOW_VOLTAGE_LIMIT_B 1800
+#define PEAK_THRESHOLD    1600     // hranice, pod kterou nastavíme -500
+#define PEAK_VALUE        -5000     // hodnota pro "hluboký pád"
+#define MAX_SAMPLES       600
+#define AVG_THRESHOLD     50
 
-    static int16_t lowVoltageBuf[MAX_SAMPLES];  // int16_t kvůli záporným hodnotám
+    static int16_t lowVoltageBuf[MAX_SAMPLES]; // int16_t kvůli záporným hodnotám
     static uint16_t writeIndex = 0;
     static uint16_t sampleCount = 0;
-    static int64_t runningSum = 0;              // int64_t kvůli rozsahu i záporným číslům
+    static int64_t runningSum = 0;    // int64_t kvůli rozsahu i záporným číslům
 
     // --- 1. Načti obě fáze ---
-    int16_t valueA = (int16_t)adc_sample[ADC_CHANNEL_IA1];
-    int16_t valueB = (int16_t)adc_sample[ADC_CHANNEL_IA2];
+    int16_t valueA = (int16_t) adc_sample[ADC_CHANNEL_IA1];
+    int16_t valueB = (int16_t) adc_sample[ADC_CHANNEL_IA2];
 
     // --- 2. Zpracuj první kanál (IA1) ---
     if (valueA < LOW_VOLTAGE_LIMIT)
@@ -671,7 +671,7 @@ static void Motor_StallVoltageCheck(MotorProbe_t *m, uint16_t *adc_sample)
     // --- 4. Výpočet průměru po dosažení prahu ---
     if (sampleCount >= AVG_THRESHOLD)
     {
-        int16_t average = (int16_t)(runningSum / sampleCount);
+        int16_t average = (int16_t) (runningSum / sampleCount);
 
         pocty = average;                      // ladicí výstup
         stall = (average < 1750) ? 1 : 0;     // příkladové vyhodnocení
@@ -724,8 +724,9 @@ static void Motor_StepDetectionAndUpdate(MotorProbe_t *m, uint16_t *adc_sample)
 }
 void Probe_WriteToSharedMemory(void)
 {
-    CONF_INT(CONF_STPMEA_STEPS) = (int32_t)motorA.step_count;
-    CONF_INT(CONF_STPMEA_STALL) = (int32_t)stall;
+    CONF_INT(CONF_STPMEA_STEPS) = (int32_t) motorA.step_count;
+    CONF_INT(CONF_STPMEA_STALL) = (int32_t) stall;
+
 }
 
 /* ADC measurement start -----------------------------------------------------*/
