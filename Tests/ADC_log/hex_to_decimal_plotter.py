@@ -301,10 +301,11 @@ class HexDataPlotter:
         current_dir = os.getcwd()
         
         # Předvyplníme názvy souborů
-        self.file_path_var1.set(os.path.join(current_dir, "sin_1.txt"))
-        self.file_path_var2.set(os.path.join(current_dir, "sin_2.txt"))
-        self.file_path_var3.set(os.path.join(current_dir, "deg.txt"))
-        self.file_path_var4.set(os.path.join(current_dir, "steps.txt"))
+        base_path = "C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Tests/ADC_log"
+        self.file_path_var1.set(f"{base_path}/sin_1.txt")
+        self.file_path_var2.set(f"{base_path}/sin_2.txt")
+        self.file_path_var3.set(f"{base_path}/deg.txt")
+        self.file_path_var4.set(f"{base_path}/steps.txt")
         self.file_path_var5.set("C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Tests/ADC_log/Usin_1.txt")
         self.file_path_var6.set("C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Tests/ADC_log/Usin_2.txt")
         self.file_path_var7.set("C:/Users/rousa/Documents/jablotron/stepper_measurement/git/Tests/ADC_log/avg.txt")

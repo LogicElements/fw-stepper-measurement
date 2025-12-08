@@ -1,0 +1,4 @@
+2025-11-26 11:08:36,584 INFO     AppLogging:79 - Application started
+2025-11-26 11:08:53,034 WARNING  MbClient:122 - Port COM6 is not opened. Try to open the port first
+2025-11-26 11:08:53,035 WARNING  MbClient:122 - Port COM6 is not opened. Try to open the port first
+2025-11-26 11:08:57,379 WARNING  MbClient:105 - Port COM6 is closed now.

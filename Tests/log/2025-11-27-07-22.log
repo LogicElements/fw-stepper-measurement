@@ -1,0 +1,5 @@
+2025-11-27 07:22:43,624 INFO     AppLogging:79 - Application started
+2025-11-27 07:24:53,570 WARNING  MbClient:69 - Port COM4 opened at baud rate 19200, parity E, stop bits 1
+2025-11-27 07:24:56,552 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-11-27 07:24:56,582 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 15.
+2025-11-27 12:40:01,941 WARNING  MbClient:91 - Port COM4 is closed now.

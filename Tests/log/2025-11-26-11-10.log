@@ -1,0 +1,26 @@
+2025-11-26 11:10:16,874 INFO     AppLogging:79 - Application started
+2025-11-26 11:10:20,734 ERROR    sync:662 - could not open port 'COM6': FileNotFoundError(2, 'Systém nemùže nalézt uvedený soubor.', None, 2)
+2025-11-26 11:10:29,779 WARNING  MbClient:91 - Port COM6 is closed now.
+2025-11-26 11:10:30,920 INFO     AppLogging:79 - Application started
+2025-11-26 11:10:34,217 WARNING  MbClient:69 - Port COM4 opened at baud rate 19200, parity E, stop bits 1
+2025-11-26 11:10:36,994 ERROR    MbClient:133 - Modbus Error: [Input/Output] Modbus Error: [Invalid Message] No response received, expected at least 2 bytes (0 received){'Address': 0, 'Count': 25, 'Type': 'Input', 'Slave': 32}
+2025-11-26 11:10:36,996 WARNING  MbClient:108 - Port COM4 is not opened. Try to open the port first
+2025-11-26 11:10:37,021 WARNING  MbClient:69 - Port COM4 opened at baud rate 19200, parity E, stop bits 1
+2025-11-26 11:10:38,032 ERROR    MbClient:152 - Modbus Error: [Input/Output] Modbus Error: [Invalid Message] No response received, expected at least 2 bytes (0 received){'Address': 0, 'Count': 15, 'Type': 'Holding', 'Slave': 32}
+2025-11-26 11:10:46,223 WARNING  MbClient:108 - Port COM4 is not opened. Try to open the port first
+2025-11-26 11:10:46,249 WARNING  MbClient:69 - Port COM4 opened at baud rate 19200, parity E, stop bits 1
+2025-11-26 11:10:46,288 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-11-26 11:10:46,318 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 15.
+2025-11-26 11:10:48,362 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-11-26 11:10:48,392 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 15.
+2025-11-26 11:10:48,975 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-11-26 11:10:49,005 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 15.
+2025-11-26 11:10:49,553 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-11-26 11:10:49,583 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 15.
+2025-11-26 11:10:50,262 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-11-26 11:10:50,291 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 15.
+2025-11-26 11:10:50,533 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-11-26 11:10:50,563 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 15.
+2025-11-26 11:10:50,724 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-11-26 11:10:50,754 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 15.
+2025-11-26 11:10:51,698 WARNING  MbClient:91 - Port COM4 is closed now.

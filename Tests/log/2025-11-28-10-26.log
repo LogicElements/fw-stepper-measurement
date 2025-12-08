@@ -1,0 +1,19 @@
+2025-11-28 10:26:12,347 INFO     AppLogging:79 - Application started
+2025-11-28 10:26:15,792 WARNING  MbClient:69 - Port COM4 opened at baud rate 19200, parity E, stop bits 1
+2025-11-28 10:26:16,636 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-11-28 10:26:16,666 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 15.
+2025-11-28 10:26:21,990 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-11-28 10:26:22,020 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 15.
+2025-11-28 10:26:22,561 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-11-28 10:26:22,591 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 15.
+2025-11-28 10:26:22,963 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-11-28 10:26:22,993 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 15.
+2025-11-28 10:26:23,435 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-11-28 10:26:23,466 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 15.
+2025-11-28 10:26:37,646 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-11-28 10:26:37,676 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 15.
+2025-11-28 10:26:49,922 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-11-28 10:26:49,952 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 15.
+2025-11-28 10:30:22,755 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
+2025-11-28 10:30:22,786 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 15.
+2025-11-28 11:14:22,837 WARNING  MbClient:91 - Port COM4 is closed now.
