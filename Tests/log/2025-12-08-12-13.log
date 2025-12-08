@@ -1,0 +1,31 @@
+2025-12-08 12:13:19,805 INFO     AppLogging:79 - Application started
+2025-12-08 12:16:29,234 WARNING  MbClient:69 - Port COM4 opened at baud rate 19200, parity E, stop bits 1
+2025-12-08 12:16:31,538 ERROR    MbClient:133 - Modbus Error: [Input/Output] Modbus Error: [Invalid Message] No response received, expected at least 2 bytes (0 received){'Address': 0, 'Count': 25, 'Type': 'Input', 'Slave': 33}
+2025-12-08 12:16:31,539 WARNING  MbClient:108 - Port COM4 is not opened. Try to open the port first
+2025-12-08 12:16:31,564 WARNING  MbClient:69 - Port COM4 opened at baud rate 19200, parity E, stop bits 1
+2025-12-08 12:16:32,576 ERROR    MbClient:152 - Modbus Error: [Input/Output] Modbus Error: [Invalid Message] No response received, expected at least 2 bytes (0 received){'Address': 0, 'Count': 15, 'Type': 'Holding', 'Slave': 33}
+2025-12-08 12:16:49,133 WARNING  MbClient:91 - Port COM4 is closed now.
+2025-12-08 12:16:49,945 WARNING  MbClient:69 - Port COM4 opened at baud rate 19200, parity E, stop bits 1
+2025-12-08 12:16:51,846 ERROR    MbClient:133 - Modbus Error: [Input/Output] Modbus Error: [Invalid Message] No response received, expected at least 2 bytes (0 received){'Address': 0, 'Count': 25, 'Type': 'Input', 'Slave': 33}
+2025-12-08 12:16:51,846 WARNING  MbClient:108 - Port COM4 is not opened. Try to open the port first
+2025-12-08 12:16:51,872 WARNING  MbClient:69 - Port COM4 opened at baud rate 19200, parity E, stop bits 1
+2025-12-08 12:16:52,888 ERROR    MbClient:152 - Modbus Error: [Input/Output] Modbus Error: [Invalid Message] No response received, expected at least 2 bytes (0 received){'Address': 0, 'Count': 15, 'Type': 'Holding', 'Slave': 33}
+2025-12-08 12:16:55,450 WARNING  MbClient:108 - Port COM4 is not opened. Try to open the port first
+2025-12-08 12:16:55,475 WARNING  MbClient:69 - Port COM4 opened at baud rate 19200, parity E, stop bits 1
+2025-12-08 12:16:56,481 ERROR    MbClient:133 - Modbus Error: [Input/Output] Modbus Error: [Invalid Message] No response received, expected at least 2 bytes (0 received){'Address': 0, 'Count': 25, 'Type': 'Input', 'Slave': 33}
+2025-12-08 12:16:56,481 WARNING  MbClient:108 - Port COM4 is not opened. Try to open the port first
+2025-12-08 12:16:56,507 WARNING  MbClient:69 - Port COM4 opened at baud rate 19200, parity E, stop bits 1
+2025-12-08 12:16:57,525 ERROR    MbClient:152 - Modbus Error: [Input/Output] Modbus Error: [Invalid Message] No response received, expected at least 2 bytes (0 received){'Address': 0, 'Count': 15, 'Type': 'Holding', 'Slave': 33}
+2025-12-08 12:17:00,366 WARNING  MbClient:172 - Port COM4 is not opened. Try to open the port first
+2025-12-08 12:17:00,391 WARNING  MbClient:69 - Port COM4 opened at baud rate 19200, parity E, stop bits 1
+2025-12-08 12:17:01,407 ERROR    MbClient:186 - Modbus Error: [Input/Output] Modbus Error: [Invalid Message] No response received, expected at least 2 bytes (0 received){'Address': 0, 'Count': 2, 'Values': [0, 0], 'Slave': 33}
+2025-12-08 12:17:42,100 WARNING  MbClient:108 - Port COM4 is not opened. Try to open the port first
+2025-12-08 12:17:42,125 WARNING  MbClient:69 - Port COM4 opened at baud rate 19200, parity E, stop bits 1
+2025-12-08 12:17:42,164 INFO     MbClient:136 - Read input registers from slave 33 at address 0, count 25.
+2025-12-08 12:17:42,194 INFO     MbClient:155 - Read holding registers from slave 33 at address 0, count 15.
+2025-12-08 12:18:14,823 INFO     MbClient:136 - Read input registers from slave 33 at address 0, count 25.
+2025-12-08 12:18:14,853 INFO     MbClient:155 - Read holding registers from slave 33 at address 0, count 15.
+2025-12-08 12:18:18,778 INFO     MbClient:136 - Read input registers from slave 33 at address 0, count 25.
+2025-12-08 12:18:18,807 INFO     MbClient:155 - Read holding registers from slave 33 at address 0, count 15.
+2025-12-08 12:18:25,473 INFO     MbClient:136 - Read input registers from slave 33 at address 0, count 25.
+2025-12-08 12:18:25,503 INFO     MbClient:155 - Read holding registers from slave 33 at address 0, count 15.

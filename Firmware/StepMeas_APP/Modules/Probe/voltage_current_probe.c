@@ -19,6 +19,12 @@
 /* Private definitions -------------------------------------------------------*/
 #define BUFFERING 1   // 1 = ukládání do bufferů aktivní, 0 = vypnuto
 #define MOTOR 0   // 1 starý motor, 0 nový motor
+
+
+
+
+
+
 /* ADC channel mapping (based on order in adc_values[]) */
 #define ADC_CHANNEL_IA2   0
 #define ADC_CHANNEL_IA1   1
@@ -122,10 +128,10 @@ static volatile uint16_t capture_buffer[CAPTURE_SAMPLES];
 static volatile uint16_t capture_buffer_ch2[CAPTURE_SAMPLES];
 static volatile uint16_t Ucapture_buffer[CAPTURE_SAMPLES];
 static volatile uint16_t Ucapture_buffer_ch2[CAPTURE_SAMPLES];
-//static  volatile int16_t capture_buffer_angle[CAPTURE_SAMPLES];
-//static volatile int16_t capture_buffer_steps[CAPTURE_SAMPLES];
-static volatile uint16_t capture_buffer_avg[CAPTURE_SAMPLES];
-static volatile uint16_t capture_buffer_avg2[CAPTURE_SAMPLES];
+static  volatile int16_t capture_buffer_angle[CAPTURE_SAMPLES];
+static volatile int16_t capture_buffer_steps[CAPTURE_SAMPLES];
+//static volatile uint16_t capture_buffer_avg[CAPTURE_SAMPLES];
+//static volatile uint16_t capture_buffer_avg2[CAPTURE_SAMPLES];
 static volatile uint8_t capture_ready = 0;
 #endif
 
@@ -326,7 +332,7 @@ static void StepCounter_Update(MotorProbe_t *m)
             if (m->dir == DIR_CW)
                 m->step_count++;
             else if (m->dir == DIR_CCW)
-                m->step_count--;
+                m->step_count--;                // -- změna
 
             m->last_step_angle = step_angles[i];
             return;
@@ -680,7 +686,7 @@ static void Motor_StallVoltageCheck(MotorProbe_t *m, uint16_t *adc_sample)
 /* Motor step detection & update ---------------------------------------------*/
 static void Motor_StepDetectionAndUpdate(MotorProbe_t *m, uint16_t *adc_sample)
 {
-    const int16_t hysteresis = 20;
+    const int16_t hysteresis = 20;//20
     if (abs(m->I1_last - MIDDLE_VALUE) > hysteresis && abs(
             m->I2_last - MIDDLE_VALUE)
                                                        > hysteresis)
@@ -788,7 +794,7 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
     switch (capture_state)
     {
         case CAPT_WAIT_TRIGGER:
-            if ((abs(adc_sample[ADC_CHANNEL_IA1] - TRIGGER_THRESHOLD) > 50) || (abs(
+            if ((abs(adc_sample[ADC_CHANNEL_IA1] - TRIGGER_THRESHOLD) >50 ) || (abs(
                     adc_sample[ADC_CHANNEL_IB2] - TRIGGER_THRESHOLD)
                                                                                 > 50))
             {
@@ -830,7 +836,7 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
 
                 if (sample_divider >= 1000)
                 {
-                    if ((sample_divider % 1) == 0)   // jen každý pátý vzorek
+                    if ((sample_divider % 10) == 0)   // jen každý pátý vzorek
                     {
                         capture_buffer[capture_count] =
                                 adc_sample[ADC_CHANNEL_IB1];
@@ -854,10 +860,10 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
                                     adc_sample[ADC_CHANNEL_IA2];
                         }
 
-                        capture_buffer_avg[capture_count] = motorA.average_U2;
-                        capture_buffer_avg2[capture_count] = motorA.average_U1;
-                        //capture_buffer_angle[capture_count] = motorA.angle_deg;
-                        //capture_buffer_steps[capture_count] = motorA.step_count;
+                        //capture_buffer_avg[capture_count] = motorA.average_U2;
+                        //capture_buffer_avg2[capture_count] = motorA.average_U1;
+                        capture_buffer_angle[capture_count] = motorA.angle_deg;
+                        capture_buffer_steps[capture_count] = motorA.step_count;
 
                         capture_count++;
 

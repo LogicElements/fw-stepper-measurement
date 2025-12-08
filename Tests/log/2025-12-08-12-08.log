@@ -1,0 +1,3 @@
+2025-12-08 12:08:07,197 INFO     AppLogging:79 - Application started
+2025-12-08 12:08:41,094 INFO     AppLogging:79 - Application started
+2025-12-08 12:08:46,886 WARNING  MbClient:91 - Port COM4 is closed now.

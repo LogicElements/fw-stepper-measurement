@@ -807,7 +807,7 @@ class HexDataPlotter:
         ax = plt.subplot(111)
         
         # Skip first N samples in plotting
-        start_index = 10
+        start_index = 0
         window_len = 10000
         # Uložíme si pro tooltipy
         self.plot_start_index = start_index
