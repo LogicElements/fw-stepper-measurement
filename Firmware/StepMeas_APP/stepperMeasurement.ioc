@@ -1,8 +1,8 @@
 #MicroXplorer Configuration settings - do not modify
-ADC1.Channel-19\#ChannelRegularConversion=ADC_CHANNEL_1
-ADC1.Channel-20\#ChannelRegularConversion=ADC_CHANNEL_2
-ADC1.Channel-21\#ChannelRegularConversion=ADC_CHANNEL_7
-ADC1.Channel-22\#ChannelRegularConversion=ADC_CHANNEL_8
+ADC1.Channel-19\#ChannelRegularConversion=ADC_CHANNEL_7
+ADC1.Channel-20\#ChannelRegularConversion=ADC_CHANNEL_8
+ADC1.Channel-21\#ChannelRegularConversion=ADC_CHANNEL_1
+ADC1.Channel-22\#ChannelRegularConversion=ADC_CHANNEL_2
 ADC1.IPParameters=Rank-19\#ChannelRegularConversion,master,Channel-19\#ChannelRegularConversion,SamplingTime-19\#ChannelRegularConversion,NbrOfConversionFlag,Rank-20\#ChannelRegularConversion,Channel-20\#ChannelRegularConversion,SamplingTime-20\#ChannelRegularConversion,Rank-21\#ChannelRegularConversion,Channel-21\#ChannelRegularConversion,SamplingTime-21\#ChannelRegularConversion,Rank-22\#ChannelRegularConversion,Channel-22\#ChannelRegularConversion,SamplingTime-22\#ChannelRegularConversion,NbrOfConversion
 ADC1.NbrOfConversion=4
 ADC1.NbrOfConversionFlag=1

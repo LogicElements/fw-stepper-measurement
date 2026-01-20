@@ -1,0 +1,16 @@
+2025-12-09 10:30:24,353 INFO     AppLogging:79 - Application started
+2025-12-09 10:30:35,695 ERROR    sync:662 - could not open port 'COM4': FileNotFoundError(2, 'Systém nemùže nalézt uvedený soubor.', None, 2)
+2025-12-09 10:30:44,140 WARNING  MbClient:69 - Port COM4 opened at baud rate 19200, parity E, stop bits 1
+2025-12-09 10:30:48,803 INFO     MbClient:189 - Write holding registers to slave 33 at address 0, count 2.
+2025-12-09 10:30:48,820 INFO     MbClient:189 - Write holding registers to slave 33 at address 2, count 2.
+2025-12-09 10:30:48,837 INFO     MbClient:189 - Write holding registers to slave 33 at address 4, count 1.
+2025-12-09 10:30:48,854 INFO     MbClient:189 - Write holding registers to slave 33 at address 5, count 1.
+2025-12-09 10:30:48,870 INFO     MbClient:189 - Write holding registers to slave 33 at address 6, count 1.
+2025-12-09 10:30:48,886 INFO     MbClient:189 - Write holding registers to slave 33 at address 7, count 1.
+2025-12-09 10:30:48,902 INFO     MbClient:189 - Write holding registers to slave 33 at address 8, count 1.
+2025-12-09 10:30:48,920 INFO     MbClient:189 - Write holding registers to slave 33 at address 9, count 2.
+2025-12-09 10:30:48,938 INFO     MbClient:189 - Write holding registers to slave 33 at address 11, count 2.
+2025-12-09 10:30:48,956 INFO     MbClient:189 - Write holding registers to slave 33 at address 13, count 2.
+2025-12-09 10:30:52,588 INFO     MbClient:136 - Read input registers from slave 33 at address 0, count 25.
+2025-12-09 10:30:52,618 INFO     MbClient:155 - Read holding registers from slave 33 at address 0, count 15.
+2025-12-09 10:31:21,351 WARNING  MbClient:91 - Port COM4 is closed now.
