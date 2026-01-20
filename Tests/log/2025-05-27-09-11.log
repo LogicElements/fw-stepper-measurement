@@ -1,7 +1,0 @@
-2025-05-27 09:11:08,017 INFO     AppLogging:79 - Application started
-2025-05-27 09:11:54,302 INFO     AppLogging:79 - Application started
-2025-05-27 09:12:04,551 ERROR    sync:662 - could not open port 'COM6': FileNotFoundError(2, 'Systém nemùže nalézt uvedený soubor.', None, 2)
-2025-05-27 09:12:06,581 ERROR    sync:662 - could not open port 'COM6': FileNotFoundError(2, 'Systém nemùže nalézt uvedený soubor.', None, 2)
-2025-05-27 09:12:07,211 ERROR    sync:662 - could not open port 'COM6': FileNotFoundError(2, 'Systém nemùže nalézt uvedený soubor.', None, 2)
-2025-05-27 09:12:07,693 ERROR    sync:662 - could not open port 'COM6': FileNotFoundError(2, 'Systém nemùže nalézt uvedený soubor.', None, 2)
-2025-05-27 09:27:29,152 WARNING  MbClient:97 - Port COM6 is closed now.

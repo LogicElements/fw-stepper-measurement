@@ -158,6 +158,7 @@ int main(void)
     /* Initialize test modules */
     /* TODO */
     Probe_Init();
+    Probe_InitOffset();
     /* Reload watchdog and check for errors in the initialization process */
     ret |= System_ReloadWdg();
 

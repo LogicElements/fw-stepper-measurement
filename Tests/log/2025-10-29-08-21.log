@@ -1,6 +1,0 @@
-2025-10-29 08:21:58,885 INFO     AppLogging:79 - Application started
-2025-10-29 08:22:15,820 WARNING  MbClient:69 - Port COM6 opened at baud rate 19200, parity E, stop bits 1
-2025-10-29 08:22:16,823 INFO     MbClient:136 - Read input registers from slave 32 at address 0, count 25.
-2025-10-29 08:22:16,850 INFO     MbClient:155 - Read holding registers from slave 32 at address 0, count 9.
-2025-10-29 08:22:16,865 ERROR    MbClient:152 - Exception Response(131, 3, IllegalValue){'Address': 9, 'Count': 2000, 'Type': 'Holding', 'Slave': 32}
-2025-10-29 08:39:36,300 WARNING  MbClient:91 - Port COM6 is closed now.

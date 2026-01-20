@@ -1,9 +1,0 @@
-2025-07-02 15:02:20,920 INFO     AppLogging:79 - Application started
-2025-07-02 15:02:25,108 WARNING  MbClient:75 - Port COM6 opened at baud rate 4800, parity N, stop bits 1
-2025-07-02 15:02:28,354 WARNING  MbClient:97 - Port COM6 is closed now.
-2025-07-02 15:02:29,105 WARNING  MbClient:75 - Port COM6 opened at baud rate 4800, parity N, stop bits 1
-2025-07-02 15:02:42,554 WARNING  MbClient:97 - Port COM6 is closed now.
-2025-07-02 15:02:45,373 INFO     AppLogging:79 - Application started
-2025-07-02 15:02:48,103 WARNING  MbClient:75 - Port COM6 opened at baud rate 4800, parity N, stop bits 1
-2025-07-02 15:02:53,340 ERROR    MbClient:192 - Modbus Error: [Input/Output] Modbus Error: [Invalid Message] No response received, expected at least 5 bytes (0 received){'Address': 0, 'Count': 2, 'Values': [0, 0], 'Slave': 33}
-2025-07-02 15:03:21,911 WARNING  MbClient:97 - Port COM6 is closed now.

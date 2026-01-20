@@ -1,5 +1,0 @@
-2025-07-02 16:19:29,798 INFO     AppLogging:79 - Application started
-2025-07-02 16:23:01,543 ERROR    MbClient:192 - Modbus Error: [Input/Output] Modbus Error: [Invalid Message] No response received, expected at least 5 bytes (0 received){'Address': 0, 'Count': 2, 'Values': [0, 0], 'Slave': 33}
-2025-07-02 16:25:12,076 ERROR    MbClient:192 - Modbus Error: [Input/Output] No Response received from the remote unit/Unable to decode response{'Address': 101, 'Count': 1, 'Values': [3977], 'Slave': 33}
-2025-07-02 16:26:20,301 ERROR    MbClient:192 - Modbus Error: [Input/Output] No Response received from the remote unit/Unable to decode response{'Address': 101, 'Count': 1, 'Values': [3977], 'Slave': 33}
-2025-07-02 16:28:19,874 ERROR    MbClient:192 - Modbus Error: [Input/Output] No Response received from the remote unit/Unable to decode response{'Address': 101, 'Count': 1, 'Values': [3977], 'Slave': 33}

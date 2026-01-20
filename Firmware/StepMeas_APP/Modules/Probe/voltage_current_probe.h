@@ -14,6 +14,7 @@
 
 /* --- Public API --- */
 void Probe_Init(void);
+void Probe_InitOffset(void);
 void StartAdcMeasurement(void);
 
 /* --- Externí proměnné --- */

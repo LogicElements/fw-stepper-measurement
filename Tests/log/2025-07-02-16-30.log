@@ -1,3 +1,0 @@
-2025-07-02 16:30:48,216 INFO     AppLogging:79 - Application started
-2025-07-02 16:30:51,811 ERROR    sync:662 - Cannot configure port, something went wrong. Original message: PermissionError(13, 'Zaøízení pøipojené k systému nefunguje.', None, 31)
-2025-07-02 16:31:10,762 WARNING  MbClient:97 - Port COM6 is closed now.

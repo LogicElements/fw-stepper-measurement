@@ -20,11 +20,6 @@
 #define BUFFERING 1   // 1 = ukládání do bufferů aktivní, 0 = vypnuto
 #define MOTOR 0   // 1 starý motor, 0 nový motor
 
-
-
-
-
-
 /* ADC channel mapping (based on order in adc_values[]) */
 #define ADC_CHANNEL_IA2   0
 #define ADC_CHANNEL_IA1   1
@@ -142,10 +137,8 @@ static VoltageBuffer_t voltageBuf;
 
 /* FIFO na úhly (společný) */
 static AngleBufferFIFO_t angle_buffer;
-static AvgFifo_t avgU1_fifo =
-{ .count = 0 };
-static AvgFifo_t avgU2_fifo =
-{ .count = 0 };
+static AvgFifo_t avgU1_fifo = { .count = 0 };
+static AvgFifo_t avgU2_fifo = { .count = 0 };
 
 int stall = 0;
 int stall1 = 0;
@@ -164,8 +157,10 @@ uint16_t adc_ready_counter = 0;
 static uint16_t sample_divider = 0;
 int16_t kroky = 0;
 
-static const int16_t step_angles[] =
-{ 178, 90, 0, -90, -178 };
+/* === ADC OFFSETY (od 2050) === */
+static int16_t adc_offset[ADC_CHANNEL_COUNT] = { 0 };
+
+static const int16_t step_angles[] = { 178, 90, 0, -90, -178 };
 
 /* Private prototypes --------------------------------------------------------*/
 void Probe_InitHAL(void);
@@ -202,12 +197,52 @@ void Probe_Init(void)
     motorB.last_step_angle = 9999;
 }
 
+/* === INIT OFFSET (voláš z mainu) ===========================================
+ *  Načte ADC 3x, zprůměruje a uloží offsety = (avg - 2050).
+ *  Pozn.: během této funkce jsou offsety ještě 0, takže callback nic "nekazí".
+ */
+void Probe_InitOffset(void)
+{
+    uint32_t sum[ADC_CHANNEL_COUNT] = { 0 };
+
+    /* jistota */
+    adc_ready = 1;
+
+    for (uint8_t n = 0; n < 3; n++)
+    {
+        StartAdcMeasurement();
+
+        /* počkej na dokončení DMA (adc_ready=1 nastavuje callback) */
+        uint32_t timeout = 1000000UL;
+        while (!adc_ready && timeout--)
+        {
+            /* busy wait */
+        }
+        if (timeout == 0UL)
+        {
+            /* timeout -> nech offsety jak jsou */
+            return;
+        }
+
+        for (uint8_t ch = 0; ch < ADC_CHANNEL_COUNT; ch++)
+        {
+            sum[ch] += adc_values[ch];
+        }
+    }
+
+    for (uint8_t ch = 0; ch < ADC_CHANNEL_COUNT; ch++)
+    {
+        uint16_t avg = (uint16_t)(sum[ch] / 3UL);
+        adc_offset[ch] = (int16_t)avg - (int16_t)MIDDLE_VALUE;
+    }
+}
+
 /* Private functions ---------------------------------------------------------*/
 void Probe_InitHAL(void)
 {
     if (HAL_TIM_Base_Start_IT(&htim2) != HAL_OK)
     {
-        // error handler
+
     }
 }
 
@@ -536,6 +571,7 @@ void VoltageBuffer_Task(void)
     lastActiveU1 = voltageBuf.activeU1;
     lastActiveU2 = voltageBuf.activeU2;
 }
+
 static int32_t AvgFifo_Add(AvgFifo_t *fifo, int32_t value)
 {
     // přidávej jen hodnoty větší než 2050
@@ -574,9 +610,7 @@ static void Voltage_avg_process(void)
 
     // --- RESET pokud jsou oba proudy v nule ---
     const int16_t tol = 20; // tolerance kolem 2050
-    if (abs(motorA.I1_last - MIDDLE_VALUE) < tol && abs(
-            motorA.I2_last - MIDDLE_VALUE)
-                                                    < tol)
+    if (abs(motorA.I1_last - MIDDLE_VALUE) < tol && abs(motorA.I2_last - MIDDLE_VALUE) < tol)
     {
         avgU1_fifo.count = 0;
         avgU2_fifo.count = 0;
@@ -589,7 +623,7 @@ static void Voltage_avg_process(void)
         int32_t prumer = AvgFifo_Add(&avgU1_fifo, avgU1);
         if (prumer >= 0)
         {
-            stall1 = (prumer > 2300) ? 0 : 1; // ladění rozmezí co už je doraz a co ne  2250 -3000 nejlepší výsledek
+            stall1 = (prumer > 2300) ? 0 : 1; // ladění rozmezí co už je doraz a co ne
         }
         last_avgU1 = avgU1;
     }
@@ -614,27 +648,24 @@ static void Motor_StallVoltageCheck(MotorProbe_t *m, uint16_t *adc_sample)
 {
 #define LOW_VOLTAGE_LIMIT 2005
 #define LOW_VOLTAGE_LIMIT_B 1800
-#define PEAK_THRESHOLD    1600     // hranice, pod kterou nastavíme -500
-#define PEAK_VALUE        -5000     // hodnota pro "hluboký pád"
+#define PEAK_THRESHOLD    1600
+#define PEAK_VALUE        -5000
 #define MAX_SAMPLES       600
 #define AVG_THRESHOLD     50
 
-    static int16_t lowVoltageBuf[MAX_SAMPLES]; // int16_t kvůli záporným hodnotám
+    static int16_t lowVoltageBuf[MAX_SAMPLES];
     static uint16_t writeIndex = 0;
     static uint16_t sampleCount = 0;
-    static int64_t runningSum = 0;    // int64_t kvůli rozsahu i záporným číslům
+    static int64_t runningSum = 0;
 
-    // --- 1. Načti obě fáze ---
     int16_t valueA = (int16_t) adc_sample[ADC_CHANNEL_IA1];
     int16_t valueB = (int16_t) adc_sample[ADC_CHANNEL_IA2];
 
-    // --- 2. Zpracuj první kanál (IA1) ---
     if (valueA < LOW_VOLTAGE_LIMIT)
     {
         if (valueA < PEAK_THRESHOLD)
             valueA = PEAK_VALUE;
 
-        // FIFO logika
         if (sampleCount < MAX_SAMPLES)
         {
             lowVoltageBuf[writeIndex] = valueA;
@@ -651,13 +682,11 @@ static void Motor_StallVoltageCheck(MotorProbe_t *m, uint16_t *adc_sample)
         writeIndex = (writeIndex + 1) % MAX_SAMPLES;
     }
 
-    // --- 3. Zpracuj druhý kanál (IA2) ---
     if (valueB < LOW_VOLTAGE_LIMIT_B)
     {
         if (valueB < PEAK_THRESHOLD)
             valueB = PEAK_VALUE;
 
-        // FIFO logika (stejná)
         if (sampleCount < MAX_SAMPLES)
         {
             lowVoltageBuf[writeIndex] = valueB;
@@ -674,22 +703,21 @@ static void Motor_StallVoltageCheck(MotorProbe_t *m, uint16_t *adc_sample)
         writeIndex = (writeIndex + 1) % MAX_SAMPLES;
     }
 
-    // --- 4. Výpočet průměru po dosažení prahu ---
     if (sampleCount >= AVG_THRESHOLD)
     {
         int16_t average = (int16_t) (runningSum / sampleCount);
 
-        pocty = average;                      // ladicí výstup
-        stall = (average < 1750) ? 1 : 0;     // příkladové vyhodnocení
+        pocty = average;
+        stall = (average < 1750) ? 1 : 0;
     }
 }
+
 /* Motor step detection & update ---------------------------------------------*/
 static void Motor_StepDetectionAndUpdate(MotorProbe_t *m, uint16_t *adc_sample)
 {
     const int16_t hysteresis = 20;//20
-    if (abs(m->I1_last - MIDDLE_VALUE) > hysteresis && abs(
-            m->I2_last - MIDDLE_VALUE)
-                                                       > hysteresis)
+    if (abs(m->I1_last - MIDDLE_VALUE) > hysteresis &&
+        abs(m->I2_last - MIDDLE_VALUE) > hysteresis)
     {
         step_state = STEP_ACTIVE;
 
@@ -703,36 +731,35 @@ static void Motor_StepDetectionAndUpdate(MotorProbe_t *m, uint16_t *adc_sample)
     else
     {
         step_state = STEP_IDLE;
-
     }
+
 #if (MOTOR == 1)
 
-        if (Check_CurrentZero(adc_sample, ADC_CHANNEL_IB1))
-        {
-            OnCurrentZeroCrossing(ADC_CHANNEL_IB1, adc_sample[ADC_CHANNEL_IA2]);
+    if (Check_CurrentZero(adc_sample, ADC_CHANNEL_IB1))
+    {
+        OnCurrentZeroCrossing(ADC_CHANNEL_IB1, adc_sample[ADC_CHANNEL_IA2]);
+    }
 
-        }
-
-        if (Check_CurrentZero(adc_sample, ADC_CHANNEL_IB2))
-        {
-            OnCurrentZeroCrossing(ADC_CHANNEL_IB2, adc_sample[ADC_CHANNEL_IA1]);
-        }
-        VoltageBuffer_Task();
-        Voltage_avg_process();
+    if (Check_CurrentZero(adc_sample, ADC_CHANNEL_IB2))
+    {
+        OnCurrentZeroCrossing(ADC_CHANNEL_IB2, adc_sample[ADC_CHANNEL_IA1]);
+    }
+    VoltageBuffer_Task();
+    Voltage_avg_process();
 
 #endif
+
 #if(MOTOR ==0)
     Motor_StallVoltageCheck(&motorA, adc_sample);
 #endif
 
     kroky = motorA.step_count;
-
 }
+
 void Probe_WriteToSharedMemory(void)
 {
     CONF_INT(CONF_STPMEA_STEPS) = (int32_t) motorA.step_count;
     CONF_INT(CONF_STPMEA_STALL) = (int32_t) stall;
-
 }
 
 /* ADC measurement start -----------------------------------------------------*/
@@ -794,9 +821,8 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
     switch (capture_state)
     {
         case CAPT_WAIT_TRIGGER:
-            if ((abs(adc_sample[ADC_CHANNEL_IA1] - TRIGGER_THRESHOLD) >50 ) || (abs(
-                    adc_sample[ADC_CHANNEL_IB2] - TRIGGER_THRESHOLD)
-                                                                                > 50))
+            if ((abs(adc_sample[ADC_CHANNEL_IA1] - TRIGGER_THRESHOLD) > 50) ||
+                (abs(adc_sample[ADC_CHANNEL_IB2] - TRIGGER_THRESHOLD) > 50))
             {
                 capture_state = CAPT_CAPTURING;
                 capture_count = 0;
@@ -808,22 +834,14 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
 
                 if (voltageBuf.activeU1 || voltageBuf.activeU2)
                 {
-                    Ucapture_buffer[capture_count] =
-                            adc_sample[ADC_CHANNEL_IA1];
-                    Ucapture_buffer_ch2[capture_count] =
-                            adc_sample[ADC_CHANNEL_IA2];
+                    Ucapture_buffer[capture_count] = adc_sample[ADC_CHANNEL_IA1];
+                    Ucapture_buffer_ch2[capture_count] = adc_sample[ADC_CHANNEL_IA2];
                 }
                 else
                 {
-                    // Ucapture_buffer[capture_count] = 2050;
-                    //  Ucapture_buffer_ch2[capture_count] = 2050;
-                    Ucapture_buffer[capture_count] =
-                            adc_sample[ADC_CHANNEL_IA1];
-                    Ucapture_buffer_ch2[capture_count] =
-                            adc_sample[ADC_CHANNEL_IA2];
+                    Ucapture_buffer[capture_count] = adc_sample[ADC_CHANNEL_IA1];
+                    Ucapture_buffer_ch2[capture_count] = adc_sample[ADC_CHANNEL_IA2];
                 }
-                //capture_buffer_angle[capture_count] = motorA.angle_deg;
-                // capture_buffer_steps[capture_count] = motorA.step_count;
 
                 capture_count++;
             }
@@ -836,32 +854,22 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
 
                 if (sample_divider >= 1000)
                 {
-                    if ((sample_divider % 10) == 0)   // jen každý pátý vzorek
+                    if ((sample_divider % 10) == 0)
                     {
-                        capture_buffer[capture_count] =
-                                adc_sample[ADC_CHANNEL_IB1];
-                        capture_buffer_ch2[capture_count] =
-                                adc_sample[ADC_CHANNEL_IB2];
+                        capture_buffer[capture_count] = adc_sample[ADC_CHANNEL_IB1];
+                        capture_buffer_ch2[capture_count] = adc_sample[ADC_CHANNEL_IB2];
 
                         if (voltageBuf.activeU1 || voltageBuf.activeU2)
                         {
-                            Ucapture_buffer[capture_count] = motorA
-                                    .U2_last_filtered;
-                            Ucapture_buffer_ch2[capture_count] = motorA
-                                    .U1_last_filtered;
+                            Ucapture_buffer[capture_count] = motorA.U2_last_filtered;
+                            Ucapture_buffer_ch2[capture_count] = motorA.U1_last_filtered;
                         }
                         else
                         {
-                            // Ucapture_buffer[capture_count] = 2050;
-                            //  Ucapture_buffer_ch2[capture_count] = 2050;
-                            Ucapture_buffer[capture_count] =
-                                    adc_sample[ADC_CHANNEL_IA1];
-                            Ucapture_buffer_ch2[capture_count] =
-                                    adc_sample[ADC_CHANNEL_IA2];
+                            Ucapture_buffer[capture_count] = adc_sample[ADC_CHANNEL_IA1];
+                            Ucapture_buffer_ch2[capture_count] = adc_sample[ADC_CHANNEL_IA2];
                         }
 
-                        //capture_buffer_avg[capture_count] = motorA.average_U2;
-                        //capture_buffer_avg2[capture_count] = motorA.average_U1;
                         capture_buffer_angle[capture_count] = motorA.angle_deg;
                         capture_buffer_steps[capture_count] = motorA.step_count;
 
@@ -882,15 +890,25 @@ static inline void Capture_HandleSample(uint16_t adc_sample[])
             break;
     }
 #endif
-
-    /* Step detection (oba motory) */
-// Motor_StepDetectionAndUpdate(&motorB);
 }
+
 /* Callback functions --------------------------------------------------------*/
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
 {
     if (hadc->Instance == ADC1)
     {
+        /* === TADY ODEČTI OFFSETY JEŠTĚ PŘED ZPRACOVÁNÍM === */
+        for (uint8_t ch = 0; ch < ADC_CHANNEL_COUNT; ch++)
+        {
+            int32_t v = (int32_t)adc_values[ch] - (int32_t)adc_offset[ch];
+
+            /* saturace do rozsahu 12-bit ADC */
+            if (v < 0) v = 0;
+            if (v > 4095) v = 4095;
+
+            adc_values[ch] = (uint16_t)v;
+        }
+
         Capture_HandleSample(adc_values);
         adc_ready = 1;
     }

@@ -1,5 +1,0 @@
-2025-05-27 10:35:55,803 INFO     AppLogging:79 - Application started
-2025-05-27 10:36:52,310 ERROR    sync:662 - could not open port 'COM8': FileNotFoundError(2, 'Systém nemùže nalézt uvedený soubor.', None, 2)
-2025-05-27 10:36:53,312 ERROR    sync:662 - could not open port 'COM8': FileNotFoundError(2, 'Systém nemùže nalézt uvedený soubor.', None, 2)
-2025-05-27 10:36:54,337 ERROR    sync:662 - could not open port 'COM8': FileNotFoundError(2, 'Systém nemùže nalézt uvedený soubor.', None, 2)
-2025-05-27 10:36:55,338 ERROR    sync:662 - could not open port 'COM8': FileNotFoundError(2, 'Systém nemùže nalézt uvedený soubor.', None, 2)

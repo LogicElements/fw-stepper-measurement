@@ -1,3 +1,0 @@
-2025-05-28 10:00:42,577 INFO     AppLogging:79 - Application started
-2025-05-28 10:01:05,494 ERROR    sync:662 - could not open port 'COM8': FileNotFoundError(2, 'Systém nemùže nalézt uvedený soubor.', None, 2)
-2025-05-28 10:01:13,581 WARNING  MbClient:97 - Port COM8 is closed now.

@@ -1,4 +1,0 @@
-2025-07-02 10:19:57,086 INFO     AppLogging:79 - Application started
-2025-07-02 10:20:02,543 ERROR    MbClient:192 - Modbus Error: [Input/Output] Modbus Error: [Invalid Message] No response received, expected at least 5 bytes (0 received){'Address': 0, 'Count': 2, 'Values': [0, 0], 'Slave': 33}
-2025-07-02 10:20:04,896 WARNING  MbClient:75 - Port COM6 opened at baud rate 19200, parity E, stop bits 1
-2025-07-02 10:20:07,526 ERROR    MbClient:192 - Modbus Error: [Input/Output] Modbus Error: [Invalid Message] No response received, expected at least 5 bytes (0 received){'Address': 101, 'Count': 1, 'Values': [3977], 'Slave': 33}
