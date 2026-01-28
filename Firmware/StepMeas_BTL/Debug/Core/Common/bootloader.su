@@ -1,5 +1,5 @@
 ../Core/Common/bootloader.c:99:10:Btl_Init	8	static
 ../Core/Common/bootloader.c:160:10:Btl_StartAppAnyway	8	static
-../Core/Common/bootloader.c:174:10:Btl_VerifyImage	40	static
-../Core/Common/bootloader.c:217:10:Btl_CopyImage	8	static
+../Core/Common/bootloader.c:173:10:Btl_VerifyImage	40	static
+../Core/Common/bootloader.c:216:10:Btl_CopyImage	8	static
 ../Core/Common/bootloader.c:110:10:Btl_Handle	16	static

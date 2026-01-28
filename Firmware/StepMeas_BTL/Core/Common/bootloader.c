@@ -160,8 +160,7 @@ Status_t Btl_Handle(void)
 Status_t Btl_StartAppAnyway(void)
 {
   Status_t ret = STATUS_OK;
-  HAL_DeInit();
-  HAL_RCC_DeInit();
+
 
   System_StartApplication((uint32_t)CONF_C_APPLICATION_OFFSET);
 

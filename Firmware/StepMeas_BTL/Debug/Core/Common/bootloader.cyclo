@@ -1,5 +1,5 @@
 ../Core/Common/bootloader.c:99:10:Btl_Init	1
 ../Core/Common/bootloader.c:160:10:Btl_StartAppAnyway	1
-../Core/Common/bootloader.c:174:10:Btl_VerifyImage	5
-../Core/Common/bootloader.c:217:10:Btl_CopyImage	1
+../Core/Common/bootloader.c:173:10:Btl_VerifyImage	5
+../Core/Common/bootloader.c:216:10:Btl_CopyImage	1
 ../Core/Common/bootloader.c:110:10:Btl_Handle	4
