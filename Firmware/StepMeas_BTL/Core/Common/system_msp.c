@@ -119,6 +119,7 @@ void System_StartApplication(uint32_t address)
   jump_to_application();
 }
 
+
 void System_Reset(void)
 {
   NVIC_SystemReset();

@@ -75,7 +75,7 @@ MEMORY
   RAM    (xrw)      : ORIGIN = 0x200000C0,   LENGTH = 128K - 192
 }
 
-/* We use BOOTLOADER region as FLASH */
+/* We use APPLICATION region as FLASH */
 REGION_ALIAS("FLASH" , APPLICATION);
 
 /* Sections */
